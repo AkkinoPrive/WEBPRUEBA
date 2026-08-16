@@ -2369,13 +2369,6 @@ RESULTADO:
     margin-bottom:6px !important;
 }
 
-#modalCarrito .pedido-item-promo{
-    color:#27d56b !important;
-    font-size:11px !important;
-    font-weight:700 !important;
-    margin-bottom:7px !important;
-}
-
 #modalCarrito .pedido-item-subtotal{
     color:#d4af37 !important;
     font-size:12px !important;
@@ -6079,7 +6072,11 @@ function renderizarCarrito(){
         <div class="promo-detalle">
 
             <div class="promo-detalle-titulo">
-                🎉 PROMOCIONES APLICADAS
+                ${
+                    (promo3Usadas > 0 && promo2Usadas > 0)
+                    ? "🎉 PROMOCIONES APLICADAS"
+                    : "🎉 PROMOCIÓN APLICADA"
+                }
             </div>
 
             ${
@@ -6223,19 +6220,6 @@ function renderizarCarrito(){
                             <div class="pedido-item-cantidad">
                                 Cantidad: ${item.cantidad}
                             </div>
-
-                            ${
-                                modoActual === "particular" &&
-                                tipoPrincipalProducto(producto) === "INSPIRACIONES 60ML"
-                                ?
-                                `
-                                <div class="pedido-item-promo">
-                                    🔥 Combinable: 2 x $35.000 · 3 x $50.000
-                                </div>
-                                `
-                                :
-                                ""
-                            }
 
                             <div class="pedido-item-subtotal">
                                 Subtotal: ${dinero(subtotal)}
