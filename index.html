@@ -1258,32 +1258,38 @@ function precioParticularProducto(producto){
 
 function descuentoTexto(producto){
 
-    const descuento =
+    let descuento =
         numero(
             producto.descuento
         );
 
-    const tipo =
-        texto(
-            producto.tipoDescuento
-        );
-
-    if(
-        descuento <= 0
-    ){
+    if(!descuento){
         return "";
     }
 
-    /*
-    DESCUENTO = porcentaje.
-    TIPO DE DESCUENTO = condición, por ejemplo EFECTIVO.
-    */
-
-    if(tipo){
-        return `${descuento}% ${escapeHTML(tipo)}`;
+    // Google Sheets guarda 10% como 0.10
+    if(descuento > 0 && descuento < 1){
+        descuento = descuento * 100;
     }
 
-    return `${descuento}% OFF`;
+    descuento = Math.round(
+        descuento * 100
+    ) / 100;
+
+    const tipo =
+        String(
+            producto.tipoDescuento || ""
+        ).trim();
+
+    return (
+        String(descuento) +
+        "%" +
+        (
+            tipo
+            ? " " + tipo
+            : ""
+        )
+    );
 }
 
 
