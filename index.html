@@ -1779,16 +1779,23 @@ html, body{
 </style>
 
 
-<style id="akkino-carrito-movil">
-/* =========================================================
-   AKKINO — CARRITO MÓVIL CON LA PÁGINA
-   =========================================================
-   El pedido NO usa position:fixed.
-   Se mueve junto con la página al hacer scroll.
-   El fondo queda detrás y el recuadro acompaña al scroll.
-   Si el contenido del pedido es largo, el recuadro crece
-   hasta un límite razonable.
-   ========================================================= */
+<style id="akkino-carrito-sigue-scroll">
+/*
+=========================================================
+CARRITO: SIGUE EL SCROLL DE LA PÁGINA
+=========================================================
+
+El recuadro NO es fixed.
+El contenedor del pedido está posicionado dentro del
+documento y su posición se recalcula con window.scrollY.
+
+Resultado:
+- VER PEDIDO abre en la posición actual.
+- Al bajar la página, el recuadro baja junto con el scroll.
+- Al subir, vuelve con el scroll.
+- No queda clavado a la pantalla.
+- No se crea un scroll independiente dentro del pedido.
+*/
 
 #modalCarrito.modal{
     position:absolute !important;
@@ -1830,17 +1837,10 @@ html, body{
 
     margin:0 auto !important;
 
-    box-sizing:border-box !important;
-
-    /*
-      Importante:
-      NO max-height:100vh.
-      El recuadro forma parte del documento y se mueve
-      con él al hacer scroll.
-    */
     max-height:none !important;
-
     overflow:visible !important;
+
+    box-sizing:border-box !important;
 
     background:#0d0d0d !important;
     color:#f5f5f5 !important;
@@ -2000,6 +2000,198 @@ html, body{
 }
 </style>
 
+
+<style id="akkino-resumen-modal-misma-barra">
+.resumen-pedido-modal{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+
+    margin:0 0 4px;
+    padding:11px 13px;
+
+    border:1px solid rgba(212,175,55,.18);
+    border-radius:9px;
+
+    background:rgba(255,255,255,.025);
+
+    font-size:12px;
+    font-weight:700;
+}
+
+#carritoInfoModal{
+    color:#ddd;
+}
+
+#carritoTotalModal{
+    color:#d4af37;
+    white-space:nowrap;
+}
+
+@media(max-width:700px){
+    .resumen-pedido-modal{
+        font-size:11px;
+    }
+}
+</style>
+
+<style id="akkino-carrito-documento">
+/* CARRITO: PARTE REAL DEL DOCUMENTO
+   No fixed, no absolute, no scrollY.
+   Al hacer scroll, el recuadro baja/sube exactamente con la página.
+*/
+#modalCarrito.modal{
+    position:static !important;
+    width:100% !important;
+    min-height:0 !important;
+    height:auto !important;
+
+    display:none !important;
+
+    box-sizing:border-box !important;
+    padding:55px 20px 140px !important;
+    margin:0 !important;
+
+    background:rgba(0,0,0,.68) !important;
+
+    overflow:visible !important;
+}
+
+#modalCarrito.modal.activo{
+    display:block !important;
+}
+
+#modalCarrito .modal-contenido{
+    position:relative !important;
+    width:min(680px,94vw) !important;
+    max-width:680px !important;
+
+    margin:0 auto !important;
+
+    max-height:none !important;
+    height:auto !important;
+
+    overflow:visible !important;
+
+    box-sizing:border-box !important;
+
+    background:#0d0d0d !important;
+    color:#f5f5f5 !important;
+
+    border:1px solid rgba(212,175,55,.58) !important;
+    border-radius:18px !important;
+
+    padding:22px !important;
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.85),
+        0 0 45px rgba(212,175,55,.10) !important;
+}
+
+#modalCarrito .modal-header{
+    position:relative !important;
+    top:auto !important;
+    margin:-22px -22px 18px !important;
+    padding:18px 22px 14px !important;
+    background:#0d0d0d !important;
+    border-bottom:1px solid rgba(212,175,55,.18) !important;
+}
+
+#modalCarrito .modal-header h2{
+    color:#d4af37 !important;
+    margin:0 !important;
+}
+
+#modalCarrito .cerrar{
+    background:#1d1d1d !important;
+    color:#fff !important;
+    border:1px solid rgba(212,175,55,.35) !important;
+}
+
+#modalCarrito .cantidad-btn{
+    background:#d4af37 !important;
+    color:#111 !important;
+    font-weight:800 !important;
+}
+
+#modalCarrito .promo-detalle{
+    margin:12px 0 4px;
+    padding:12px 13px;
+    border-radius:11px;
+    background:#151515;
+    border:1px solid rgba(212,175,55,.25);
+}
+
+#modalCarrito .promo-detalle-titulo{
+    color:#d4af37;
+    font-weight:900;
+    font-size:13px;
+    margin-bottom:9px;
+}
+
+#modalCarrito .promo-detalle-linea{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+    padding:7px 0;
+    font-size:12px;
+    color:#ddd;
+}
+
+#modalCarrito .promo-usada{
+    color:#ffca28 !important;
+    font-weight:800;
+}
+
+#modalCarrito .promo-ahorro{
+    color:#63d13f !important;
+    font-weight:800;
+}
+
+#modalCarrito .selector-pago{
+    background:#151515 !important;
+    border:1px solid rgba(255,255,255,.08) !important;
+}
+
+#modalCarrito .selector-pago select{
+    background:#0f0f0f !important;
+    color:#fff !important;
+    border-color:#444 !important;
+}
+
+#modalCarrito .carrito-resumen{
+    border-top:1px solid rgba(212,175,55,.35) !important;
+}
+
+#modalCarrito .resumen-total{
+    color:#d4af37 !important;
+}
+
+#modalCarrito .enviar-whatsapp{
+    background:#d4af37 !important;
+    color:#111 !important;
+    font-weight:900 !important;
+}
+
+@media(max-width:700px){
+    #modalCarrito.modal{
+        padding:30px 10px 120px !important;
+    }
+
+    #modalCarrito .modal-contenido{
+        width:96vw !important;
+        padding:16px !important;
+        border-radius:15px !important;
+    }
+
+    #modalCarrito .modal-header{
+        margin:-16px -16px 15px !important;
+        padding:14px 16px 12px !important;
+    }
+}
+</style>
 </head>
 
 
@@ -2512,6 +2704,25 @@ class="modal">
                 ×
 
             </button>
+
+        </div>
+
+        <!--
+        MISMA LÓGICA QUE LA BARRA INFERIOR:
+        cantidad total de unidades + total actual.
+        -->
+
+        <div
+        id="resumenPedidoModal"
+        class="resumen-pedido-modal">
+
+            <span id="carritoInfoModal">
+                0 productos
+            </span>
+
+            <strong id="carritoTotalModal">
+                TOTAL $ 0
+            </strong>
 
         </div>
 
@@ -5179,6 +5390,43 @@ function actualizarCarrito(){
 
 
     /*
+    =========================================================
+    MISMA INFORMACIÓN DENTRO DE "VER PEDIDO"
+    =========================================================
+    */
+
+    const infoModal =
+        document.getElementById(
+            "carritoInfoModal"
+        );
+
+    const totalModal =
+        document.getElementById(
+            "carritoTotalModal"
+        );
+
+    if(infoModal){
+
+        infoModal.textContent =
+            `${total} ${
+                total === 1
+                ? "producto"
+                : "productos"
+            }`;
+
+    }
+
+    if(totalModal){
+
+        totalModal.textContent =
+            `TOTAL ${dinero(
+                totalPedidoBarra
+            )}`;
+
+    }
+
+
+    /*
     La barra aparece solamente cuando
     hay al menos un producto agregado.
     */
@@ -5232,6 +5480,27 @@ function actualizarCarrito(){
     ){
 
         mostrarPagina();
+
+    }
+
+
+    /*
+    Si "VER PEDIDO" está abierto, lo actualizamos
+    en el mismo momento que se actualiza la barra.
+    */
+
+    const modal =
+        document.getElementById(
+            "modalCarrito"
+        );
+
+    if(
+        modal &&
+        modal.classList.contains("activo") &&
+        carrito.length
+    ){
+
+        renderizarCarrito();
 
     }
 
@@ -6669,6 +6938,104 @@ document.addEventListener(
 
     }
 );
+</script>
+
+
+<script id="akkino-pedido-sigue-scroll">
+(function(){
+
+    let pedidoScrollActivo = false;
+    let pedidoScrollRAF = null;
+
+    function posicionarPedidoConScroll(){
+
+        const modal =
+            document.getElementById("modalCarrito");
+
+        if(!modal) return;
+
+        if(
+            !modal.classList.contains("activo") &&
+            getComputedStyle(modal).display === "none"
+        ){
+            return;
+        }
+
+        /*
+        La posición del pedido se calcula respecto del documento,
+        no respecto de la pantalla.
+
+        Cada vez que se hace scroll, el recuadro acompaña
+        el desplazamiento de la página.
+        */
+        const scrollY = window.scrollY || window.pageYOffset || 0;
+
+        if(pedidoScrollRAF){
+            cancelAnimationFrame(pedidoScrollRAF);
+        }
+
+        pedidoScrollRAF = requestAnimationFrame(function(){
+        });
+    }
+
+    const observer =
+        new MutationObserver(function(){
+
+            const modal =
+                document.getElementById("modalCarrito");
+
+            if(!modal) return;
+
+            pedidoScrollActivo =
+                modal.classList.contains("activo");
+
+            if(pedidoScrollActivo){
+
+                posicionarPedidoConScroll();
+
+            }else{
+
+            }
+
+        });
+
+    function iniciarObservador(){
+
+        const modal =
+            document.getElementById("modalCarrito");
+
+        if(!modal) return;
+
+        observer.observe(
+            modal,
+            {
+                attributes:true,
+                attributeFilter:["class"]
+            }
+        );
+
+        pedidoScrollActivo =
+            modal.classList.contains("activo");
+
+        if(pedidoScrollActivo){
+            posicionarPedidoConScroll();
+        }
+    }
+
+    if(document.readyState === "loading"){
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            iniciarObservador
+        );
+
+    }else{
+
+        iniciarObservador();
+
+    }
+
+})();
 </script>
 
 </body>
