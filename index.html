@@ -2735,9 +2735,10 @@ function mostrarProductos(
                 else{
 
                     const unitario =
-                        numero(
-                            producto.precioParticular
-                        );
+    numero(
+        producto.precioParticular ||
+        producto.valorReal
+    );
 
                     const promo2 =
                         numero(
