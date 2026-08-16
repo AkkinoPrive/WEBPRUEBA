@@ -1277,6 +1277,24 @@ function precioOriginal(producto){
 }
 
 
+
+function precioParticularProducto(producto){
+
+    const precioParticular =
+        numero(
+            producto.precioParticular
+        );
+
+    if(precioParticular > 0){
+        return precioParticular;
+    }
+
+    return numero(
+        producto.valorReal
+    );
+}
+
+
 function descuentoTexto(producto){
 
     const descuento =
@@ -2261,8 +2279,8 @@ function calcularCarritoParticular(){
                 item.producto;
 
             const unitario =
-                numero(
-                    producto.precioParticular
+                precioParticularProducto(
+                    producto
                 );
 
             const promo2 =
@@ -2322,8 +2340,8 @@ function calcularCarritoParticular(){
                 grupo.unidades;
 
             const unitario =
-                numero(
-                    producto.precioParticular
+                precioParticularProducto(
+                    producto
                 );
 
             const promo2 =
@@ -2735,9 +2753,8 @@ function mostrarProductos(
                 else{
 
                     const unitario =
-    numero(
-        producto.precioParticular ||
-        producto.valorReal
+    precioParticularProducto(
+        producto
     );
 
                     const promo2 =
@@ -3383,8 +3400,8 @@ function renderizarCarrito(){
 
                     :
 
-                    numero(
-                        producto.precioParticular
+                    precioParticularProducto(
+                        producto
                     );
 
 
@@ -3888,8 +3905,8 @@ function enviarWhatsApp(){
                 else{
 
                     precioUnitario =
-                        numero(
-                            producto.precioParticular
+                        precioParticularProducto(
+                            producto
                         );
                 }
             }
