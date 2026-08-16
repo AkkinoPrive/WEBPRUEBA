@@ -2090,6 +2090,118 @@ CONTENIDO
 #modalCarrito.modal.activo { display:flex !important; }
 #modalCarrito.modal.activo .modal-contenido { pointer-events:auto !important; }
 </style>
+
+<style id="akkino-modal-portal-body-final">
+/*
+=========================================================
+AKKINO — PEDIDO COMO PORTAL DEL BODY
+=========================================================
+
+El modal se mueve a document.body al abrirse.
+Esto evita que un contenedor del catálogo con transform,
+overflow, contain, etc. cree un nuevo containing block.
+
+RESULTADO:
+- VER PEDIDO aparece donde estás.
+- Queda centrado en el viewport.
+- Al hacer scroll del catálogo, sigue visible.
+- El fondo se mueve por detrás.
+- El contenido interno del pedido tiene su propio scroll.
+=========================================================
+*/
+
+#modalCarrito.modal{
+    position:fixed !important;
+    inset:0 !important;
+    width:100vw !important;
+    height:100vh !important;
+
+    z-index:2147483647 !important;
+
+    display:none !important;
+    align-items:center !important;
+    justify-content:center !important;
+
+    padding:20px !important;
+    box-sizing:border-box !important;
+
+    background:rgba(0,0,0,.78) !important;
+
+    /*
+    El fondo sigue pudiendo desplazarse.
+    Solo el cuadro interior recibe los eventos.
+    */
+    pointer-events:none !important;
+
+    overflow:hidden !important;
+}
+
+#modalCarrito.modal.activo{
+    display:flex !important;
+}
+
+#modalCarrito.modal > .modal-contenido{
+    pointer-events:auto !important;
+
+    width:min(680px,94vw) !important;
+    max-width:680px !important;
+
+    max-height:calc(100vh - 40px) !important;
+
+    margin:0 !important;
+
+    overflow-y:auto !important;
+    overflow-x:hidden !important;
+
+    box-sizing:border-box !important;
+
+    background:#0d0d0d !important;
+    color:#fff !important;
+
+    border:1px solid rgba(212,175,55,.60) !important;
+    border-radius:18px !important;
+
+    padding:22px !important;
+
+    box-shadow:
+        0 25px 100px rgba(0,0,0,.95),
+        0 0 50px rgba(212,175,55,.12) !important;
+
+    overscroll-behavior:contain !important;
+    -webkit-overflow-scrolling:touch !important;
+
+    scrollbar-width:thin;
+    scrollbar-color:#d4af37 #111;
+}
+
+#modalCarrito.modal > .modal-contenido::-webkit-scrollbar{
+    width:8px;
+}
+
+#modalCarrito.modal > .modal-contenido::-webkit-scrollbar-track{
+    background:#111;
+}
+
+#modalCarrito.modal > .modal-contenido::-webkit-scrollbar-thumb{
+    background:#d4af37;
+    border-radius:10px;
+}
+
+@media(max-width:700px){
+
+    #modalCarrito.modal{
+        padding:10px !important;
+    }
+
+    #modalCarrito.modal > .modal-contenido{
+        width:96vw !important;
+        max-height:calc(100vh - 20px) !important;
+        padding:16px !important;
+        border-radius:15px !important;
+    }
+}
+</style>
+
 </head>
 
 
@@ -5407,7 +5519,7 @@ function actualizarCarrito(){
 
 
 /* =========================================================
-   ABRIR CARRITO
+   ABRIR CARRITO — PORTAL DIRECTO A BODY
    ========================================================= */
 
 function abrirCarrito(){
@@ -5423,20 +5535,35 @@ function abrirCarrito(){
         return;
     }
 
-
-    renderizarCarrito();
-
-
     const modal =
         document.getElementById(
             "modalCarrito"
         );
 
-
     if(!modal){
         return;
     }
 
+    /*
+    IMPORTANTE:
+    Igual que hicimos con la barra inferior, sacamos
+    completamente el recuadro del contenedor del catálogo.
+
+    Así ningún transform, overflow, grid, section o wrapper
+    del catálogo puede modificar el comportamiento de
+    position: fixed.
+    */
+    if(
+        modal.parentElement !== document.body
+    ){
+
+        document.body.appendChild(
+            modal
+        );
+
+    }
+
+    renderizarCarrito();
 
     modal.classList.add(
         "activo"
@@ -5445,20 +5572,25 @@ function abrirCarrito(){
 }
 
 
-
 /* =========================================================
    CERRAR CARRITO
    ========================================================= */
 
 function cerrarCarrito(){
 
-    document
-    .getElementById(
-        "modalCarrito"
-    )
-    .classList.remove(
+    const modal =
+        document.getElementById(
+            "modalCarrito"
+        );
+
+    if(!modal){
+        return;
+    }
+
+    modal.classList.remove(
         "activo"
     );
+
 }
 
 
