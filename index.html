@@ -308,6 +308,11 @@ body{
     line-height:1.4;
 }
 
+.original-nuevo{
+    font-weight:bold;
+    color:#b88a1b;
+}
+
 .stock{
     font-size:11px;
     font-weight:bold;
@@ -2608,58 +2613,84 @@ function mostrarProductos(
                             producto
                         );
 
+                    const detalleDescuento =
+                        descuentoTexto(
+                            producto
+                        );
+
+                    const pago =
+                        formaPagoProducto(
+                            producto
+                        );
+
+                    const esNuevo =
+                        nuevoIngresoProducto(
+                            producto
+                        );
+
 
                     if(
-                        precios.lista > 0 &&
-                        precios.final <
-                        precios.lista
+                        precios.lista > 0
                     ){
-
-                        const detalleDescuento =
-                            descuentoTexto(
-                                producto
-                            );
-
-                        const pago =
-                            formaPagoProducto(
-                                producto
-                            );
-
 
                         precioHTML = `
 
-                            <div
-                            class="precio-label">
+                            ${
+                                precios.final <
+                                precios.lista
+                                ?
+                                `
+                                <div
+                                class="precio-label">
 
-                                PRECIO DE LISTA
+                                    PRECIO DE LISTA
 
-                            </div>
+                                </div>
 
-                            <div
-                            class="precio-original-lista">
+                                <div
+                                class="precio-original-lista">
 
-                                ${dinero(
-                                    precios.lista
-                                )}
+                                    ${dinero(
+                                        precios.lista
+                                    )}
 
-                            </div>
+                                </div>
 
+                                <div
+                                class="precio-label">
 
-                            <div
-                            class="precio-label">
+                                    PRECIO FINAL
 
-                                PRECIO FINAL
+                                </div>
 
-                            </div>
+                                <div
+                                class="precio-original-descuento">
 
-                            <div
-                            class="precio-original-descuento">
+                                    ${dinero(
+                                        precios.final
+                                    )}
 
-                                ${dinero(
-                                    precios.final
-                                )}
+                                </div>
+                                `
+                                :
+                                `
+                                <div
+                                class="precio-label">
 
-                            </div>
+                                    PRECIO
+
+                                </div>
+
+                                <div
+                                class="precio">
+
+                                    ${dinero(
+                                        precios.final
+                                    )}
+
+                                </div>
+                                `
+                            }
 
 
                             ${
@@ -2697,31 +2728,21 @@ function mostrarProductos(
                                 ""
                             }
 
-                        `;
 
-                    }
+                            ${
+                                esNuevo
+                                ?
+                                `
+                                <div
+                                class="original-detalle original-nuevo">
 
-                    else if(
-                        precios.lista > 0
-                    ){
+                                    NUEVO INGRESO
 
-                        precioHTML = `
-
-                            <div
-                            class="precio-label">
-
-                                PRECIO
-
-                            </div>
-
-                            <div
-                            class="precio">
-
-                                ${dinero(
-                                    precios.lista
-                                )}
-
-                            </div>
+                                </div>
+                                `
+                                :
+                                ""
+                            }
 
                         `;
 
@@ -2738,7 +2759,43 @@ function mostrarProductos(
 
                             </div>
 
+
+                            ${
+                                pago
+                                ?
+                                `
+                                <div
+                                class="original-detalle">
+
+                                    Forma de pago:
+                                    ${escapeHTML(
+                                        pago
+                                    )}
+
+                                </div>
+                                `
+                                :
+                                ""
+                            }
+
+
+                            ${
+                                esNuevo
+                                ?
+                                `
+                                <div
+                                class="original-detalle original-nuevo">
+
+                                    NUEVO INGRESO
+
+                                </div>
+                                `
+                                :
+                                ""
+                            }
+
                         `;
+
                     }
 
                 }
