@@ -1299,13 +1299,17 @@ function descuentoTexto(producto){
     }
 
     // Google Sheets guarda 10% como 0.10
-    if(descuento > 0 && descuento < 1){
-        descuento = descuento * 100;
+    if(
+        descuento > 0 &&
+        descuento < 1
+    ){
+        descuento *= 100;
     }
 
-    descuento = Math.round(
-        descuento * 100
-    ) / 100;
+    descuento =
+        Math.round(
+            descuento * 100
+        ) / 100;
 
     const tipo =
         String(
@@ -1313,6 +1317,7 @@ function descuentoTexto(producto){
         ).trim();
 
     return (
+        "-" +
         String(descuento) +
         "%" +
         (
