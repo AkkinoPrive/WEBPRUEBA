@@ -1411,7 +1411,7 @@ body{
 .modal{
     position:fixed;
     inset:0;
-    z-index:2000;
+    z-index:2147483646;
 
     background:
     rgba(0,0,0,.78);
@@ -2254,8 +2254,9 @@ class="carrito-barra">
         </div>
 
         <button
-        class="carrito-boton"
-        onclick="abrirCarrito()">
+        id="botonVerPedido"
+        type="button"
+        class="carrito-boton">
 
             VER PEDIDO
 
@@ -3735,8 +3736,18 @@ function calcularCarritoParticular(){
 
     let precioNormal = 0;
 
-    const grupos = {};
+    let unidadesInspiraciones = 0;
 
+    let promo2 = 0;
+
+    let promo3 = 0;
+
+    /*
+    Las promociones 2x35 y 3x50 son promociones
+    GENERALES del pedido de inspiraciones.
+    No hace falta que sean dos o tres unidades
+    del mismo perfume.
+    */
 
     carrito.forEach(
         item => {
@@ -3744,201 +3755,253 @@ function calcularCarritoParticular(){
             const producto =
                 item.producto;
 
-            const unitario =
-                precioParticularProducto(
+            const cantidad =
+                item.cantidad;
+
+            const tipo =
+                tipoPrincipalProducto(
                     producto
                 );
 
-            const promo2 =
-                numero(
-                    producto.promo2
-                );
-
-            const promo3 =
-                numero(
-                    producto.promo3
-                );
-
+            const unitario =
+                tipo === "ORIGINALES"
+                ? precioOriginal(producto).final
+                : precioParticularProducto(producto);
 
             precioNormal +=
-                unitario *
-                item.cantidad;
+                unitario * cantidad;
 
 
-            const clave =
-                producto.perfume;
+            /*
+            Solamente las inspiraciones
+            participan de 2x35 / 3x50.
+            */
 
+            if(
+                tipo ===
+                "INSPIRACIONES 60ML"
+            ){
 
-            if(!grupos[clave]){
+                unidadesInspiraciones +=
+                    cantidad;
 
-                grupos[clave] = {
-                    producto:
-                        producto,
+                if(!promo2){
 
-                    unidades:0
-                };
+                    promo2 =
+                        numero(
+                            producto.promo2
+                        );
+
+                }
+
+                if(!promo3){
+
+                    promo3 =
+                        numero(
+                            producto.promo3
+                        );
+
+                }
+
             }
-
-
-            grupos[clave].unidades +=
-                item.cantidad;
 
         }
     );
 
 
-    let totalFinal =
-        0;
+    /*
+    Si por algún motivo la API no trae promo2/promo3,
+    usamos los valores actuales de AKKINO.
+    */
 
-    const detallePromos =
+    if(
+        !promo2
+    ){
+
+        promo2 = 35000;
+
+    }
+
+    if(
+        !promo3
+    ){
+
+        promo3 = 50000;
+
+    }
+
+
+    /*
+    Calculamos la mejor combinación:
+
+    3 unidades -> promo3
+    2 unidades -> promo2
+    1 unidad   -> precio normal
+
+    Ejemplos:
+    1 = 20.000
+    2 = 35.000
+    3 = 50.000
+    4 = 70.000
+    5 = 85.000
+    6 = 100.000
+    */
+
+    let mejorTotalPromos =
+        unidadesInspiraciones *
+        20000;
+
+
+    /*
+    Usamos el precio real de las unidades
+    restantes. Para que funcione aunque haya
+    precios particulares distintos, primero
+    armamos el precio normal de las inspiraciones.
+    */
+
+    let precioNormalInspiraciones = 0;
+
+    carrito.forEach(
+        item => {
+
+            if(
+                tipoPrincipalProducto(
+                    item.producto
+                ) ===
+                "INSPIRACIONES 60ML"
+            ){
+
+                precioNormalInspiraciones +=
+                    precioParticularProducto(
+                        item.producto
+                    ) *
+                    item.cantidad;
+
+            }
+
+        }
+    );
+
+
+    mejorTotalPromos =
+        precioNormalInspiraciones;
+
+
+    let mejorDetalle =
         [];
 
 
-    Object
-    .values(grupos)
-    .forEach(
-        grupo => {
+    /*
+    Probamos todas las cantidades posibles
+    de promociones de 3 y 2 unidades y nos
+    quedamos con el menor total.
+    */
 
-            const producto =
-                grupo.producto;
+    for(
+        let cantidad3 = 0;
+        cantidad3 <=
+        Math.floor(
+            unidadesInspiraciones / 3
+        );
+        cantidad3++
+    ){
 
-            const unidades =
-                grupo.unidades;
+        for(
+            let cantidad2 = 0;
+            cantidad2 <=
+            Math.floor(
+                (
+                    unidadesInspiraciones -
+                    cantidad3 * 3
+                ) / 2
+            );
+            cantidad2++
+        ){
 
-            const unitario =
-                precioParticularProducto(
-                    producto
-                );
-
-            const promo2 =
-                numero(
-                    producto.promo2
-                );
-
-            const promo3 =
-                numero(
-                    producto.promo3
-                );
-
-
-            const cantidad =
-                unidades;
-
-
-            const totalNormalGrupo =
-                unitario *
-                cantidad;
-
-
-            let mejorTotal =
-                totalNormalGrupo;
-
-
-            let mejorPromo2 =
-                0;
-
-
-            let mejorPromo3 =
-                0;
+            const restantes =
+                unidadesInspiraciones -
+                cantidad3 * 3 -
+                cantidad2 * 2;
 
 
             /*
-            3 unidades
+            Para las unidades restantes usamos
+            un promedio/precio unitario real.
             */
 
+            const precioUnitarioPromedio =
+                unidadesInspiraciones > 0
+                ?
+                precioNormalInspiraciones /
+                unidadesInspiraciones
+                :
+                0;
+
+
+            const totalCombinacion =
+                cantidad3 * promo3 +
+                cantidad2 * promo2 +
+                restantes *
+                precioUnitarioPromedio;
+
+
             if(
-                cantidad >= 3 &&
-                promo3 > 0
+                totalCombinacion <
+                mejorTotalPromos
             ){
 
-                const grupos3 =
-                    Math.floor(
-                        cantidad / 3
+                mejorTotalPromos =
+                    totalCombinacion;
+
+                mejorDetalle = [];
+
+                if(cantidad3){
+
+                    mejorDetalle.push(
+                        `${cantidad3} promo 3 unidades`
                     );
 
-                const resto3 =
-                    cantidad % 3;
-
-                const total3 =
-                    grupos3 *
-                    promo3 +
-                    resto3 *
-                    unitario;
-
-
-                if(
-                    total3 <
-                    mejorTotal
-                ){
-
-                    mejorTotal =
-                        total3;
-
-                    mejorPromo3 =
-                        grupos3;
                 }
-            }
 
+                if(cantidad2){
 
-            /*
-            2 unidades
-            */
-
-            if(
-                cantidad >= 2 &&
-                promo2 > 0
-            ){
-
-                const grupos2 =
-                    Math.floor(
-                        cantidad / 2
+                    mejorDetalle.push(
+                        `${cantidad2} promo 2 unidades`
                     );
 
-                const resto2 =
-                    cantidad % 2;
-
-                const total2 =
-                    grupos2 *
-                    promo2 +
-                    resto2 *
-                    unitario;
-
-
-                if(
-                    total2 <
-                    mejorTotal
-                ){
-
-                    mejorTotal =
-                        total2;
-
-                    mejorPromo2 =
-                        grupos2;
                 }
+
             }
 
+        }
 
-            totalFinal +=
-                mejorTotal;
+    }
 
+
+    /*
+    Total de originales + total promocional
+    de inspiraciones.
+    */
+
+    let totalOriginales =
+        0;
+
+
+    carrito.forEach(
+        item => {
 
             if(
-                mejorPromo3 > 0
+                tipoPrincipalProducto(
+                    item.producto
+                ) ===
+                "ORIGINALES"
             ){
 
-                detallePromos.push(
-                    `${producto.perfume}: ${mejorPromo3} promo 3 unidades`
-                );
-
-            }
-
-            else if(
-                mejorPromo2 > 0
-            ){
-
-                detallePromos.push(
-                    `${producto.perfume}: ${mejorPromo2} promo 2 unidades`
-                );
+                totalOriginales +=
+                    precioOriginal(
+                        item.producto
+                    ).final *
+                    item.cantidad;
 
             }
 
@@ -3946,7 +4009,13 @@ function calcularCarritoParticular(){
     );
 
 
+    const totalFinal =
+        totalOriginales +
+        mejorTotalPromos;
+
+
     return {
+
         precioNormal:
             precioNormal,
 
@@ -3961,9 +4030,12 @@ function calcularCarritoParticular(){
             ),
 
         detallePromos:
-            detallePromos
+            mejorDetalle
+
     };
+
 }
+
 
 
 /* =========================================================
@@ -4961,14 +5033,23 @@ function abrirCarrito(){
     renderizarCarrito();
 
 
-    document
-    .getElementById(
-        "modalCarrito"
-    )
-    .classList.add(
+    const modal =
+        document.getElementById(
+            "modalCarrito"
+        );
+
+
+    if(!modal){
+        return;
+    }
+
+
+    modal.classList.add(
         "activo"
     );
+
 }
+
 
 
 /* =========================================================
