@@ -1522,17 +1522,26 @@ function crearCategorias(){
             </button>
 
 
-            <button
-            class="categoria-btn"
-            data-tipo="ORIGINALES"
-            onclick="
-            seleccionarTipo(
-                'ORIGINALES'
-            )">
+            ${
+                modoActual ===
+                "particular"
+                ?
+                `
+                <button
+                class="categoria-btn"
+                data-tipo="ORIGINALES"
+                onclick="
+                seleccionarTipo(
+                    'ORIGINALES'
+                )">
 
-                PERFUMES ORIGINALES
+                    PERFUMES ORIGINALES
 
-            </button>
+                </button>
+                `
+                :
+                ""
+            }
 
         </div>
 
@@ -1910,6 +1919,14 @@ function aplicarFiltros(){
                     return false;
                 }
 
+                // No se ofrecen perfumes ORIGINALES en mayorista.
+                if(
+                    modoActual === "mayorista" &&
+                    tipo === "ORIGINALES"
+                ){
+                    return false;
+                }
+
 
                 /*
                 ---------------------------------------------
@@ -2035,6 +2052,19 @@ function cambiarModo(modo){
     modoActual =
         modo;
 
+    // Los originales se venden solamente en particular.
+    // Si pasamos a mayorista estando dentro de ORIGINALES,
+    // volvemos automáticamente a TODOS.
+    if(
+        modoActual === "mayorista" &&
+        tipoActual === "ORIGINALES"
+    ){
+        tipoActual = "TODOS";
+        filtroExtraActual = "TODOS";
+    }
+
+    crearCategorias();
+
     document
     .getElementById(
         "modoParticular"
@@ -2054,6 +2084,19 @@ function cambiarModo(modo){
         modo ===
         "mayorista"
     );
+
+    // Los originales no pueden permanecer en un pedido mayorista.
+    if(
+        modoActual === "mayorista"
+    ){
+        carrito =
+            carrito.filter(
+                item =>
+                    tipoPrincipalProducto(
+                        item.producto
+                    ) !== "ORIGINALES"
+            );
+    }
 
     paginaActual = 1;
 
