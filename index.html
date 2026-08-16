@@ -1346,13 +1346,22 @@ body{
     bottom:0;
     z-index:1000;
 
-    background:
-    rgba(15,15,15,.96);
+    background:rgba(10,10,10,.97);
+    border-top:1px solid rgba(212,175,55,.28);
+    box-shadow:0 -8px 30px rgba(0,0,0,.38);
 
-    border-top:
-    1px solid #333;
+    padding:11px 15px;
 
-    padding:12px 15px;
+    transform:translateY(110%);
+    opacity:0;
+    pointer-events:none;
+    transition:.25s ease;
+}
+
+.carrito-barra.visible{
+    transform:translateY(0);
+    opacity:1;
+    pointer-events:auto;
 }
 
 .carrito-contenido{
@@ -1362,12 +1371,27 @@ body{
     display:flex;
     align-items:center;
     justify-content:space-between;
-    gap:15px;
+    gap:18px;
+}
+
+.carrito-resumen-barra{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    min-width:0;
 }
 
 .carrito-info{
     font-size:13px;
     color:#ddd;
+    font-weight:700;
+}
+
+.carrito-total-barra{
+    font-size:14px;
+    color:#d4af37;
+    font-weight:800;
+    white-space:nowrap;
 }
 
 .carrito-boton{
@@ -2123,11 +2147,23 @@ class="carrito-barra">
 
     <div class="carrito-contenido">
 
-        <div
-        id="carritoInfo"
-        class="carrito-info">
+        <div class="carrito-resumen-barra">
 
-            0 productos
+            <div
+            id="carritoInfo"
+            class="carrito-info">
+
+                0 productos
+
+            </div>
+
+            <div
+            id="carritoTotalBarra"
+            class="carrito-total-barra">
+
+                TOTAL $ 0
+
+            </div>
 
         </div>
 
@@ -4660,17 +4696,125 @@ function actualizarCarrito(){
     const total =
         totalUnidades();
 
+    const barra =
+        document.getElementById(
+            "carritoBarra"
+        );
 
-    document
-    .getElementById(
-        "carritoInfo"
-    )
-    .textContent =
+    const info =
+        document.getElementById(
+            "carritoInfo"
+        );
+
+    const totalBarra =
+        document.getElementById(
+            "carritoTotalBarra"
+        );
+
+
+    /*
+    =========================================================
+    BARRA FLOTANTE
+    =========================================================
+    */
+
+    info.textContent =
         `${total} ${
             total === 1
             ? "producto"
             : "productos"
         }`;
+
+
+    let totalPedidoBarra = 0;
+
+
+    /*
+    PARTICULAR
+    */
+
+    if(
+        modoActual ===
+        "particular"
+    ){
+
+        if(
+            carrito.length
+        ){
+
+            const calculo =
+                calcularCarritoParticular();
+
+            totalPedidoBarra =
+                calculo.totalFinal;
+
+        }
+
+    }
+
+
+    /*
+    MAYORISTA
+    */
+
+    else{
+
+        if(
+            carrito.length
+        ){
+
+            const cantidadEscala =
+                Math.max(
+                    total,
+                    MINIMO_MAYORISTA
+                );
+
+            carrito.forEach(
+                item => {
+
+                    totalPedidoBarra +=
+                        precioMayorista(
+                            item.producto,
+                            cantidadEscala
+                        ) *
+                        item.cantidad;
+
+                }
+            );
+
+        }
+
+    }
+
+
+    totalBarra.textContent =
+        `TOTAL ${dinero(
+            totalPedidoBarra
+        )}`;
+
+
+    /*
+    La barra aparece solamente cuando
+    hay al menos un producto agregado.
+    */
+
+    if(
+        total > 0
+    ){
+
+        barra.classList.add(
+            "visible"
+        );
+
+    }
+
+    else{
+
+        barra.classList.remove(
+            "visible"
+        );
+
+    }
 
 
     /*
@@ -4686,25 +4830,28 @@ function actualizarCarrito(){
         MINIMO_MAYORISTA
     ){
 
-        document
-        .getElementById(
-            "carritoInfo"
-        )
-        .textContent =
+        info.textContent =
             `${total} productos · mínimo mayorista ${MINIMO_MAYORISTA}`;
 
     }
 
-    // Actualiza inmediatamente las tarjetas, precios,
-    // escalas y contadores.
+
+    /*
+    Actualiza inmediatamente las tarjetas,
+    precios, escalas y contadores.
+    */
+
     if(
         productosFiltrados &&
         productosFiltrados.length
     ){
+
         mostrarPagina();
+
     }
 
 }
+
 
 
 /* =========================================================
