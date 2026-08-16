@@ -1321,74 +1321,175 @@ function formaPagoProducto(producto){
 
 
 /* =========================================================
-   CARGAR API
+   CARGAR API - JSONP
+   =========================================================
+   Apps Script responde como:
+   callback([...])
+
+   No usamos fetch() porque la API está en otro dominio
+   y JSONP evita el problema de CORS.
    ========================================================= */
 
-fetch(API)
+function cargarPerfumes(){
 
-.then(respuesta => {
+    const callbackName =
+        "__akkinoJSONP_" +
+        Date.now();
 
-    if(!respuesta.ok){
+    const script =
+        document.createElement("script");
 
-        throw new Error(
-            "HTTP " +
-            respuesta.status
-        );
+    let finalizado = false;
+
+
+    function limpiar(){
+
+        try{
+            delete window[callbackName];
+        }
+        catch(error){
+            window[callbackName] =
+                undefined;
+        }
+
+        if(script.parentNode){
+            script.parentNode.removeChild(script);
+        }
     }
 
-    return respuesta.json();
 
-})
+    function mostrarError(error){
 
-.then(data => {
-
-    if(
-        !Array.isArray(data)
-    ){
-
-        throw new Error(
-            data.error ||
-            "Respuesta inválida."
+        console.error(
+            "Error cargando perfumes:",
+            error
         );
+
+        document
+        .getElementById(
+            "productos"
+        )
+        .innerHTML = `
+
+            <div
+            class="mensaje-vacio">
+
+                No se pudieron cargar
+                los perfumes.
+
+                <br><br>
+
+                <small>
+                    ${escapeHTML(
+                        error &&
+                        error.message
+                        ?
+                        error.message
+                        :
+                        "Error de conexión con la API."
+                    )}
+                </small>
+
+            </div>
+
+        `;
     }
 
-    perfumes =
-        data;
 
-    crearCategorias();
+    window[callbackName] =
+        function(data){
 
-    aplicarFiltros();
+            if(finalizado){
+                return;
+            }
 
-})
+            finalizado = true;
 
-.catch(error => {
+            limpiar();
 
-    console.error(error);
+
+            if(
+                !Array.isArray(data)
+            ){
+
+                const mensaje =
+                    data &&
+                    data.error
+                    ?
+                    data.error
+                    :
+                    "Respuesta inválida de la API.";
+
+                mostrarError(
+                    new Error(
+                        mensaje
+                    )
+                );
+
+                return;
+            }
+
+
+            perfumes =
+                data;
+
+
+            crearCategorias();
+
+            aplicarFiltros();
+
+        };
+
+
+    script.onerror =
+        function(){
+
+            if(finalizado){
+                return;
+            }
+
+            finalizado = true;
+
+            limpiar();
+
+            mostrarError(
+                new Error(
+                    "No se pudo conectar con la API de AKKINO."
+                )
+            );
+
+        };
+
+
+    const separador =
+        API.includes("?")
+        ? "&"
+        : "?";
+
+
+    script.src =
+        API +
+        separador +
+        "callback=" +
+        encodeURIComponent(
+            callbackName
+        ) +
+        "&_=" +
+        Date.now();
+
+
+    script.async = true;
 
     document
-    .getElementById(
-        "productos"
-    )
-    .innerHTML = `
+    .head
+    .appendChild(
+        script
+    );
+}
 
-        <div
-        class="mensaje-vacio">
 
-            No se pudieron cargar
-            los perfumes.
+cargarPerfumes();
 
-            <br><br>
-
-            <small>
-                ${escapeHTML(
-                    error.message
-                )}
-            </small>
-
-        </div>
-
-    `;
-});
 
 
 /* =========================================================
@@ -1609,6 +1710,119 @@ function seleccionarFiltroExtra(
 
 
 /* =========================================================
+   CATEGORÍA / TIPO PRINCIPAL
+   =========================================================
+   La categoría principal NO se pierde cuando aplicamos
+   filtros secundarios como STOCK, NUEVOS INGRESOS o
+   SIN STOCK.
+   ========================================================= */
+
+function tipoPrincipalProducto(producto){
+
+    const tipo =
+        normalizar(
+            producto.tipo
+        );
+
+
+    if(
+        tipo.includes(
+            "ORIGINAL"
+        )
+    ){
+
+        return "ORIGINALES";
+    }
+
+
+    if(
+        tipo.includes(
+            "INSPIRACION"
+        )
+    ){
+
+        return "INSPIRACIONES 60ML";
+    }
+
+
+    return tipo;
+}
+
+
+function categoriaCoincide(
+    producto,
+    categoriaBuscada
+){
+
+    const buscada =
+        normalizar(
+            categoriaBuscada
+        );
+
+    const valor =
+        normalizar(
+            producto.categoria
+        );
+
+
+    if(!buscada){
+        return true;
+    }
+
+
+    /*
+    Permite:
+    MASCULINOS
+    FEMENINOS
+    UNISEX
+
+    y también valores múltiples como:
+    MASCULINOS, UNISEX
+    MASCULINOS / UNISEX
+    */
+
+    const categorias =
+        valor
+        .split(
+            /[,;|/]+/
+        )
+        .map(
+            x => normalizar(x)
+        )
+        .filter(Boolean);
+
+
+    return categorias.some(
+        categoria =>
+            categoria ===
+            buscada
+    );
+}
+
+
+function nuevoIngresoProducto(
+    producto
+){
+
+    const valor =
+        normalizar(
+            producto.nuevoIngreso
+        );
+
+
+    return (
+        valor === "SI" ||
+        valor === "SÍ" ||
+        valor === "TRUE" ||
+        valor === "1" ||
+        valor === "NUEVO" ||
+        valor === "NUEVOS INGRESOS"
+    );
+}
+
+
+
+/* =========================================================
    APLICAR FILTROS
    ========================================================= */
 
@@ -1639,8 +1853,8 @@ function aplicarFiltros(){
                     );
 
                 const tipo =
-                    normalizar(
-                        producto.tipo
+                    tipoPrincipalProducto(
+                        producto
                     );
 
                 const nuevoIngreso =
@@ -1726,8 +1940,10 @@ function aplicarFiltros(){
                     case "MASCULINOS":
 
                         coincideExtra =
-                            categoria ===
-                            "MASCULINOS";
+                            categoriaCoincide(
+                                producto,
+                                "MASCULINOS"
+                            );
 
                         break;
 
@@ -1735,8 +1951,10 @@ function aplicarFiltros(){
                     case "FEMENINOS":
 
                         coincideExtra =
-                            categoria ===
-                            "FEMENINOS";
+                            categoriaCoincide(
+                                producto,
+                                "FEMENINOS"
+                            );
 
                         break;
 
@@ -1744,8 +1962,10 @@ function aplicarFiltros(){
                     case "UNISEX":
 
                         coincideExtra =
-                            categoria ===
-                            "UNISEX";
+                            categoriaCoincide(
+                                producto,
+                                "UNISEX"
+                            );
 
                         break;
 
@@ -1764,14 +1984,9 @@ function aplicarFiltros(){
                     case "NUEVOS INGRESOS":
 
                         coincideExtra =
-                            nuevoIngreso ===
-                            "SI" ||
-                            nuevoIngreso ===
-                            "SÍ" ||
-                            nuevoIngreso ===
-                            "TRUE" ||
-                            nuevoIngreso ===
-                            "1";
+                            nuevoIngresoProducto(
+                                producto
+                            );
 
                         break;
 
@@ -2364,8 +2579,8 @@ function mostrarProductos(
                 */
 
                 if(
-                    normalizar(
-                        producto.tipo
+                    tipoPrincipalProducto(
+                        producto
                     ) ===
                     "ORIGINALES"
                 ){
@@ -3651,8 +3866,8 @@ function enviarWhatsApp(){
             else{
 
                 const original =
-                    normalizar(
-                        producto.tipo
+                    tipoPrincipalProducto(
+                        producto
                     ) ===
                     "ORIGINALES";
 
