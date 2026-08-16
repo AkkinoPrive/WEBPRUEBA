@@ -1298,7 +1298,16 @@ function descuentoTexto(producto){
         return "";
     }
 
-    // Google Sheets guarda 10% como 0.10
+    // Google Sheets puede entregar 10% como 0.10,
+    // o el valor como -0.10. Siempre mostramos 10%.
+    const signo =
+        descuento < 0
+        ? -1
+        : 1;
+
+    descuento =
+        Math.abs(descuento);
+
     if(
         descuento > 0 &&
         descuento < 1
