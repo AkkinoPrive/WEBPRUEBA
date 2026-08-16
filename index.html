@@ -48,6 +48,729 @@ body{
 }
 
 /* =========================================================
+   LANDING / HOME
+   ========================================================= */
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    overflow-x:hidden;
+}
+
+.landing-page{
+    position:fixed;
+    inset:0;
+    z-index:9000;
+    min-height:100vh;
+    overflow:hidden;
+    background:
+        radial-gradient(
+            ellipse at 50% 44%,
+            rgba(212,175,55,.10),
+            transparent 32%
+        ),
+        radial-gradient(
+            ellipse at 80% 20%,
+            rgba(212,175,55,.06),
+            transparent 28%
+        ),
+        linear-gradient(
+            135deg,
+            #020202 0%,
+            #090909 48%,
+            #020202 100%
+        );
+    display:flex;
+    flex-direction:column;
+    transition:
+        opacity .45s ease,
+        visibility .45s ease,
+        transform .45s ease;
+}
+
+.landing-page.oculto{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transform:scale(1.025);
+}
+
+.landing-page:before{
+    content:"";
+    position:absolute;
+    inset:5%;
+    border:1px solid rgba(212,175,55,.12);
+    pointer-events:none;
+}
+
+.landing-noise{
+    position:absolute;
+    inset:0;
+    opacity:.035;
+    pointer-events:none;
+    background-image:
+        repeating-linear-gradient(
+            0deg,
+            #fff 0,
+            #fff 1px,
+            transparent 1px,
+            transparent 4px
+        );
+    mix-blend-mode:soft-light;
+}
+
+.landing-topbar{
+    position:relative;
+    z-index:3;
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:28px 38px;
+}
+
+.menu-trigger,
+.landing-cart{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    border:1px solid rgba(212,175,55,.30);
+    background:rgba(12,12,12,.72);
+    color:#d4af37;
+    cursor:pointer;
+    backdrop-filter:blur(10px);
+}
+
+.menu-trigger{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:5px;
+    padding:0 14px;
+}
+
+.menu-trigger span{
+    width:19px;
+    height:1px;
+    background:#d4af37;
+    display:block;
+}
+
+.landing-cart{
+    font-size:18px;
+}
+
+.landing-mini-logo{
+    text-align:center;
+}
+
+.landing-logo{
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+    color:#d4af37;
+    font-size:28px;
+    letter-spacing:8px;
+}
+
+.landing-logo-sub{
+    margin-top:4px;
+    color:#777;
+    font-size:9px;
+    letter-spacing:5px;
+}
+
+.landing-center{
+    position:relative;
+    z-index:2;
+    width:min(820px, 90%);
+    margin:auto;
+    text-align:center;
+    transform:translateY(-2%);
+}
+
+.landing-eyebrow{
+    color:#d4af37;
+    font-size:10px;
+    letter-spacing:6px;
+    margin-bottom:22px;
+}
+
+.landing-center h1{
+    font-family:
+        Georgia,
+        "Times New Roman",
+        serif;
+    font-size:clamp(48px, 7vw, 92px);
+    line-height:.93;
+    font-weight:400;
+    letter-spacing:-2px;
+    color:#f5f5f5;
+}
+
+.landing-center h1 span{
+    color:#d4af37;
+    font-style:italic;
+}
+
+.landing-center p{
+    max-width:610px;
+    margin:28px auto 0;
+    color:#9b9b9b;
+    font-size:14px;
+    line-height:1.8;
+}
+
+.landing-divider{
+    width:250px;
+    margin:28px auto 14px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    color:#d4af37;
+}
+
+.landing-divider span{
+    flex:1;
+    height:1px;
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(212,175,55,.55)
+        );
+}
+
+.landing-divider span:last-child{
+    background:
+        linear-gradient(
+            90deg,
+            rgba(212,175,55,.55),
+            transparent
+        );
+}
+
+.landing-divider b{
+    font-family:Georgia,serif;
+    font-weight:400;
+    font-size:12px;
+    letter-spacing:2px;
+}
+
+.landing-meta{
+    display:none;
+    color:#777;
+    font-size:9px;
+    letter-spacing:3px;
+}
+
+.landing-meta i{
+    color:#d4af37;
+    font-style:normal;
+    margin:0 8px;
+}
+
+.landing-cta{
+    margin-top:30px;
+    border:1px solid #d4af37;
+    background:#d4af37;
+    color:#0b0b0b;
+    padding:15px 26px;
+    min-width:240px;
+    border-radius:2px;
+    font-weight:bold;
+    letter-spacing:1px;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.landing-cta span{
+    margin-left:12px;
+    font-size:17px;
+}
+
+.landing-cta:hover{
+    background:#efd36b;
+    transform:translateY(-2px);
+}
+
+.landing-secondary{
+    display:block;
+    margin:14px auto 0;
+    border:0;
+    background:transparent;
+    color:#777;
+    font-size:10px;
+    letter-spacing:2px;
+    cursor:pointer;
+}
+
+.landing-secondary:hover{
+    color:#d4af37;
+}
+
+.landing-bottom{
+    position:relative;
+    z-index:3;
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    padding:26px 38px;
+    color:#777;
+}
+
+.landing-bottom small{
+    display:block;
+    font-size:8px;
+    letter-spacing:3px;
+    margin-bottom:5px;
+}
+
+.landing-bottom strong{
+    color:#aaa;
+    font-size:10px;
+    letter-spacing:3px;
+}
+
+.landing-socials{
+    display:flex;
+    gap:18px;
+}
+
+.landing-socials a{
+    color:#888;
+    text-decoration:none;
+    font-size:9px;
+    letter-spacing:2px;
+}
+
+.landing-socials a:hover{
+    color:#d4af37;
+}
+
+.landing-glow{
+    position:absolute;
+    border-radius:50%;
+    pointer-events:none;
+    filter:blur(1px);
+}
+
+.glow-one{
+    width:520px;
+    height:520px;
+    right:-280px;
+    top:18%;
+    border:1px solid rgba(212,175,55,.16);
+    box-shadow:
+        0 0 0 45px rgba(212,175,55,.025),
+        0 0 0 90px rgba(212,175,55,.015);
+}
+
+.glow-two{
+    width:360px;
+    height:360px;
+    left:-240px;
+    bottom:-170px;
+    border:1px solid rgba(212,175,55,.10);
+}
+
+
+/* =========================================================
+   MENÚ LATERAL
+   ========================================================= */
+
+.menu-backdrop{
+    position:fixed;
+    inset:0;
+    z-index:9500;
+    background:rgba(0,0,0,.65);
+    backdrop-filter:blur(4px);
+    opacity:0;
+    visibility:hidden;
+    transition:.3s;
+}
+
+.menu-backdrop.abierto{
+    opacity:1;
+    visibility:visible;
+}
+
+.side-menu{
+    position:fixed;
+    z-index:9600;
+    left:0;
+    top:0;
+    bottom:0;
+    width:min(360px, 88vw);
+    padding:28px 24px;
+    background:
+        linear-gradient(
+            180deg,
+            #111 0%,
+            #070707 100%
+        );
+    border-right:1px solid rgba(212,175,55,.20);
+    box-shadow:25px 0 70px rgba(0,0,0,.65);
+    transform:translateX(-105%);
+    transition:transform .35s cubic-bezier(.22,.61,.36,1);
+    overflow-y:auto;
+}
+
+.side-menu.abierto{
+    transform:translateX(0);
+}
+
+.side-menu-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-bottom:24px;
+    margin-bottom:22px;
+    border-bottom:1px solid #222;
+}
+
+.side-menu-head small{
+    display:block;
+    color:#777;
+    font-size:8px;
+    letter-spacing:3px;
+}
+
+.side-menu-head strong{
+    display:block;
+    margin-top:5px;
+    color:#d4af37;
+    font-family:Georgia,serif;
+    letter-spacing:5px;
+}
+
+.menu-close{
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    border:1px solid #333;
+    background:#151515;
+    color:#aaa;
+    font-size:25px;
+    cursor:pointer;
+}
+
+.side-menu-section{
+    margin-bottom:26px;
+}
+
+.side-menu-section > small{
+    display:block;
+    margin-bottom:10px;
+    color:#666;
+    font-size:8px;
+    letter-spacing:3px;
+}
+
+.side-menu-section button,
+.side-menu-section a{
+    width:100%;
+    display:flex;
+    align-items:center;
+    gap:13px;
+    padding:12px 10px;
+    margin:3px 0;
+    border:0;
+    border-radius:6px;
+    background:transparent;
+    color:#aaa;
+    text-decoration:none;
+    text-align:left;
+    font-size:11px;
+    letter-spacing:.5px;
+    cursor:pointer;
+}
+
+.side-menu-section button:hover,
+.side-menu-section a:hover{
+    background:#171717;
+    color:#d4af37;
+}
+
+.side-menu-section button span,
+.side-menu-section a span{
+    width:22px;
+    color:#d4af37;
+    text-align:center;
+}
+
+.side-social{
+    padding-top:8px;
+    border-top:1px solid #222;
+}
+
+
+/* =========================================================
+   CATÁLOGO COMO "SEGUNDA PÁGINA"
+   ========================================================= */
+
+.catalog-page{
+    min-height:100vh;
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transform:translateY(15px);
+    transition:
+        opacity .45s ease,
+        transform .45s ease,
+        visibility .45s ease;
+}
+
+.catalog-page.visible{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+    transform:translateY(0);
+}
+
+.catalog-floating-bar{
+    position:fixed;
+    z-index:7000;
+    right:22px;
+    top:22px;
+    display:flex;
+    gap:7px;
+    padding:7px;
+    border:1px solid #292929;
+    border-radius:999px;
+    background:rgba(10,10,10,.82);
+    backdrop-filter:blur(12px);
+    box-shadow:0 12px 35px rgba(0,0,0,.4);
+}
+
+.catalog-menu-btn,
+.catalog-home-btn,
+.catalog-social{
+    height:34px;
+    min-width:34px;
+    padding:0 11px;
+    border-radius:999px;
+    border:1px solid #2d2d2d;
+    background:#111;
+    color:#aaa;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    font-size:9px;
+    letter-spacing:1px;
+    cursor:pointer;
+}
+
+.catalog-menu-btn:hover,
+.catalog-home-btn:hover,
+.catalog-social:hover{
+    color:#d4af37;
+    border-color:rgba(212,175,55,.4);
+}
+
+.catalog-home-btn{
+    font-family:Georgia,serif;
+    color:#d4af37;
+    letter-spacing:3px;
+}
+
+.catalog-social.whatsapp:hover{
+    color:#62d47e;
+}
+
+.catalog-social.instagram:hover{
+    color:#e9a0c0;
+}
+
+#catalogInner{
+    position:relative;
+}
+
+
+
+
+/* =========================================================
+   BIENVENIDA DEL CATÁLOGO
+   ========================================================= */
+
+.catalog-welcome{
+    margin-top:26px;
+}
+
+.catalog-welcome .hero-panel{
+    min-height:0;
+    padding:42px 46px;
+}
+
+.catalog-welcome .hero-copy{
+    max-width:none;
+    width:100%;
+}
+
+.catalog-welcome .hero-title{
+    max-width:850px;
+    font-size:clamp(30px,4vw,48px);
+    line-height:1.05;
+}
+
+.catalog-welcome .hero-title span{
+    color:#d4af37;
+    font-style:italic;
+}
+
+.catalog-welcome .hero-text{
+    max-width:800px;
+    margin-top:15px;
+}
+
+.catalog-welcome-grid{
+    position:relative;
+    z-index:2;
+    display:grid;
+    grid-template-columns:
+        repeat(3,minmax(0,1fr));
+    gap:12px;
+    margin-top:28px;
+}
+
+.welcome-card{
+    position:relative;
+    min-height:145px;
+    padding:20px;
+    border:1px solid #292929;
+    border-radius:12px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255,255,255,.045),
+            rgba(255,255,255,.012)
+        );
+    color:#fff;
+    text-align:left;
+    cursor:pointer;
+    transition:
+        transform .25s ease,
+        border-color .25s ease,
+        background .25s ease;
+}
+
+.welcome-card:hover{
+    transform:translateY(-3px);
+    border-color:rgba(212,175,55,.55);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(212,175,55,.10),
+            rgba(255,255,255,.018)
+        );
+}
+
+.welcome-icon{
+    color:#d4af37;
+    font-family:Georgia,serif;
+    font-size:20px;
+    margin-bottom:14px;
+}
+
+.welcome-card strong{
+    display:block;
+    color:#e0e0e0;
+    font-size:11px;
+    letter-spacing:1.5px;
+    margin-bottom:7px;
+}
+
+.welcome-card span{
+    display:block;
+    max-width:240px;
+    color:#858585;
+    font-size:11px;
+    line-height:1.55;
+}
+
+.welcome-card b{
+    position:absolute;
+    left:20px;
+    bottom:18px;
+    color:#d4af37;
+    font-size:9px;
+    letter-spacing:1.3px;
+}
+
+.welcome-originales{
+    border-color:rgba(212,175,55,.20);
+}
+
+@media(max-width:800px){
+
+    .catalog-welcome .hero-panel{
+        padding:30px 22px;
+    }
+
+    .catalog-welcome-grid{
+        grid-template-columns:1fr;
+    }
+
+    .welcome-card{
+        min-height:125px;
+    }
+
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media(max-width:700px){
+
+    .landing-topbar{
+        padding:18px;
+    }
+
+    .landing-logo{
+        font-size:23px;
+        letter-spacing:6px;
+    }
+
+    .landing-center{
+        width:86%;
+    }
+
+    .landing-center h1{
+        font-size:48px;
+        letter-spacing:-1px;
+    }
+
+    .landing-center p{
+        font-size:12px;
+        line-height:1.7;
+    }
+
+    .landing-meta{
+        font-size:8px;
+        line-height:1.8;
+    }
+
+    .landing-bottom{
+        padding:18px;
+    }
+
+    .landing-socials{
+        gap:10px;
+    }
+
+    .catalog-floating-bar{
+        right:10px;
+        top:10px;
+    }
+
+}
+
+/* =========================================================
    HEADER
    ========================================================= */
 
@@ -892,6 +1615,268 @@ body{
 
 <body>
 
+<!-- =========================================================
+     AKKINO LANDING / PÁGINA PRINCIPAL
+     ========================================================= -->
+
+<section id="landingPage" class="landing-page">
+
+    <div class="landing-noise"></div>
+
+    <header class="landing-topbar">
+
+        <button
+            class="menu-trigger"
+            onclick="abrirMenu()"
+            aria-label="Abrir menú">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div class="landing-mini-logo">
+            <div class="landing-logo">AKKINO</div>
+            <div class="landing-logo-sub">PRIVÉ</div>
+        </div>
+
+        <button
+            class="landing-cart"
+            onclick="mostrarCatalogo()"
+            aria-label="Ver catálogo">
+            🛍
+        </button>
+
+    </header>
+
+
+    <div class="landing-center">
+
+        <div class="landing-eyebrow">
+            AKKINO PRIVÉ
+        </div>
+
+        <h1>
+            Fragancias<br>
+            <span>que dejan huella.</span>
+        </h1>
+
+        <div class="landing-divider">
+            <span></span>
+            <b>AKKINO</b>
+            <span></span>
+        </div>
+
+        <button
+            class="landing-cta"
+            onclick="mostrarCatalogo()">
+            INGRESAR AL CATÁLOGO
+            <span>→</span>
+        </button>
+
+        <button
+            class="landing-secondary"
+            onclick="abrirMenu()">
+            EXPLORAR SECCIONES
+        </button>
+
+    </div>
+
+
+    <div class="landing-bottom">
+
+        <div>
+            <small>CATÁLOGO OFICIAL</small>
+            <strong>AKKINO PRIVÉ</strong>
+        </div>
+
+        <div class="landing-socials">
+            <a
+                id="landingWhatsapp"
+                href="#"
+                target="_blank"
+                rel="noopener">
+                WhatsApp
+            </a>
+
+            <a
+                id="landingInstagram"
+                href="#"
+                target="_blank"
+                rel="noopener">
+                Instagram
+            </a>
+        </div>
+
+    </div>
+
+
+    <div class="landing-glow glow-one"></div>
+    <div class="landing-glow glow-two"></div>
+
+</section>
+
+
+<!-- =========================================================
+     MENÚ LATERAL
+     ========================================================= -->
+
+<div
+    id="menuBackdrop"
+    class="menu-backdrop"
+    onclick="cerrarMenu()">
+</div>
+
+<aside id="sideMenu" class="side-menu">
+
+    <div class="side-menu-head">
+
+        <div>
+            <small>AKKINO</small>
+            <strong>PRIVÉ</strong>
+        </div>
+
+        <button
+            onclick="cerrarMenu()"
+            class="menu-close">
+            ×
+        </button>
+
+    </div>
+
+
+    <div class="side-menu-section">
+
+        <small>SECCIONES</small>
+
+        <button onclick="irSeccion('inicio')">
+            <span>⌂</span>
+            INICIO
+        </button>
+
+        <button onclick="irSeccion('catalogo')">
+            <span>◈</span>
+            CATÁLOGO
+        </button>
+
+        <button onclick="irSeccion('destacados')">
+            <span>✦</span>
+            DESTACADOS
+        </button>
+
+        <button onclick="irSeccion('nuevos')">
+            <span>✧</span>
+            NUEVOS INGRESOS
+        </button>
+
+    </div>
+
+
+    <div class="side-menu-section">
+
+        <small>CATEGORÍAS</small>
+
+        <button onclick="irCategoria('MASCULINOS')">
+            <span>♂</span>
+            MASCULINOS
+        </button>
+
+        <button onclick="irCategoria('FEMENINOS')">
+            <span>♀</span>
+            FEMENINOS
+        </button>
+
+        <button onclick="irCategoria('UNISEX')">
+            <span>◉</span>
+            UNISEX
+        </button>
+
+        <button onclick="irCategoria('STOCK INSPIRACIONES')">
+            <span>▣</span>
+            STOCK INSPIRACIONES
+        </button>
+
+        <button
+            id="menuOriginales"
+            onclick="irOriginales()">
+            <span>◆</span>
+            PERFUMES ORIGINALES
+        </button>
+
+    </div>
+
+
+    <div class="side-menu-section side-social">
+
+        <small>CONTACTO</small>
+
+        <a
+            id="menuWhatsapp"
+            href="#"
+            target="_blank"
+            rel="noopener">
+            <span>◉</span>
+            WHATSAPP
+        </a>
+
+        <a
+            id="menuInstagram"
+            href="#"
+            target="_blank"
+            rel="noopener">
+            <span>◎</span>
+            INSTAGRAM
+        </a>
+
+    </div>
+
+</aside>
+
+
+<!-- =========================================================
+     CATÁLOGO / PÁGINA 2
+     ========================================================= -->
+
+<div id="catalogPage" class="catalog-page">
+
+    <div class="catalog-floating-bar">
+
+        <button
+            class="catalog-menu-btn"
+            onclick="abrirMenu()"
+            aria-label="Abrir menú">
+            ☰
+        </button>
+
+        <button
+            class="catalog-home-btn"
+            onclick="mostrarInicio()">
+            AKKINO
+        </button>
+
+        <a
+            id="catalogWhatsapp"
+            class="catalog-social whatsapp"
+            href="#"
+            target="_blank"
+            rel="noopener"
+            aria-label="WhatsApp">
+            WA
+        </a>
+
+        <a
+            id="catalogInstagram"
+            class="catalog-social instagram"
+            href="#"
+            target="_blank"
+            rel="noopener"
+            aria-label="Instagram">
+            IG
+        </a>
+
+    </div>
+
+    <div id="catalogInner">
+
 
 <!-- =======================================================
      HEADER
@@ -961,54 +1946,87 @@ body{
      HERO AKKINO
      ======================================================= -->
 
-<section class="hero-akkino">
+<section class="hero-akkino catalog-welcome">
 
     <div class="hero-panel">
 
         <div class="hero-copy">
 
             <div class="hero-kicker">
-                AKKINO PRIVÉ
+                BIENVENIDO A AKKINO PRIVÉ
             </div>
 
             <div class="hero-title">
-                Fragancias que dejan huella.
+                Todo tu mundo de fragancias,
+                <span>en un solo lugar.</span>
             </div>
 
             <div class="hero-text">
-                Descubrí nuestra selección de extractos de parfum
-                y perfumes originales. Una experiencia de compra
-                simple, elegante y directa.
+                Desde acá podés armar tus pedidos de inspiraciones,
+                consultar las promociones vigentes y realizar tus
+                pedidos mayoristas. También encontrás nuestra sección
+                de perfumes originales.
             </div>
 
-            <div class="hero-promo">
+            <div class="catalog-welcome-grid">
 
-                <div class="hero-chip">
-                    EXTRACTOS 60 ML
-                </div>
+                <button
+                    class="welcome-card"
+                    onclick="seleccionarTipo('INSPIRACIONES 60ML'); seleccionarFiltroExtra('TODOS'); document.getElementById('productos').scrollIntoView({behavior:'smooth'})">
 
-                <div class="hero-chip">
-                    35% CONCENTRACIÓN
-                </div>
+                    <div class="welcome-icon">✦</div>
 
-                <div class="hero-chip">
-                    3 × $50.000
-                </div>
+                    <div>
+                        <strong>INSPIRACIONES</strong>
+                        <span>
+                            Armá tu pedido y aprovechá
+                            las promociones vigentes.
+                        </span>
+                    </div>
+
+                    <b>VER COLECCIÓN →</b>
+
+                </button>
+
+
+                <button
+                    class="welcome-card"
+                    onclick="cambiarModo('mayorista'); document.getElementById('productos').scrollIntoView({behavior:'smooth'})">
+
+                    <div class="welcome-icon">◇</div>
+
+                    <div>
+                        <strong>MAYORISTA</strong>
+                        <span>
+                            Consultá escalas, precios
+                            y armá tu pedido mayorista.
+                        </span>
+                    </div>
+
+                    <b>INGRESAR →</b>
+
+                </button>
+
+
+                <button
+                    class="welcome-card welcome-originales"
+                    onclick="cambiarModo('particular'); seleccionarTipo('ORIGINALES'); seleccionarFiltroExtra('TODOS'); document.getElementById('productos').scrollIntoView({behavior:'smooth'})">
+
+                    <div class="welcome-icon">◆</div>
+
+                    <div>
+                        <strong>PERFUMES ORIGINALES</strong>
+                        <span>
+                            Descubrí nuestra selección
+                            de fragancias originales.
+                        </span>
+                    </div>
+
+                    <b>VER ORIGINALES →</b>
+
+                </button>
 
             </div>
-
-            <button
-            class="hero-btn"
-            onclick="
-            document
-            .getElementById('productos')
-            .scrollIntoView({
-                behavior:'smooth'
-            })">
-
-                VER CATÁLOGO
-
-            </button>
 
         </div>
 
@@ -1153,6 +2171,9 @@ class="modal">
 
 </div>
 
+
+    </div>
+</div>
 
 <script>
 
@@ -4368,6 +5389,351 @@ document
 
     }
 );
+
+/* =========================================================
+   NAVEGACIÓN LANDING <-> CATÁLOGO
+   ========================================================= */
+
+const INSTAGRAM_URL =
+    "https://www.instagram.com/";
+
+const WHATSAPP_URL =
+    "https://wa.me/" +
+    WHATSAPP;
+
+function configurarRedes(){
+
+    const enlaces =
+        [
+            "landingWhatsapp",
+            "menuWhatsapp",
+            "catalogWhatsapp"
+        ];
+
+    enlaces.forEach(
+        id => {
+
+            const el =
+                document.getElementById(id);
+
+            if(el){
+                el.href =
+                    WHATSAPP_URL;
+            }
+
+        }
+    );
+
+    const instagrames =
+        [
+            "landingInstagram",
+            "menuInstagram",
+            "catalogInstagram"
+        ];
+
+    instagrames.forEach(
+        id => {
+
+            const el =
+                document.getElementById(id);
+
+            if(el){
+                el.href =
+                    INSTAGRAM_URL;
+            }
+
+        }
+    );
+
+}
+
+function mostrarCatalogo(){
+
+    document
+    .getElementById("landingPage")
+    .classList.add("oculto");
+
+    document
+    .getElementById("catalogPage")
+    .classList.add("visible");
+
+    document
+    .body
+    .classList.add("viendo-catalogo");
+
+    history.pushState(
+        {vista:"catalogo"},
+        "",
+        "#catalogo"
+    );
+
+    window.scrollTo(
+        0,
+        0
+    );
+
+}
+
+function mostrarInicio(){
+
+    document
+    .getElementById("catalogPage")
+    .classList.remove("visible");
+
+    document
+    .getElementById("landingPage")
+    .classList.remove("oculto");
+
+    document
+    .body
+    .classList.remove("viendo-catalogo");
+
+    history.pushState(
+        {vista:"inicio"},
+        "",
+        "#inicio"
+    );
+
+    window.scrollTo(
+        0,
+        0
+    );
+
+    cerrarMenu();
+
+}
+
+function abrirMenu(){
+
+    document
+    .getElementById("sideMenu")
+    .classList.add("abierto");
+
+    document
+    .getElementById("menuBackdrop")
+    .classList.add("abierto");
+
+}
+
+function cerrarMenu(){
+
+    document
+    .getElementById("sideMenu")
+    .classList.remove("abierto");
+
+    document
+    .getElementById("menuBackdrop")
+    .classList.remove("abierto");
+
+}
+
+function irSeccion(seccion){
+
+    cerrarMenu();
+
+    if(
+        seccion ===
+        "inicio"
+    ){
+
+        mostrarInicio();
+        return;
+
+    }
+
+    mostrarCatalogo();
+
+    setTimeout(
+        () => {
+
+            if(
+                seccion ===
+                "destacados"
+            ){
+
+                seleccionarTipo(
+                    "INSPIRACIONES 60ML"
+                );
+
+                seleccionarFiltroExtra(
+                    "TODOS"
+                );
+
+            }
+
+            else if(
+                seccion ===
+                "nuevos"
+            ){
+
+                seleccionarTipo(
+                    "INSPIRACIONES 60ML"
+                );
+
+                seleccionarFiltroExtra(
+                    "NUEVOS INGRESOS"
+                );
+
+            }
+
+            document
+            .getElementById("categorias")
+            .scrollIntoView({
+                behavior:"smooth",
+                block:"start"
+            });
+
+        },
+        120
+    );
+
+}
+
+function irCategoria(categoria){
+
+    cerrarMenu();
+
+    mostrarCatalogo();
+
+    setTimeout(
+        () => {
+
+            seleccionarTipo(
+                "INSPIRACIONES 60ML"
+            );
+
+            seleccionarFiltroExtra(
+                categoria
+            );
+
+            document
+            .getElementById("productos")
+            .scrollIntoView({
+                behavior:"smooth",
+                block:"start"
+            });
+
+        },
+        120
+    );
+
+}
+
+function irOriginales(){
+
+    cerrarMenu();
+
+    mostrarCatalogo();
+
+    setTimeout(
+        () => {
+
+            if(
+                modoActual !==
+                "particular"
+            ){
+
+                cambiarModo(
+                    "particular"
+                );
+
+            }
+
+            seleccionarTipo(
+                "ORIGINALES"
+            );
+
+            seleccionarFiltroExtra(
+                "TODOS"
+            );
+
+            document
+            .getElementById("productos")
+            .scrollIntoView({
+                behavior:"smooth",
+                block:"start"
+            });
+
+        },
+        120
+    );
+
+}
+
+window.addEventListener(
+    "popstate",
+    function(){
+
+        if(
+            location.hash ===
+            "#catalogo"
+        ){
+
+            document
+            .getElementById("landingPage")
+            .classList.add("oculto");
+
+            document
+            .getElementById("catalogPage")
+            .classList.add("visible");
+
+        }
+        else{
+
+            document
+            .getElementById("catalogPage")
+            .classList.remove("visible");
+
+            document
+            .getElementById("landingPage")
+            .classList.remove("oculto");
+
+        }
+
+    }
+);
+
+configurarRedes();
+
+if(
+    location.hash ===
+    "#catalogo"
+){
+
+    document
+    .getElementById("landingPage")
+    .classList.add("oculto");
+
+    document
+    .getElementById("catalogPage")
+    .classList.add("visible");
+
+}
+
+function sincronizarMenuOriginales(){
+
+    const btn =
+        document.getElementById(
+            "menuOriginales"
+        );
+
+    if(!btn){
+        return;
+    }
+
+    btn.style.display =
+        modoActual ===
+        "particular"
+        ? "flex"
+        : "none";
+}
+
+setInterval(
+    sincronizarMenuOriginales,
+    500
+);
+
+sincronizarMenuOriginales();
 
 </script>
 
