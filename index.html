@@ -2574,6 +2574,320 @@ RESULTADO:
 }
 </style>
 
+
+<style id="akkino-mayorista-carousel">
+/* =========================================================
+   AKKINO PRIVÉ — HERO MAYORISTA CARRUSEL
+   ========================================================= */
+
+#heroMayorista{
+    display:none;
+}
+
+.mayorista-hero{
+    position:relative;
+    width:100%;
+}
+
+.mayorista-carousel{
+    position:relative;
+    width:100%;
+    min-height:470px;
+    overflow:hidden;
+    border:1px solid rgba(212,175,55,.48);
+    border-radius:18px;
+    background:
+        radial-gradient(circle at 80% 20%,rgba(212,175,55,.13),transparent 35%),
+        linear-gradient(120deg,#090909,#11110e 60%,#050505);
+    box-shadow:
+        inset 0 0 70px rgba(212,175,55,.045),
+        0 20px 60px rgba(0,0,0,.28);
+}
+
+.mayorista-slide{
+    position:absolute;
+    inset:0;
+    display:grid;
+    grid-template-columns:minmax(0,1.25fr) minmax(250px,.75fr);
+    gap:20px;
+    padding:42px 55px 62px;
+    opacity:0;
+    visibility:hidden;
+    transform:translateX(25px);
+    transition:
+        opacity .45s ease,
+        transform .45s ease,
+        visibility .45s;
+}
+
+.mayorista-slide.activa{
+    opacity:1;
+    visibility:visible;
+    transform:translateX(0);
+}
+
+.mayorista-slide-copy{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    min-width:0;
+}
+
+.mayorista-kicker{
+    color:#d4af37;
+    font-size:10px;
+    letter-spacing:4px;
+    font-weight:800;
+    margin-bottom:16px;
+}
+
+.mayorista-slide h2{
+    margin:0 0 18px;
+    max-width:720px;
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:42px;
+    line-height:1.03;
+    color:#fff;
+}
+
+.mayorista-slide h2 span{
+    color:#d4af37;
+    font-style:italic;
+}
+
+.mayorista-slide-copy > p{
+    max-width:680px;
+    margin:6px 0;
+    color:#d1d1d1;
+    font-size:15px;
+    line-height:1.55;
+}
+
+.mayorista-slide-copy > p strong{
+    color:#d4af37;
+}
+
+.mayorista-slide-media{
+    min-width:0;
+    min-height:310px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+}
+
+.mayorista-slide-media::before{
+    content:"";
+    position:absolute;
+    width:260px;
+    height:260px;
+    border-radius:50%;
+    background:rgba(212,175,55,.09);
+    filter:blur(25px);
+}
+
+.mayorista-slide-media img{
+    position:relative;
+    width:100%;
+    height:330px;
+    object-fit:contain;
+    filter:
+        drop-shadow(0 20px 28px rgba(0,0,0,.7))
+        drop-shadow(0 0 22px rgba(212,175,55,.08));
+}
+
+.mayorista-escalas{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:7px 18px;
+    max-height:290px;
+    overflow:auto;
+    padding-right:7px;
+}
+
+.mayorista-escalas div{
+    color:#e7e7e7;
+    font-size:11px;
+    line-height:1.35;
+}
+
+.mayorista-escalas b{
+    color:#fff;
+}
+
+.mayorista-escalas small{
+    color:#8e8e8e;
+}
+
+.mayorista-minimo{
+    margin-top:15px;
+    color:#62d85d;
+    font-size:13px;
+    font-weight:800;
+}
+
+.mayorista-condiciones{
+    max-width:680px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:4px 24px;
+}
+
+.mayorista-condiciones p{
+    margin:0;
+    color:#d4d4d4;
+    font-size:11px;
+    line-height:1.42;
+}
+
+.mayorista-condiciones .condicion-separador{
+    grid-column:1/-1;
+    color:#d4af37;
+    margin-top:8px;
+}
+
+.mayorista-descuento{
+    grid-column:1/-1;
+    margin-top:9px;
+    padding:11px 13px;
+    border:1px solid rgba(212,175,55,.42);
+    border-radius:9px;
+    background:rgba(212,175,55,.08);
+    color:#f0f0f0;
+    font-size:12px;
+}
+
+.mayorista-descuento strong{
+    color:#d4af37;
+}
+
+.mayorista-arrow{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    z-index:4;
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    border:1px solid rgba(212,175,55,.55);
+    background:rgba(5,5,5,.82);
+    color:#d4af37;
+    font-size:29px;
+    line-height:1;
+    cursor:pointer;
+    transition:.2s ease;
+}
+
+.mayorista-arrow:hover{
+    background:#d4af37;
+    color:#111;
+}
+
+.mayorista-prev{
+    left:13px;
+}
+
+.mayorista-next{
+    right:13px;
+}
+
+.mayorista-carousel-bottom{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:15px;
+    z-index:5;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:22px;
+}
+
+.mayorista-dots{
+    display:flex;
+    gap:7px;
+}
+
+.mayorista-dots button{
+    width:30px;
+    height:7px;
+    border:0;
+    border-radius:10px;
+    background:#292929;
+    color:transparent;
+    cursor:pointer;
+    transition:.25s ease;
+}
+
+.mayorista-dots button.activo{
+    width:48px;
+    background:#d4af37;
+}
+
+.mayorista-catalogo-btn{
+    border:1px solid #d4af37;
+    border-radius:8px;
+    background:#d4af37;
+    color:#111;
+    padding:9px 14px;
+    font-size:10px;
+    font-weight:900;
+    cursor:pointer;
+}
+
+@media(max-width:800px){
+
+    .mayorista-carousel{
+        min-height:650px;
+    }
+
+    .mayorista-slide{
+        grid-template-columns:1fr;
+        padding:28px 38px 72px;
+        overflow-y:auto;
+    }
+
+    .mayorista-slide-media{
+        min-height:180px;
+        order:-1;
+    }
+
+    .mayorista-slide-media img{
+        height:180px;
+    }
+
+    .mayorista-slide h2{
+        font-size:31px;
+    }
+
+    .mayorista-escalas{
+        grid-template-columns:1fr;
+        max-height:235px;
+    }
+
+    .mayorista-condiciones{
+        grid-template-columns:1fr;
+    }
+
+    .mayorista-condiciones .condicion-separador,
+    .mayorista-descuento{
+        grid-column:1;
+    }
+
+    .mayorista-carousel-bottom{
+        gap:10px;
+        flex-direction:column;
+        bottom:10px;
+    }
+
+    .mayorista-arrow{
+        width:34px;
+        height:34px;
+        font-size:23px;
+    }
+}
+</style>
+
 </head>
 
 
@@ -2902,7 +3216,13 @@ RESULTADO:
 
     <div class="hero-panel">
 
-        <div class="hero-copy">
+        <!-- =====================================================
+             HERO PARTICULAR
+             ===================================================== -->
+
+        <div
+            id="heroParticular"
+            class="hero-copy">
 
             <div class="hero-kicker">
                 BIENVENIDO A AKKINO PRIVÉ
@@ -2924,7 +3244,11 @@ RESULTADO:
 
                 <button
                     class="welcome-card"
-                    onclick="seleccionarTipo('INSPIRACIONES 60ML'); seleccionarFiltroExtra('TODOS'); document.getElementById('productos').scrollIntoView({behavior:'smooth'})">
+                    onclick="
+                        seleccionarTipo('INSPIRACIONES 60ML');
+                        seleccionarFiltroExtra('TODOS');
+                        document.getElementById('productos').scrollIntoView({behavior:'smooth'})
+                    ">
 
                     <div class="welcome-icon">✦</div>
 
@@ -2943,7 +3267,7 @@ RESULTADO:
 
                 <button
                     class="welcome-card"
-                    onclick="cambiarModo('mayorista'); document.getElementById('productos').scrollIntoView({behavior:'smooth'})">
+                    onclick="cambiarModo('mayorista')">
 
                     <div class="welcome-icon">◇</div>
 
@@ -2962,7 +3286,12 @@ RESULTADO:
 
                 <button
                     class="welcome-card welcome-originales"
-                    onclick="cambiarModo('particular'); seleccionarTipo('ORIGINALES'); seleccionarFiltroExtra('TODOS'); document.getElementById('productos').scrollIntoView({behavior:'smooth'})">
+                    onclick="
+                        cambiarModo('particular');
+                        seleccionarTipo('ORIGINALES');
+                        seleccionarFiltroExtra('TODOS');
+                        document.getElementById('productos').scrollIntoView({behavior:'smooth'})
+                    ">
 
                     <div class="welcome-icon">◆</div>
 
@@ -2976,6 +3305,244 @@ RESULTADO:
 
                     <b>VER ORIGINALES →</b>
 
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             HERO MAYORISTA — CARRUSEL
+             ===================================================== -->
+
+        <div
+            id="heroMayorista"
+            class="mayorista-hero"
+            aria-label="Información mayorista">
+
+            <div class="mayorista-carousel">
+
+                <!-- SLIDE 1 -->
+
+                <article
+                    class="mayorista-slide activa"
+                    data-slide="0">
+
+                    <div class="mayorista-slide-copy">
+
+                        <div class="mayorista-kicker">
+                            AKKINO PRIVÉ · MAYORISTA
+                        </div>
+
+                        <h2>
+                            Inspiraciones pensadas
+                            <span>para revender.</span>
+                        </h2>
+
+                        <p>
+                            Inspirados en las fragancias más reconocidas del mundo.
+                        </p>
+
+                        <p>
+                            💼 Ideal para perfumerías, farmacias,
+                            regalerías y revendedores.
+                        </p>
+
+                        <p>
+                            💰 Precio sugerido de venta al público:
+                            <strong>$25.000 a $35.000</strong>
+                        </p>
+
+                    </div>
+
+                    <div class="mayorista-slide-media">
+                        <img
+                            id="mayoristaImagen0"
+                            alt="Inspiraciones AKKINO Privé"
+                            loading="lazy">
+                    </div>
+
+                </article>
+
+
+                <!-- SLIDE 2 -->
+
+                <article
+                    class="mayorista-slide"
+                    data-slide="1">
+
+                    <div class="mayorista-slide-copy">
+
+                        <div class="mayorista-kicker">
+                            ESCALAS MAYORISTAS
+                        </div>
+
+                        <h2>
+                            Mientras más comprás,
+                            <span>menor es tu costo.</span>
+                        </h2>
+
+                        <div class="mayorista-escalas">
+
+                            <div>🔹 <b>5 unidades</b> → invertís $75.000 <small>(a $15.000 c/u)</small> 💵 Ganás $125.000</div>
+
+                            <div>🔹 <b>10 unidades</b> → invertís $145.000 <small>(a $14.500 c/u)</small> 💵 Ganás $250.000</div>
+
+                            <div>🔹 <b>20 unidades</b> → invertís $284.000 <small>(a $14.200 c/u)</small> 💵 Ganás $500.000</div>
+
+                            <div>🔹 <b>30 unidades</b> → invertís $417.000 <small>(a $13.900 c/u)</small> 💵 Ganás $750.000</div>
+
+                            <div>🔹 <b>50 unidades</b> → invertís $670.000 <small>(a $13.400 c/u)</small> 💵 Ganás $1.250.000</div>
+
+                            <div>🔹 <b>100 unidades</b> → invertís $1.250.000 <small>(a $12.500 c/u)</small> 💵 Ganás $2.500.000</div>
+
+                            <div>🔹 <b>250 unidades</b> → invertís $3.000.000 <small>(a $12.000 c/u)</small> 💵 Ganás $6.250.000</div>
+
+                            <div>🔹 <b>+500 unidades</b> → invertís $5.250.000 <small>(a $10.500 c/u)</small> 💵 Ganás $12.500.000</div>
+
+                        </div>
+
+                        <div class="mayorista-minimo">
+                            ✅ Mínimo de compra: <strong>5 unidades</strong>
+                        </div>
+
+                    </div>
+
+                    <div class="mayorista-slide-media">
+                        <img
+                            id="mayoristaImagen1"
+                            alt="Escalas mayoristas AKKINO Privé"
+                            loading="lazy">
+                    </div>
+
+                </article>
+
+
+                <!-- SLIDE 3 -->
+
+                <article
+                    class="mayorista-slide"
+                    data-slide="2">
+
+                    <div class="mayorista-slide-copy">
+
+                        <div class="mayorista-kicker">
+                            CONDICIONES MAYORISTAS
+                        </div>
+
+                        <h2>
+                            Todo lo que necesitás
+                            <span>para empezar.</span>
+                        </h2>
+
+                        <div class="mayorista-condiciones">
+
+                            <p>● Presentación en envase de 60ml</p>
+                            <p>● Packaging semi-transparente de plástico antigolpes</p>
+                            <p>● Excelente proyección y duración (8 a 10 horas)</p>
+
+                            <p class="condicion-separador">
+                                📍 <strong>Formas de pago:</strong>
+                            </p>
+
+                            <p>● Efectivo</p>
+                            <p>● Transferencia</p>
+                            <p>● Recibimos USDT</p>
+
+                            <div class="mayorista-descuento">
+                                🎁 Primera compra:
+                                <strong>-10% de descuento</strong>
+                                a partir de 10 unidades
+                            </div>
+
+                            <p class="condicion-separador">
+                                📦 <strong>Modalidad de trabajo</strong>
+                            </p>
+
+                            <p>
+                                💳 Los pedidos se confirman con el pago del 100%,
+                                se cierra pedido cada lunes y se despachan una vez
+                                recibida la mercadería del proveedor.
+                            </p>
+
+                            <p>
+                                🚚 Plazo estimado de entrega:
+                                <strong>2 a 5 días hábiles.</strong>
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="mayorista-slide-media">
+                        <img
+                            id="mayoristaImagen2"
+                            alt="Condiciones mayoristas AKKINO Privé"
+                            loading="lazy">
+                    </div>
+
+                </article>
+
+            </div>
+
+
+            <button
+                class="mayorista-arrow mayorista-prev"
+                type="button"
+                onclick="cambiarSlideMayorista(-1)"
+                aria-label="Anterior">
+                ‹
+            </button>
+
+            <button
+                class="mayorista-arrow mayorista-next"
+                type="button"
+                onclick="cambiarSlideMayorista(1)"
+                aria-label="Siguiente">
+                ›
+            </button>
+
+
+            <div class="mayorista-carousel-bottom">
+
+                <div
+                    id="mayoristaDots"
+                    class="mayorista-dots">
+
+                    <button
+                        type="button"
+                        class="activo"
+                        onclick="irSlideMayorista(0)"
+                        aria-label="Información general">
+                        1
+                    </button>
+
+                    <button
+                        type="button"
+                        onclick="irSlideMayorista(1)"
+                        aria-label="Escalas mayoristas">
+                        2
+                    </button>
+
+                    <button
+                        type="button"
+                        onclick="irSlideMayorista(2)"
+                        aria-label="Condiciones mayoristas">
+                        3
+                    </button>
+
+                </div>
+
+                <button
+                    class="mayorista-catalogo-btn"
+                    type="button"
+                    onclick="
+                        seleccionarTipo('INSPIRACIONES 60ML');
+                        seleccionarFiltroExtra('TODOS');
+                        document.getElementById('productos').scrollIntoView({behavior:'smooth'})
+                    ">
+                    VER CATÁLOGO MAYORISTA →
                 </button>
 
             </div>
@@ -4321,6 +4888,197 @@ function aplicarFiltros(){
    MODO PARTICULAR / MAYORISTA
    ========================================================= */
 
+
+/* =========================================================
+   HERO MAYORISTA — CARRUSEL
+   ========================================================= */
+
+let mayoristaSlideActual = 0;
+let mayoristaIntervalo = null;
+
+function actualizarHeroModo(){
+
+    const heroParticular =
+        document.getElementById("heroParticular");
+
+    const heroMayorista =
+        document.getElementById("heroMayorista");
+
+    if(!heroParticular || !heroMayorista){
+        return;
+    }
+
+    const esMayorista =
+        modoActual === "mayorista";
+
+    heroParticular.style.display =
+        esMayorista
+        ? "none"
+        : "block";
+
+    heroMayorista.style.display =
+        esMayorista
+        ? "block"
+        : "none";
+
+    if(esMayorista){
+
+        prepararImagenesMayorista();
+
+        iniciarCarruselMayorista();
+
+    }else{
+
+        detenerCarruselMayorista();
+
+    }
+}
+
+
+function prepararImagenesMayorista(){
+
+    if(
+        !Array.isArray(perfumes) ||
+        !perfumes.length
+    ){
+        return;
+    }
+
+    /*
+    Usamos imágenes reales del catálogo como soporte visual
+    del carrusel. No se agregan imágenes externas.
+    */
+    const disponibles =
+        perfumes
+        .filter(
+            p =>
+                texto(p.foto) &&
+                tipoPrincipalProducto(p) !== "ORIGINALES"
+        )
+        .slice(0,3);
+
+    disponibles.forEach(
+        (producto,index) => {
+
+            const img =
+                document.getElementById(
+                    `mayoristaImagen${index}`
+                );
+
+            if(!img){
+                return;
+            }
+
+            img.src =
+                texto(producto.foto);
+
+            img.alt =
+                texto(producto.perfume) ||
+                "AKKINO Privé";
+
+        }
+    );
+}
+
+
+function irSlideMayorista(indice){
+
+    const slides =
+        document.querySelectorAll(
+            ".mayorista-slide"
+        );
+
+    const dots =
+        document.querySelectorAll(
+            "#mayoristaDots button"
+        );
+
+    if(!slides.length){
+        return;
+    }
+
+    mayoristaSlideActual =
+        (indice + slides.length) %
+        slides.length;
+
+    slides.forEach(
+        (slide,index) => {
+
+            slide.classList.toggle(
+                "activa",
+                index ===
+                mayoristaSlideActual
+            );
+
+        }
+    );
+
+    dots.forEach(
+        (dot,index) => {
+
+            dot.classList.toggle(
+                "activo",
+                index ===
+                mayoristaSlideActual
+            );
+
+        }
+    );
+}
+
+
+function cambiarSlideMayorista(direccion){
+
+    irSlideMayorista(
+        mayoristaSlideActual +
+        direccion
+    );
+
+}
+
+
+function iniciarCarruselMayorista(){
+
+    detenerCarruselMayorista();
+
+    mayoristaIntervalo =
+        setInterval(
+            () => {
+
+                if(
+                    modoActual ===
+                    "mayorista"
+                ){
+
+                    cambiarSlideMayorista(1);
+
+                }
+
+            },
+            7500
+        );
+
+}
+
+
+function detenerCarruselMayorista(){
+
+    if(
+        mayoristaIntervalo
+    ){
+
+        clearInterval(
+            mayoristaIntervalo
+        );
+
+        mayoristaIntervalo =
+            null;
+
+    }
+
+}
+
+
 function cambiarModo(modo){
 
     modoActual =
@@ -4358,6 +5116,8 @@ function cambiarModo(modo){
         modo ===
         "mayorista"
     );
+
+    actualizarHeroModo();
 
     // Los originales no pueden permanecer en un pedido mayorista.
     if(
@@ -7288,6 +8048,21 @@ document.addEventListener(
 
     }
 );
+
+
+/* =========================================================
+   INICIALIZACIÓN DEL HERO MAYORISTA
+   ========================================================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    () => {
+
+        actualizarHeroModo();
+
+    }
+);
+
 </script>
 
 
