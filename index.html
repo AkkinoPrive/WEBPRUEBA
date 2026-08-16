@@ -343,6 +343,41 @@ body{
     color:#111;
 }
 
+/* CONTADOR EN LA TARJETA */
+.contador-producto{
+    width:100%;
+    margin-top:7px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    background:#111;
+    border-radius:10px;
+    overflow:hidden;
+}
+
+.contador-producto-btn{
+    width:42px;
+    height:42px;
+    border:none;
+    background:#111;
+    color:#fff;
+    font-size:22px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.contador-producto-btn:hover{
+    background:#d4af37;
+    color:#111;
+}
+
+.contador-producto-numero{
+    min-width:40px;
+    text-align:center;
+    color:#fff;
+    font-size:17px;
+}
+
 .promos{
     display:flex;
     flex-direction:column;
@@ -2869,12 +2904,14 @@ function mostrarProductos(
                     "mayorista"
                 ){
 
-                    const total =
+                    // El precio mayorista depende del TOTAL
+                    // de unidades del pedido.
+                    const totalPedido =
                         totalUnidades();
 
                     const cantidadEscala =
                         Math.max(
-                            total,
+                            totalPedido,
                             MINIMO_MAYORISTA
                         );
 
@@ -2886,13 +2923,20 @@ function mostrarProductos(
 
                     const escala =
                         escalaMayorista(
-                            total
+                            totalPedido
                         );
 
                     const siguiente =
                         proximaEscala(
-                            total
+                            totalPedido
                         );
+
+                    const faltan =
+                        siguiente
+                        ?
+                        siguiente - totalPedido
+                        :
+                        0;
 
 
                     precioHTML = `
@@ -2926,22 +2970,45 @@ function mostrarProductos(
                         <div
                         class="nivel-mayorista">
 
-                            Escala:
-                            ${escapeHTML(
-                                escala
-                            )}
-
                             ${
-                                siguiente
+                                totalPedido > 0
                                 ?
                                 `
-                                <br>
-                                Próxima escala:
-                                ${siguiente}
-                                unidades
+                                Escala actual:
+                                ${escapeHTML(
+                                    escala
+                                )}
+
+                                ${
+                                    siguiente
+                                    ?
+                                    `
+                                    <br>
+                                    Próxima escala:
+                                    ${siguiente}
+                                    unidades
+                                    <br>
+                                    Faltan:
+                                    ${faltan}
+                                    unidades
+                                    `
+                                    :
+                                    `
+                                    <br>
+                                    Escala máxima alcanzada
+                                    `
+                                }
                                 `
                                 :
-                                ""
+                                `
+                                Escala actual:
+                                Menos de ${MINIMO_MAYORISTA}
+                                unidades
+                                <br>
+                                Próxima escala:
+                                ${MINIMO_MAYORISTA}
+                                unidades
+                                `
                             }
 
                         </div>
@@ -3037,34 +3104,50 @@ function mostrarProductos(
 
 
                             ${
-                                modoActual ===
-                                "particular"
+                                cantidadActual > 0
                                 ?
                                 `
+                                <div
+                                class="contador-producto">
 
-                                <button
-                                class="producto-boton"
-                                onclick="
-                                agregarProducto(
-                                    '${escapeJS(
-                                        producto.perfume
-                                    )}'
-                                )">
+                                    <button
+                                    class="contador-producto-btn"
+                                    onclick="
+                                    modificarCantidad(
+                                        '${escapeJS(
+                                            producto.perfume
+                                        )}',
+                                        -1
+                                    )">
 
-                                    ${
-                                        cantidadActual > 0
-                                        ?
-                                        "AGREGAR OTRA UNIDAD"
-                                        :
-                                        "AGREGAR AL PEDIDO"
-                                    }
+                                        −
 
-                                </button>
+                                    </button>
 
+                                    <strong
+                                    class="contador-producto-numero">
+
+                                        ${cantidadActual}
+
+                                    </strong>
+
+                                    <button
+                                    class="contador-producto-btn"
+                                    onclick="
+                                    agregarProducto(
+                                        '${escapeJS(
+                                            producto.perfume
+                                        )}'
+                                    )">
+
+                                        +
+
+                                    </button>
+
+                                </div>
                                 `
                                 :
                                 `
-
                                 <button
                                 class="producto-boton"
                                 onclick="
@@ -3077,7 +3160,6 @@ function mostrarProductos(
                                     AGREGAR AL PEDIDO
 
                                 </button>
-
                                 `
                             }
 
@@ -3325,6 +3407,15 @@ function actualizarCarrito(){
         .textContent =
             `${total} productos · mínimo mayorista ${MINIMO_MAYORISTA}`;
 
+    }
+
+    // Actualiza inmediatamente las tarjetas, precios,
+    // escalas y contadores.
+    if(
+        productosFiltrados &&
+        productosFiltrados.length
+    ){
+        mostrarPagina();
     }
 
 }
