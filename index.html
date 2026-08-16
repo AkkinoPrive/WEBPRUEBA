@@ -1246,20 +1246,39 @@ body{
     font-size:17px;
 }
 
+.promociones-titulo{
+    margin-top:10px;
+    margin-bottom:6px;
+    font-size:13px;
+    font-weight:800;
+    color:#f2c62e;
+    letter-spacing:.2px;
+}
+
 .promos{
     display:flex;
     flex-direction:column;
-    gap:5px;
-    margin-top:7px;
+    gap:6px;
+    margin-top:0;
 }
 
 .promo{
-    background:#1d1d1d;
-    border:1px solid #2a2a2a;
     border-radius:8px;
-    padding:7px 9px;
-    font-size:11px;
-    color:#bbb;
+    padding:8px 9px;
+    font-size:12px;
+    font-weight:800;
+    text-align:center;
+    color:#fff;
+    border:1px solid rgba(255,255,255,.22);
+    box-shadow:0 2px 7px rgba(0,0,0,.28);
+}
+
+.promo-2{
+    background:linear-gradient(135deg,#d71919,#ff4b2b);
+}
+
+.promo-3{
+    background:linear-gradient(135deg,#278500,#61c400);
 }
 
 /* =========================================================
@@ -4118,40 +4137,30 @@ function mostrarProductos(
                             ?
                             `
 
-                            <div
-                            class="promos">
+                            <div class="promociones-titulo">
+                                🎉 PROMOCIONES
+                            </div>
+
+                            <div class="promos">
 
                                 ${
                                     promo2 > 0
                                     ?
                                     `
-                                    <div
-                                    class="promo">
-
-                                        2 x
-                                        ${dinero(
-                                            promo2
-                                        )}
-
+                                    <div class="promo promo-2">
+                                        🔥🔥 &nbsp; 2 x ${dinero(promo2)}
                                     </div>
                                     `
                                     :
                                     ""
                                 }
 
-
                                 ${
                                     promo3 > 0
                                     ?
                                     `
-                                    <div
-                                    class="promo">
-
-                                        3 x
-                                        ${dinero(
-                                            promo3
-                                        )}
-
+                                    <div class="promo promo-3">
+                                        🔥🔥🔥 &nbsp; 3 x ${dinero(promo3)}
                                     </div>
                                     `
                                     :
