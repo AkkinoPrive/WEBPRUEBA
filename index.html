@@ -1779,81 +1779,68 @@ html, body{
 </style>
 
 
-<style id="akkino-carrito-modal-separado">
+<style id="akkino-carrito-movil">
 /* =========================================================
-   AKKINO — CARRITO MODAL SEPARADO
+   AKKINO — CARRITO MÓVIL CON LA PÁGINA
    =========================================================
-   Fondo:
-   - sigue siendo la página normal y puede scrollearse.
-   - el overlay no captura el scroll fuera del pedido.
-
-   Pedido:
-   - queda fijo y centrado en pantalla.
-   - es independiente del fondo.
-   - si el pedido es muy largo, SOLO el pedido hace scroll.
+   El pedido NO usa position:fixed.
+   Se mueve junto con la página al hacer scroll.
+   El fondo queda detrás y el recuadro acompaña al scroll.
+   Si el contenido del pedido es largo, el recuadro crece
+   hasta un límite razonable.
    ========================================================= */
 
 #modalCarrito.modal{
-    position:fixed !important;
-    inset:0 !important;
+    position:absolute !important;
+    left:0 !important;
+    top:0 !important;
 
-    width:100vw !important;
-    height:100vh !important;
+    width:100% !important;
+    min-height:100% !important;
 
     z-index:2147483646 !important;
 
     display:none !important;
 
-    align-items:center !important;
+    align-items:flex-start !important;
     justify-content:center !important;
 
     box-sizing:border-box !important;
 
-    padding:24px !important;
+    padding:55px 20px 140px !important;
 
-    /*
-      El overlay visual NO bloquea el documento de atrás.
-      Así podés mover la página con el mouse/touch fuera
-      del recuadro del pedido.
-    */
     background:rgba(0,0,0,.68) !important;
 
     pointer-events:none !important;
 
-    overflow:hidden !important;
+    overflow:visible !important;
 }
 
 #modalCarrito.modal.activo{
     display:flex !important;
 }
 
-/* El recuadro es el elemento independiente */
 #modalCarrito .modal-contenido{
     pointer-events:auto !important;
 
     position:relative !important;
 
-    width:min(680px, 94vw) !important;
+    width:min(680px,94vw) !important;
     max-width:680px !important;
 
-    /*
-      Fijo en el centro.
-      NO se mueve con el scroll del fondo.
-    */
-    max-height:calc(100vh - 48px) !important;
-
-    margin:0 !important;
+    margin:0 auto !important;
 
     box-sizing:border-box !important;
 
-    overflow-y:auto !important;
-    overflow-x:hidden !important;
+    /*
+      Importante:
+      NO max-height:100vh.
+      El recuadro forma parte del documento y se mueve
+      con él al hacer scroll.
+    */
+    max-height:none !important;
 
-    overscroll-behavior:contain !important;
-    -webkit-overflow-scrolling:touch !important;
-
-    scrollbar-width:thin;
-    scrollbar-color:#d4af37 #111;
+    overflow:visible !important;
 
     background:#0d0d0d !important;
     color:#f5f5f5 !important;
@@ -1868,24 +1855,8 @@ html, body{
         0 0 45px rgba(212,175,55,.10) !important;
 }
 
-#modalCarrito .modal-contenido::-webkit-scrollbar{
-    width:8px;
-}
-
-#modalCarrito .modal-contenido::-webkit-scrollbar-track{
-    background:#111;
-    border-radius:10px;
-}
-
-#modalCarrito .modal-contenido::-webkit-scrollbar-thumb{
-    background:#d4af37;
-    border-radius:10px;
-}
-
-/* Cabecera del pedido */
 #modalCarrito .modal-header{
     position:relative !important;
-
     top:auto !important;
     z-index:auto !important;
 
@@ -1908,7 +1879,6 @@ html, body{
     border:1px solid rgba(212,175,55,.35) !important;
 }
 
-/* Productos */
 #modalCarrito .item-carrito{
     color:#fff !important;
     border-bottom:1px solid rgba(255,255,255,.10) !important;
@@ -1924,7 +1894,6 @@ html, body{
     font-weight:800 !important;
 }
 
-/* Promociones */
 #modalCarrito .promo-detalle{
     margin:12px 0 4px;
     padding:12px 13px;
@@ -1965,7 +1934,6 @@ html, body{
     font-weight:800;
 }
 
-/* Forma de pago */
 #modalCarrito .selector-pago{
     background:#151515 !important;
     border:1px solid rgba(255,255,255,.08) !important;
@@ -1977,7 +1945,6 @@ html, body{
     border-color:#444 !important;
 }
 
-/* Resumen */
 #modalCarrito .carrito-resumen{
     border-top:1px solid rgba(212,175,55,.35) !important;
 }
@@ -1990,17 +1957,12 @@ html, body{
     color:#d4af37 !important;
 }
 
-/* WhatsApp */
 #modalCarrito .enviar-whatsapp{
     background:#d4af37 !important;
     color:#111 !important;
     font-weight:900 !important;
 }
 
-/*
-  El hint no debe ocupar protagonismo.
-  El recuadro sigue siendo el elemento principal.
-*/
 #akkino-scroll-cart-hint{
     margin:10px 0 0 !important;
     text-align:center !important;
@@ -2011,12 +1973,11 @@ html, body{
 
 @media(max-width:700px){
     #modalCarrito.modal{
-        padding:12px !important;
+        padding:30px 10px 120px !important;
     }
 
     #modalCarrito .modal-contenido{
         width:96vw !important;
-        max-height:calc(100vh - 24px) !important;
         padding:16px !important;
         border-radius:15px !important;
     }
