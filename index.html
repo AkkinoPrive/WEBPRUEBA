@@ -1737,6 +1737,47 @@ body{
 }
 </style>
 
+
+<style id="akkino-barra-realmente-fija">
+/* La barra se fija al viewport, no al contenedor del catálogo */
+html, body{
+    overflow-x:clip;
+}
+
+#carritoBarra.carrito-barra{
+    position:fixed !important;
+    left:0 !important;
+    right:0 !important;
+    bottom:0 !important;
+    top:auto !important;
+    width:100vw !important;
+    max-width:none !important;
+    margin:0 !important;
+    z-index:2147483647 !important;
+    box-sizing:border-box !important;
+
+    transform:translate3d(0,110%,0) !important;
+    opacity:0 !important;
+    visibility:hidden !important;
+    pointer-events:none !important;
+}
+
+#carritoBarra.carrito-barra.visible{
+    transform:translate3d(0,0,0) !important;
+    opacity:1 !important;
+    visibility:visible !important;
+    pointer-events:auto !important;
+}
+
+/* Por si algún contenedor padre tiene transform/overflow */
+#carritoBarra.carrito-barra .carrito-contenido{
+    width:100%;
+    max-width:1100px;
+    margin:0 auto;
+    box-sizing:border-box;
+}
+</style>
+
 </head>
 
 
@@ -5963,6 +6004,58 @@ setInterval(
 
 sincronizarMenuOriginales();
 
+</script>
+
+
+<script id="akkino-mover-barra-al-body">
+(function(){
+
+    function moverBarraAlBody(){
+
+        const barra =
+            document.getElementById("carritoBarra");
+
+        if(!barra) return;
+
+        if(barra.parentElement !== document.body){
+
+            document.body.appendChild(barra);
+
+        }
+
+    }
+
+    if(document.readyState === "loading"){
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            moverBarraAlBody
+        );
+
+    }else{
+
+        moverBarraAlBody();
+
+    }
+
+    /*
+    Por si el catálogo vuelve a renderizar el contenedor
+    o reconstruye el DOM.
+    */
+    const observer =
+        new MutationObserver(
+            moverBarraAlBody
+        );
+
+    observer.observe(
+        document.documentElement,
+        {
+            childList:true,
+            subtree:true
+        }
+    );
+
+})();
 </script>
 
 </body>
