@@ -1692,6 +1692,51 @@ body{
 }
 </style>
 
+
+<style id="akkino-barra-fija">
+#carritoBarra.carrito-barra{
+    position:fixed !important;
+    left:0 !important;
+    right:0 !important;
+    bottom:0 !important;
+    top:auto !important;
+    width:100% !important;
+    max-width:none !important;
+    margin:0 !important;
+    z-index:2147483647 !important;
+    box-sizing:border-box !important;
+    transform:translateY(110%) !important;
+}
+
+#carritoBarra.carrito-barra.visible{
+    transform:translateY(0) !important;
+    opacity:1 !important;
+    pointer-events:auto !important;
+}
+
+#carritoBarra .carrito-contenido{
+    width:100%;
+    max-width:1100px;
+    margin:0 auto;
+    box-sizing:border-box;
+}
+
+@media (max-width:700px){
+    #carritoBarra .carrito-contenido{
+        padding:0 4px;
+        gap:10px;
+    }
+
+    #carritoBarra .carrito-resumen-barra{
+        gap:10px;
+    }
+
+    #carritoBarra .carrito-total-barra{
+        font-size:13px;
+    }
+}
+</style>
+
 </head>
 
 
