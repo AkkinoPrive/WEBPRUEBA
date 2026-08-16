@@ -308,11 +308,6 @@ body{
     line-height:1.4;
 }
 
-.original-nuevo{
-    font-weight:bold;
-    color:#b88a1b;
-}
-
 .stock{
     font-size:11px;
     font-weight:bold;
@@ -1190,84 +1185,46 @@ function precioOriginal(producto){
             producto.descuento
         );
 
-    const tipo =
-        normalizar(
-            producto.tipoDescuento
+    /*
+    Para ORIGINALES:
+    - precioLista = columna P
+    - valorReal = columna D = precio final real
+    - descuento = columna Q
+    - tipoDescuento = columna R
+    - formaPago = columna S
+
+    Si valorReal existe, lo usamos directamente como
+    precio final. Así evitamos recalcular y redondear
+    un valor que ya está definido en el Sheets.
+    */
+
+    const valorReal =
+        numero(
+            producto.valorReal
         );
 
-    if(
-        lista <= 0
-    ){
-        return {
-            lista:0,
-            descuento:0,
-            final:0
-        };
+    let final = 0;
+
+    if(valorReal > 0){
+        final = valorReal;
     }
+    else if(lista > 0 && descuento > 0){
 
-    let final =
-        lista;
+        /*
+        En el Sheets el descuento (10, 15, etc.)
+        representa porcentaje.
+        */
 
-    if(
-        descuento > 0
-    ){
-
-        if(
-            tipo.includes("%") ||
-            tipo.includes("PORCENTAJE") ||
-            tipo.includes("PORCENTUAL")
-        ){
-
-            final =
-                lista -
-                (
-                    lista *
-                    descuento /
-                    100
-                );
-        }
-
-        else if(
-            tipo.includes("$") ||
-            tipo.includes("PESO") ||
-            tipo.includes("FIJO") ||
-            tipo.includes("MONTO")
-        ){
-
-            final =
-                lista -
-                descuento;
-        }
-
-        else{
-
-            /*
-            Si hay descuento pero no se
-            especificó el tipo, asumimos
-            porcentaje.
-            */
-
-            if(
-                descuento > 0 &&
-                descuento < 100
-            ){
-
-                final =
-                    lista -
-                    (
-                        lista *
-                        descuento /
-                        100
-                    );
-            }
-
-            else{
-
-                final =
-                    lista -
-                    descuento;
-            }
-        }
+        final =
+            lista -
+            (
+                lista *
+                descuento /
+                100
+            );
+    }
+    else{
+        final = lista;
     }
 
     if(final < 0){
@@ -1275,12 +1232,11 @@ function precioOriginal(producto){
     }
 
     return {
-        lista:lista,
-        descuento:descuento,
-        final:final
+        lista: lista,
+        descuento: descuento,
+        final: final
     };
 }
-
 
 
 function precioParticularProducto(producto){
@@ -1318,10 +1274,13 @@ function descuentoTexto(producto){
         return "";
     }
 
-    if(
-        tipo
-    ){
-        return `${dinero(descuento)} ${escapeHTML(tipo)}`;
+    /*
+    DESCUENTO = porcentaje.
+    TIPO DE DESCUENTO = condición, por ejemplo EFECTIVO.
+    */
+
+    if(tipo){
+        return `${descuento}% ${escapeHTML(tipo)}`;
     }
 
     return `${descuento}% OFF`;
@@ -2613,84 +2572,58 @@ function mostrarProductos(
                             producto
                         );
 
-                    const detalleDescuento =
-                        descuentoTexto(
-                            producto
-                        );
-
-                    const pago =
-                        formaPagoProducto(
-                            producto
-                        );
-
-                    const esNuevo =
-                        nuevoIngresoProducto(
-                            producto
-                        );
-
 
                     if(
-                        precios.lista > 0
+                        precios.lista > 0 &&
+                        precios.final <
+                        precios.lista
                     ){
+
+                        const detalleDescuento =
+                            descuentoTexto(
+                                producto
+                            );
+
+                        const pago =
+                            formaPagoProducto(
+                                producto
+                            );
+
 
                         precioHTML = `
 
-                            ${
-                                precios.final <
-                                precios.lista
-                                ?
-                                `
-                                <div
-                                class="precio-label">
+                            <div
+                            class="precio-label">
 
-                                    PRECIO DE LISTA
+                                PRECIO DE LISTA
 
-                                </div>
+                            </div>
 
-                                <div
-                                class="precio-original-lista">
+                            <div
+                            class="precio-original-lista">
 
-                                    ${dinero(
-                                        precios.lista
-                                    )}
+                                ${dinero(
+                                    precios.lista
+                                )}
 
-                                </div>
+                            </div>
 
-                                <div
-                                class="precio-label">
 
-                                    PRECIO FINAL
+                            <div
+                            class="precio-label">
 
-                                </div>
+                                PRECIO FINAL
 
-                                <div
-                                class="precio-original-descuento">
+                            </div>
 
-                                    ${dinero(
-                                        precios.final
-                                    )}
+                            <div
+                            class="precio-original-descuento">
 
-                                </div>
-                                `
-                                :
-                                `
-                                <div
-                                class="precio-label">
+                                ${dinero(
+                                    precios.final
+                                )}
 
-                                    PRECIO
-
-                                </div>
-
-                                <div
-                                class="precio">
-
-                                    ${dinero(
-                                        precios.final
-                                    )}
-
-                                </div>
-                                `
-                            }
+                            </div>
 
 
                             ${
@@ -2728,21 +2661,31 @@ function mostrarProductos(
                                 ""
                             }
 
+                        `;
 
-                            ${
-                                esNuevo
-                                ?
-                                `
-                                <div
-                                class="original-detalle original-nuevo">
+                    }
 
-                                    NUEVO INGRESO
+                    else if(
+                        precios.lista > 0
+                    ){
 
-                                </div>
-                                `
-                                :
-                                ""
-                            }
+                        precioHTML = `
+
+                            <div
+                            class="precio-label">
+
+                                PRECIO
+
+                            </div>
+
+                            <div
+                            class="precio">
+
+                                ${dinero(
+                                    precios.lista
+                                )}
+
+                            </div>
 
                         `;
 
@@ -2759,43 +2702,7 @@ function mostrarProductos(
 
                             </div>
 
-
-                            ${
-                                pago
-                                ?
-                                `
-                                <div
-                                class="original-detalle">
-
-                                    Forma de pago:
-                                    ${escapeHTML(
-                                        pago
-                                    )}
-
-                                </div>
-                                `
-                                :
-                                ""
-                            }
-
-
-                            ${
-                                esNuevo
-                                ?
-                                `
-                                <div
-                                class="original-detalle original-nuevo">
-
-                                    NUEVO INGRESO
-
-                                </div>
-                                `
-                                :
-                                ""
-                            }
-
                         `;
-
                     }
 
                 }
