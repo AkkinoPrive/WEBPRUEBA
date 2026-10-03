@@ -1692,6 +1692,36 @@ body{
     line-height:1.15;
     text-decoration:none;
 }
+.metodo-pago.bloqueado-mayorista,
+.metodo-pago.bloqueado-mayorista:hover{
+    position:relative;
+    opacity:.42;
+    filter:grayscale(.9);
+    cursor:not-allowed;
+    transform:none;
+    border-color:rgba(198,166,92,.14);
+    box-shadow:none;
+}
+.metodo-pago.bloqueado-mayorista .metodo-titulo,
+.metodo-pago.bloqueado-mayorista .metodo-subtitulo{
+    text-decoration:line-through;
+}
+.metodo-pago.bloqueado-mayorista::after{
+    content:"NO DISPONIBLE EN MAYORISTA";
+    position:absolute;
+    left:8px;
+    right:8px;
+    bottom:8px;
+    padding:4px 3px;
+    border-radius:5px;
+    background:rgba(0,0,0,.86);
+    color:#c6a65c;
+    font-size:7px;
+    font-weight:900;
+    letter-spacing:.35px;
+    line-height:1.15;
+    text-decoration:none;
+}
 .metodo-icono{font-size:21px;line-height:1;margin-bottom:2px}
 .metodo-titulo{font-size:12px;font-weight:800;letter-spacing:.5px;line-height:1.15}
 .metodo-subtitulo{font-size:9px;font-weight:700;letter-spacing:.35px;line-height:1.25;color:#c6a65c}
@@ -8832,12 +8862,15 @@ function actualizarOpcionesPago(){
             forma === "MERCADO_PAGO_1_PAGO" ||
             forma === "TARJETA_2_CUOTAS";
 
-        boton.classList.remove("solo-originales");
+        boton.classList.remove("solo-originales", "bloqueado-mayorista");
 
         if(esTarjeta){
             permitido = puedePagoTarjeta && todosOriginalesDisponibles;
 
-            if(!permitido && puedePagoTarjeta && hayInspiraciones){
+            if(modoActual === "mayorista"){
+                boton.classList.add("bloqueado-mayorista");
+            }
+            else if(!permitido && puedePagoTarjeta && hayInspiraciones){
                 boton.classList.add("solo-originales");
             }
         }
@@ -8920,6 +8953,16 @@ function cambiarFormaPago(
 ){
 
     if(hayProductosAPedido()){
+        return;
+    }
+
+    if(
+        modoActual === "mayorista" &&
+        (forma === "MERCADO_PAGO_1_PAGO" || forma === "TARJETA_2_CUOTAS")
+    ){
+        formaPagoActual = "EFECTIVO";
+        actualizarOpcionesPago();
+        actualizarResumenCarrito();
         return;
     }
 
