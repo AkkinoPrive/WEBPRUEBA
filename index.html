@@ -3524,88 +3524,8 @@ RESULTADO:
     line-height:1.7;
 }
 
-.home-actions{
-    display:flex;
-    flex-wrap:wrap;
-    gap:9px;
-    margin-top:19px;
-}
 
-.home-action{
-    border:1px solid #303030;
-    background:#101010;
-    color:#aaa;
-    border-radius:999px;
-    padding:10px 16px;
-    font-size:9px;
-    letter-spacing:1.2px;
-    cursor:pointer;
-}
 
-.home-action:hover{
-    color:#111;
-    background:#d4af37;
-    border-color:#d4af37;
-}
-
-.home-lineas{
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:12px;
-    margin-top:20px;
-}
-
-.home-linea{
-    position:relative;
-    min-height:105px;
-    padding:20px;
-    border:1px solid #292929;
-    border-radius:13px;
-    background:linear-gradient(145deg,#151515,#0c0c0c);
-    cursor:pointer;
-    text-align:left;
-    transition:.25s ease;
-}
-
-.home-linea:hover{
-    transform:translateY(-2px);
-    border-color:rgba(212,175,55,.5);
-}
-
-.home-linea strong{
-    display:block;
-    color:#d4af37;
-    font-family:Georgia,serif;
-    font-size:19px;
-    font-weight:400;
-}
-
-.home-linea span{
-    display:block;
-    margin-top:7px;
-    color:#858585;
-    font-size:10px;
-    line-height:1.5;
-}
-
-.home-linea b{
-    position:absolute;
-    right:18px;
-    bottom:16px;
-    color:#aaa;
-    font-size:18px;
-    font-weight:400;
-}
-
-.modo-ayuda{
-    max-width:560px;
-    margin:-8px auto 12px;
-    padding:0 15px;
-    text-align:center;
-    color:#666;
-    font-size:9px;
-    letter-spacing:.8px;
-}
 
 @media(max-width:700px){
     .home-intro{
@@ -3615,10 +3535,6 @@ RESULTADO:
 
     .home-title{
         font-size:34px;
-    }
-
-    .home-lineas{
-        grid-template-columns:1fr;
     }
 }
 
@@ -3927,11 +3843,6 @@ RESULTADO:
 <!-- =======================================================
      BUSCADOR
      ======================================================= -->
-
-<div class="modo-ayuda">
-    PARTICULAR: compra individual · MAYORISTA: desde 5 unidades
-</div>
-
 <div class="buscar-contenedor">
 
     <input
@@ -4306,8 +4217,7 @@ RESULTADO:
             </div>
 
             <div class="home-title">
-                Encontrá tu próxima
-                <span>fragancia.</span>
+                Tu próxima <span>fragancia.</span>
             </div>
 
             <div class="home-text">
@@ -4315,77 +4225,11 @@ RESULTADO:
                 Comprá como particular o accedé a precios mayoristas.
             </div>
 
-            <div class="home-actions">
-
-                <button
-                class="home-action"
-                onclick="
-                    document.getElementById('modoParticular').click();
-                ">
-                    🛍️ PARTICULAR
-                </button>
-
-                <button
-                class="home-action"
-                onclick="
-                    document.getElementById('modoMayorista').click();
-                ">
-                    📦 MAYORISTA
-                </button>
-
-            </div>
 
         </div>
 
     </div>
 
-
-    <div class="home-lineas">
-
-        <button
-        class="home-linea"
-        onclick="
-            seleccionarTipo('INSPIRACIONES 60ML');
-            document.getElementById('categorias')
-            .scrollIntoView({behavior:'smooth'});
-        ">
-
-            <strong>
-                EXTRACTOS 60 ML
-            </strong>
-
-            <span>
-                Inspiraciones de diseñador, nicho y árabes
-                en 60 ml.
-            </span>
-
-            <b>→</b>
-
-        </button>
-
-
-        <button
-        class="home-linea"
-        onclick="
-            seleccionarTipo('ORIGINALES');
-            document.getElementById('categorias')
-            .scrollIntoView({behavior:'smooth'});
-        ">
-
-            <strong>
-                ORIGINALES
-            </strong>
-
-            <span>
-                Perfumes originales con opciones de
-                cuotas y efectivo / transferencia.
-            </span>
-
-            <b>→</b>
-
-        </button>
-
-    </div>
 
 </section>
 
