@@ -8183,6 +8183,15 @@ function actualizarOpcionesPago(){
         item => tipoPrincipalProducto(item.producto) === "ORIGINALES"
     );
 
+    // Las 2 cuotas solo se habilitan cuando TODO el carrito
+    // son Originales y TODOS figuran como DISPONIBLE.
+    const todosOriginalesDisponibles =
+        carrito.length > 0 &&
+        carrito.every(item =>
+            tipoPrincipalProducto(item.producto) === "ORIGINALES" &&
+            obtenerEstado(item.producto) === "DISPONIBLE"
+        );
+
     const opcionCuotas = selector.querySelector(
         'option[value="TARJETA_2_CUOTAS"]'
     );
@@ -8192,7 +8201,7 @@ function actualizarOpcionesPago(){
     );
 
     if(opcionCuotas){
-        const permitirCuotas = hayOriginales && !hayInspiraciones;
+        const permitirCuotas = todosOriginalesDisponibles;
         opcionCuotas.hidden = !permitirCuotas;
         opcionCuotas.disabled = !permitirCuotas;
 
@@ -8604,7 +8613,7 @@ function pagarMercadoPago(){
         terminado = true;
 
         if(respuesta && respuesta.ok){
-           const url = respuesta.initPoint;
+            const url = respuesta.initPoint;
             if(url){
                 window.location.href = url;
                 return;
