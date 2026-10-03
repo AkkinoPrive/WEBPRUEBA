@@ -3104,6 +3104,67 @@ RESULTADO:
     }
 }
 
+
+
+/* =========================================================
+   AKKINO V4 — DISPONIBILIDAD ARRIBA DE LA INFORMACIÓN
+   ========================================================= */
+
+.producto > .stock{
+    width:100%;
+    min-height:30px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:7px 10px;
+    margin:0;
+    border-top:1px solid rgba(255,255,255,.05);
+    border-bottom:1px solid rgba(255,255,255,.06);
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:1.5px;
+    line-height:1;
+    text-transform:uppercase;
+}
+
+.producto > .stock.disponible{
+    color:#43d26b;
+    background:rgba(43,180,82,.075);
+}
+
+.producto > .stock.pedido{
+    color:#e0ad25;
+    background:rgba(224,173,37,.075);
+}
+
+.producto > .stock.sin-stock{
+    color:#e05252;
+    background:rgba(224,82,82,.075);
+}
+
+.producto > .producto-info{
+    padding-top:15px;
+}
+
+/* Eliminamos el margen que antes dejaba el stock pegado al final */
+.producto-info .stock{
+    margin:0;
+}
+
+@media(max-width:600px){
+
+    .producto > .stock{
+        min-height:27px;
+        padding:6px 8px;
+        font-size:9px;
+        letter-spacing:1.2px;
+    }
+
+    .producto > .producto-info{
+        padding-top:12px;
+    }
+}
+
 </style>
 
 </head>
@@ -6325,6 +6386,16 @@ function mostrarProductos(
 
 
                         <div
+                        class="stock ${claseStock}">
+
+                            ${escapeHTML(
+                                estado
+                            )}
+
+                        </div>
+
+
+                        <div
                         class="producto-info">
 
                             <div
@@ -6349,16 +6420,6 @@ function mostrarProductos(
 
 
                             ${precioHTML}
-
-
-                            <div
-                            class="stock ${claseStock}">
-
-                                ${escapeHTML(
-                                    estado
-                                )}
-
-                            </div>
 
 
                             ${
