@@ -1665,6 +1665,45 @@ body{
 .metodo-icono{font-size:21px;line-height:1;margin-bottom:2px}
 .metodo-titulo{font-size:12px;font-weight:800;letter-spacing:.5px;line-height:1.15}
 .metodo-subtitulo{font-size:9px;font-weight:700;letter-spacing:.35px;line-height:1.25;color:#c6a65c}
+
+.akkino-transferencia-box{
+    margin-top:12px;
+    padding:14px;
+    border:1px solid rgba(198,166,92,.35);
+    border-radius:12px;
+    background:linear-gradient(145deg,#15120c,#0b0b0b);
+}
+.akkino-transferencia-titulo{
+    color:#c6a65c;
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:1px;
+    margin-bottom:10px;
+}
+.akkino-transferencia-dato{
+    display:flex;
+    justify-content:space-between;
+    gap:12px;
+    padding:6px 0;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    font-size:11px;
+}
+.akkino-transferencia-dato:last-of-type{
+    border-bottom:0;
+}
+.akkino-transferencia-dato span:first-child{
+    color:#888;
+}
+.akkino-transferencia-dato strong{
+    color:#fff;
+    text-align:right;
+}
+.akkino-transferencia-aviso{
+    margin-top:10px;
+    color:#cfcfcf;
+    font-size:10px;
+    line-height:1.45;
+}
 @media(max-width:640px){
     .metodos-pago-akkino{gap:7px}
     .metodo-pago{min-height:106px;padding:12px 6px}
@@ -4941,7 +4980,17 @@ function precioOriginalSegunPago(producto){
 
     const precios = precioOriginal(producto);
 
-    if(formaPagoActual === "TARJETA_2_CUOTAS"){
+    /*
+    DÉBITO y CRÉDITO tienen el mismo precio comercial:
+    precio de lista menos 20%.
+    La diferencia es solamente la forma de pago:
+    DÉBITO = 1 pago.
+    CRÉDITO = 2 cuotas sin interés.
+    */
+    if(
+        formaPagoActual === "MERCADO_PAGO_1_PAGO" ||
+        formaPagoActual === "TARJETA_2_CUOTAS"
+    ){
         return precios.precioCuotas;
     }
 
@@ -8533,6 +8582,45 @@ function actualizarResumenCarrito(){
         }
 
 
+        ${
+            formaPagoActual === "EFECTIVO"
+            ?
+            `
+            <div class="akkino-transferencia-box">
+                <div class="akkino-transferencia-titulo">
+                    DATOS PARA TRANSFERENCIA
+                </div>
+
+                <div class="akkino-transferencia-dato">
+                    <span>Alias</span>
+                    <strong>akkinoprive</strong>
+                </div>
+
+                <div class="akkino-transferencia-dato">
+                    <span>CVU</span>
+                    <strong>0000003100080816942802</strong>
+                </div>
+
+                <div class="akkino-transferencia-dato">
+                    <span>CUIT</span>
+                    <strong>20-38595340-3</strong>
+                </div>
+
+                <div class="akkino-transferencia-dato">
+                    <span>Entidad</span>
+                    <strong>Mercado Pago</strong>
+                </div>
+
+                <div class="akkino-transferencia-aviso">
+                    Si elegís transferencia, realizá el pago y enviá el comprobante por WhatsApp junto con tu pedido.
+                </div>
+            </div>
+            `
+            :
+            ""
+        }
+
+
         <div
         class="resumen-linea">
 
@@ -8644,8 +8732,8 @@ function pagarMercadoPago(){
             boton.disabled = false;
             boton.classList.remove("mercado-pago-cargando");
             boton.textContent = formaPagoActual === "TARJETA_2_CUOTAS"
-                ? "PAGAR CON MERCADO PAGO — 2 CUOTAS"
-                : "PAGAR CON MERCADO PAGO";
+                ? "CONTINUAR CON CRÉDITO — 2 CUOTAS"
+                : "CONTINUAR CON DÉBITO — 1 PAGO";
         }
     }
 
@@ -8663,8 +8751,8 @@ function pagarMercadoPago(){
         limpiar();
         alert(
             respuesta && respuesta.error
-            ? "Mercado Pago: " + respuesta.error
-            : "No se pudo crear el checkout de Mercado Pago."
+            ? "Error en el medio de pago: " + respuesta.error
+            : "No se pudo iniciar el pago."
         );
     };
 
