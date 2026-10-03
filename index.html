@@ -2583,6 +2583,68 @@ RESULTADO:
 }
 
 /* =========================================================
+   AVISO MAYORISTA
+   ========================================================= */
+
+#modalCarrito .aviso-mayorista-carrito{
+    margin:12px 0 2px !important;
+    padding:13px 14px !important;
+    display:grid !important;
+    grid-template-columns:28px 1fr !important;
+    gap:3px 10px !important;
+    align-items:start !important;
+    background:linear-gradient(180deg,#171717,#111) !important;
+    border:1px solid rgba(212,175,55,.35) !important;
+    border-radius:10px !important;
+}
+
+#modalCarrito .aviso-mayorista-icono{
+    grid-row:1 / span 2 !important;
+    font-size:20px !important;
+    line-height:1.2 !important;
+}
+
+#modalCarrito .aviso-mayorista-contenido{
+    display:flex !important;
+    flex-direction:column !important;
+    gap:4px !important;
+}
+
+#modalCarrito .aviso-mayorista-contenido strong{
+    color:#f2c400 !important;
+    font-size:12px !important;
+    font-weight:900 !important;
+}
+
+#modalCarrito .aviso-mayorista-contenido span{
+    color:#cfcfcf !important;
+    font-size:10px !important;
+    line-height:1.4 !important;
+}
+
+#modalCarrito .aviso-mayorista-contenido b{
+    color:#fff !important;
+}
+
+#modalCarrito .aviso-mayorista-boton{
+    grid-column:2 !important;
+    justify-self:start !important;
+    margin-top:6px !important;
+    padding:8px 11px !important;
+    background:#d4af37 !important;
+    color:#111 !important;
+    border:0 !important;
+    border-radius:6px !important;
+    font-size:9px !important;
+    font-weight:900 !important;
+    cursor:pointer !important;
+}
+
+#modalCarrito .aviso-mayorista-boton:hover{
+    filter:brightness(1.08) !important;
+}
+
+/* =========================================================
    FORMA DE PAGO
    ========================================================= */
 
@@ -8117,6 +8179,54 @@ function renderizarCarrito(){
         "";
 
 
+    /* =========================================================
+       AVISO MAYORISTA
+       ========================================================= */
+
+    const todosAdmitenMayorista =
+        carrito.length > 0 &&
+        carrito.every(
+            item =>
+                tipoPrincipalProducto(item.producto) !== "ORIGINALES"
+        );
+
+    const avisoMayoristaHTML =
+        modoActual === "particular" &&
+        totalUnidades() >= MINIMO_MAYORISTA &&
+        todosAdmitenMayorista
+        ?
+        `
+        <div class="aviso-mayorista-carrito">
+            <div class="aviso-mayorista-icono">📦</div>
+
+            <div class="aviso-mayorista-contenido">
+                <strong>¿ESTÁS COMPRANDO 5 O MÁS UNIDADES?</strong>
+                <span>
+                    Pasá al modo <b>MAYORISTA</b> para aprovechar nuestros precios especiales por cantidad.
+                </span>
+            </div>
+
+            <button
+            type="button"
+            class="aviso-mayorista-boton"
+            onclick="cambiarModo('mayorista'); cerrarCarrito();">
+                VER PRECIOS MAYORISTAS
+            </button>
+        </div>
+        `
+        :
+        "";
+
+
+    const bloquePrePagoHTML =
+        `
+        <div class="bloque-pre-pago">
+            ${detallePromoHTML}
+            ${avisoMayoristaHTML}
+        </div>
+        `;
+
+
     cont.innerHTML =
         carrito
         .map(
@@ -8264,8 +8374,7 @@ function renderizarCarrito(){
 
 
     /*
-    Agregamos el detalle de promociones
-    antes del selector de pago.
+    Agregamos promociones / aviso mayorista antes del selector.
     */
 
     const selector =
@@ -8276,25 +8385,25 @@ function renderizarCarrito(){
     if(
         selector &&
         !selector.previousElementSibling?.classList.contains(
-            "promo-detalle"
+            "bloque-pre-pago"
         )
     ){
 
         selector.insertAdjacentHTML(
             "beforebegin",
-            detallePromoHTML
+            bloquePrePagoHTML
         );
 
     }
     else if(
         selector &&
         selector.previousElementSibling?.classList.contains(
-            "promo-detalle"
+            "bloque-pre-pago"
         )
     ){
 
         selector.previousElementSibling.outerHTML =
-            detallePromoHTML;
+            bloquePrePagoHTML;
 
     }
 
