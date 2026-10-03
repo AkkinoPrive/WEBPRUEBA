@@ -6544,17 +6544,19 @@ function actualizarHeroModo(){
     const heroMayorista =
         document.getElementById("heroMayorista");
 
-    if(!heroParticular || !heroMayorista){
+    if(!heroMayorista){
         return;
     }
 
     const esMayorista =
         modoActual === "mayorista";
 
-    heroParticular.style.display =
-        esMayorista
-        ? "none"
-        : "block";
+    if(heroParticular){
+        heroParticular.style.display =
+            esMayorista
+            ? "none"
+            : "block";
+    }
 
     heroMayorista.style.display =
         esMayorista
