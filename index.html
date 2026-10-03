@@ -2670,43 +2670,6 @@ RESULTADO:
         drop-shadow(0 0 22px rgba(212,175,55,.08));
 }
 
-/* =========================================================
-   BANNERS MAYORISTAS — IMAGEN COMPLETA
-   ========================================================= */
-.mayorista-carousel-imagenes{
-    min-height:0;
-    height:auto;
-    background:#080808;
-    overflow:hidden;
-}
-
-.mayorista-carousel-imagenes .mayorista-slide{
-    position:absolute;
-    inset:0;
-    display:flex;
-    padding:0;
-    transform:translateX(25px);
-}
-
-.mayorista-carousel-imagenes .mayorista-slide.activa{
-    position:relative;
-    transform:translateX(0);
-}
-
-.mayorista-carousel-imagenes .mayorista-slide > img{
-    display:block;
-    width:100%;
-    height:auto;
-    max-width:100%;
-    object-fit:contain;
-    border-radius:0;
-    filter:none;
-}
-
-.mayorista-carousel-imagenes + .mayorista-arrow{
-    z-index:10;
-}
-
 .mayorista-info-grid{
     display:grid;
     grid-template-columns:1fr 1fr;
@@ -4056,18 +4019,6 @@ RESULTADO:
     }
 }
 
-
-/* Overrides para banners mayoristas en imagen */
-@media (max-width: 700px){
-    .mayorista-carousel-imagenes{
-        border-radius:14px;
-    }
-
-    .mayorista-carousel-imagenes .mayorista-slide > img{
-        width:100%;
-        height:auto;
-    }
-}
 </style>
 
 </head>
@@ -4502,30 +4453,136 @@ RESULTADO:
             class="mayorista-hero"
             aria-label="Información mayorista">
 
-            <div class="mayorista-carousel mayorista-carousel-imagenes">
+            <div class="mayorista-carousel">
 
-                <!-- BANNER 1 -->
-                <article class="mayorista-slide activa" data-slide="0">
-                    <img
-                        src="assets/mayorista-banner-1.jpg"
-                        alt="AKKINO PRIVÉ Mayorista - Inspiraciones pensadas para revender"
-                        loading="eager">
+                <!-- SLIDE 1 -->
+
+                <article
+                    class="mayorista-slide activa"
+                    data-slide="0">
+
+                    <div class="mayorista-slide-copy">
+
+                        <div class="mayorista-kicker">
+                            AKKINO PRIVÉ · MAYORISTA
+                        </div>
+
+                        <h2>
+                            Inspiraciones pensadas
+                            <span>para revender.</span>
+                        </h2>
+
+                        <p>
+                            Inspirados en las fragancias más reconocidas del mundo.
+                        </p>
+
+                        <div class="mayorista-info-grid">
+                            <div class="mayorista-info-card">
+                                <strong>💼 Ideal para</strong>
+                                <span>Barberías · Tiendas · Farmacias · Regalerías · Revendedores</span>
+                            </div>
+
+                            <div class="mayorista-info-card">
+                                <strong>💰 Precio sugerido</strong>
+                                <span>Venta al público: <b style="color:#d4af37;font-size:16px;">$25.000 a $35.000</b></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="mayorista-slide-media">
+                        <img src="assets/akkino-60ml-mayorista.jpg" alt="Presentación AKKINO Privé 60 ml" loading="lazy">
+                    </div>
+
                 </article>
 
-                <!-- BANNER 2 -->
-                <article class="mayorista-slide" data-slide="1">
-                    <img
-                        src="assets/mayorista-banner-2.jpg"
-                        alt="AKKINO PRIVÉ Mayorista - Precios mayoristas"
-                        loading="lazy">
+                <!-- SLIDE 2 -->
+
+                <article
+                    class="mayorista-slide"
+                    data-slide="1">
+
+                    <div class="mayorista-slide-copy">
+
+                        <div class="mayorista-kicker">
+                            PRECIOS MAYORISTAS
+                        </div>
+
+                        <h2>
+                            Más unidades,
+                            <span>mejor precio.</span>
+                        </h2>
+
+                        <div class="mayorista-minimo">
+                            📦 Mínimo de compra: <strong>10 unidades</strong>
+                        </div>
+
+                        <div class="mayorista-precios">
+                            <div class="mayorista-precio-card">
+                                <small>10 — 50 unidades</small>
+                                <b>$13.500</b>
+                                <span>por unidad</span>
+                            </div>
+
+                            <div class="mayorista-precio-card">
+                                <small>51 — 250 unidades</small>
+                                <b>$12.500</b>
+                                <span>por unidad</span>
+                            </div>
+
+                            <div class="mayorista-precio-card">
+                                <small>+250 unidades</small>
+                                <b style="font-size:20px;">CONSULTAR</b>
+                                <span>precio especial</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="mayorista-slide-media">
+                        <img src="assets/akkino-60ml-mayorista.jpg" alt="Presentación mayorista AKKINO Privé 60 ml" loading="lazy">
+                    </div>
+
                 </article>
 
-                <!-- BANNER 3 -->
-                <article class="mayorista-slide" data-slide="2">
-                    <img
-                        src="assets/mayorista-banner-3.jpg"
-                        alt="AKKINO PRIVÉ Mayorista - Condiciones mayoristas"
-                        loading="lazy">
+                <!-- SLIDE 3 -->
+
+                <article
+                    class="mayorista-slide"
+                    data-slide="2">
+
+                    <div class="mayorista-slide-copy">
+
+                        <div class="mayorista-kicker">
+                            CONDICIONES MAYORISTAS
+                        </div>
+
+                        <h2>
+                            Todo lo que necesitás
+                            <span>para empezar.</span>
+                        </h2>
+
+                        <div class="mayorista-condiciones">
+                            <p>● Presentación en envase de 60ml</p>
+                            <p>● Packaging semi-transparente de plástico antigolpes</p>
+                            <p>● Excelente proyección y duración (8 a 10 horas)</p>
+
+                            <p class="condicion-separador">📍 <strong>Formas de pago:</strong></p>
+                            <p>● Efectivo</p>
+                            <p>● Transferencia</p>
+                            <p>● Recibimos USDT</p>
+
+                            <p class="condicion-separador">📦 <strong>Modalidad de trabajo</strong></p>
+                            <p>💳 Los pedidos se confirman con el pago del 100%, se cierra pedido cada lunes y se despachan una vez recibida la mercadería del proveedor.</p>
+                            <p>🚚 Plazo estimado de entrega: <strong>2 a 5 días hábiles.</strong></p>
+                        </div>
+
+                    </div>
+
+                    <div class="mayorista-slide-media">
+                        <img src="assets/akkino-60ml-mayorista.jpg" alt="Condiciones mayoristas AKKINO Privé" loading="lazy">
+                    </div>
+
                 </article>
 
             </div>
@@ -4597,52 +4654,6 @@ RESULTADO:
 
 </section>
 
-
-
-<section class="akkino-home-v11">
-
-    <div class="akkino-info-strip-v11">
-
-        <div class="akkino-info-item-v11">
-            <div class="akkino-info-icon-v11">✦</div>
-            <div>
-                <strong>ORIGINALES</strong>
-                <span>Perfumería original</span>
-            </div>
-        </div>
-
-        <div class="akkino-info-item-v11">
-            <div class="akkino-info-icon-v11">◇</div>
-            <div>
-                <strong>EXTRACTOS 60 ML</strong>
-                <span>Inspiraciones seleccionadas</span>
-            </div>
-        </div>
-
-        <div class="akkino-info-item-v11">
-            <div class="akkino-info-icon-v11">▱</div>
-            <div>
-                <strong>PARTICULAR</strong>
-                <span>Compra individual</span>
-            </div>
-        </div>
-
-        <div class="akkino-info-item-v11">
-            <div class="akkino-info-icon-v11">▦</div>
-            <div>
-                <strong>MAYORISTA</strong>
-                <span>Desde 5 unidades</span>
-            </div>
-        </div>
-
-    </div>
-
-
-    <div
-    id="homeShowcasesV11">
-    </div>
-
-</section>
 
 
 <div id="catalogoAkkino" class="seccion-tienda">
