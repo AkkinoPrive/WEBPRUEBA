@@ -8870,7 +8870,7 @@ function actualizarOpcionesPago(){
             if(modoActual === "mayorista"){
                 boton.classList.add("bloqueado-mayorista");
             }
-            else if(!permitido && puedePagoTarjeta && hayInspiraciones){
+            else if(!permitido && puedePagoTarjeta && !todosOriginalesDisponibles){
                 boton.classList.add("solo-originales");
             }
         }
