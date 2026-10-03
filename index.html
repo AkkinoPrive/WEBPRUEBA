@@ -1667,6 +1667,18 @@ body{
 </style>
 
 
+<style id="akkino-transferencia-datos">
+.transferencia-datos{display:none;margin-top:12px;padding:15px 16px;border:1px solid rgba(212,175,55,.32);border-radius:10px;background:#111}
+.transferencia-datos.visible{display:block}
+.transferencia-datos-titulo{color:#d4af37;font-size:12px;font-weight:900;letter-spacing:1px;margin-bottom:11px}
+.transferencia-dato{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:7px 0;border-bottom:1px solid #222;font-size:12px}
+.transferencia-dato:last-of-type{border-bottom:0}
+.transferencia-dato span{color:#888}
+.transferencia-dato strong{color:#fff;text-align:right;word-break:break-all}
+.transferencia-aviso{margin-top:11px;padding-top:10px;border-top:1px solid rgba(212,175,55,.18);color:#d4af37;font-size:11px;font-weight:700;line-height:1.45}
+@media(max-width:600px){.transferencia-dato{align-items:flex-start;flex-direction:column;gap:3px}.transferencia-dato strong{text-align:left}}
+</style>
+
 <style id="akkino-barra-fija">
 #carritoBarra.carrito-barra{
     position:fixed !important;
@@ -4645,6 +4657,16 @@ class="modal">
 
             </select>
 
+        </div>
+
+
+        <div id="datosTransferencia" class="transferencia-datos">
+            <div class="transferencia-datos-titulo">DATOS PARA TRANSFERENCIA</div>
+            <div class="transferencia-dato"><span>Alias</span><strong>akkinoprive</strong></div>
+            <div class="transferencia-dato"><span>CVU</span><strong>0000003100080816942802</strong></div>
+            <div class="transferencia-dato"><span>CUIT</span><strong>20-38595340-3</strong></div>
+            <div class="transferencia-dato"><span>Banco / billetera</span><strong>Mercado Pago</strong></div>
+            <div class="transferencia-aviso">Realizá la transferencia y enviá el comprobante por WhatsApp junto con tu pedido.</div>
         </div>
 
 
@@ -8316,6 +8338,7 @@ function actualizarOpcionesPago(){
 function actualizarEstadoBotonPedido(){
 
     actualizarOpcionesPago();
+    actualizarDatosTransferencia();
 
     const boton = document.querySelector(".enviar-whatsapp");
     const botonMP = document.getElementById("botonMercadoPago");
@@ -8355,6 +8378,14 @@ function actualizarEstadoBotonPedido(){
     }
 }
 
+function actualizarDatosTransferencia(){
+    const bloque=document.getElementById("datosTransferencia");
+    if(!bloque)return;
+    const mostrar=formaPagoActual==="TRANSFERENCIA" && carrito.length>0 && !hayProductosAPedido();
+    bloque.classList.toggle("visible",mostrar);
+}
+
+
 /* =========================================================
    FORMA DE PAGO
    ========================================================= */
@@ -8374,6 +8405,7 @@ function cambiarFormaPago(
     if(forma === "TARJETA_2_CUOTAS" && hayInspiraciones){
         formaPagoActual = "EFECTIVO";
         actualizarOpcionesPago();
+        actualizarDatosTransferencia();
         actualizarResumenCarrito();
         return;
     }
@@ -8381,11 +8413,13 @@ function cambiarFormaPago(
     if(forma === "MERCADO_PAGO" && modoActual !== "particular"){
         formaPagoActual = "EFECTIVO";
         actualizarOpcionesPago();
+        actualizarDatosTransferencia();
         actualizarResumenCarrito();
         return;
     }
 
     formaPagoActual = forma;
+    actualizarDatosTransferencia();
     actualizarResumenCarrito();
 }
 
@@ -8967,6 +9001,10 @@ function enviarWhatsApp(){
 
     }
 
+
+    if(formaPagoActual === "TRANSFERENCIA"){
+        mensaje += "%0AUna vez realizada la transferencia, enviaré el comprobante por WhatsApp junto con este pedido.%0A";
+    }
 
     mensaje +=
         "%0AGracias!";
