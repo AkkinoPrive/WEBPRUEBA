@@ -3264,6 +3264,100 @@ RESULTADO:
     }
 }
 
+
+
+/* =========================================================
+   AKKINO — PRECIOS ORIGINALES
+   ========================================================= */
+
+.original-precio{
+    margin-top:2px;
+}
+
+.original-final-label,
+.original-cuotas-label,
+.original-lista-label{
+    color:#777;
+    font-size:9px;
+    font-weight:600;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+}
+
+.original-final{
+    margin-top:3px;
+    color:#fff;
+    font-size:28px;
+    line-height:1.1;
+    font-weight:900;
+}
+
+.original-descuento{
+    margin-top:3px;
+    color:#39cf6a;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:.8px;
+}
+
+.original-cuotas-bloque{
+    margin-top:13px;
+    padding-top:11px;
+    border-top:1px solid #292929;
+}
+
+.original-cuotas-precio{
+    margin-top:3px;
+    color:#e7e7e7;
+    font-size:21px;
+    font-weight:800;
+}
+
+.original-cuotas-info{
+    margin-top:3px;
+    color:#8c8c8c;
+    font-size:10px;
+}
+
+.original-cuotas-bloque .original-descuento{
+    margin-top:4px;
+}
+
+.original-lista-bloque{
+    margin-top:13px;
+    padding-top:11px;
+    border-top:1px solid rgba(255,255,255,.08);
+}
+
+.original-lista{
+    color:#858585;
+    font-size:18px;
+    font-weight:700;
+    text-decoration:line-through;
+    text-decoration-thickness:1px;
+}
+
+.original-lista-label{
+    margin-top:3px;
+    color:#666;
+}
+
+@media(max-width:600px){
+
+    .original-final{
+        font-size:24px;
+    }
+
+    .original-cuotas-precio{
+        font-size:19px;
+    }
+
+    .original-lista{
+        font-size:17px;
+    }
+
+}
+
 </style>
 
 </head>
@@ -4380,63 +4474,43 @@ function stockClase(producto){
 
 function precioOriginal(producto){
 
-    const lista =
-        numero(
-            producto.precioLista
-        );
-
     /*
-    AKKINO — PRECIOS ORIGINALES
+    En Google Sheets se carga UN SOLO VALOR:
+    el PRECIO FINAL.
 
-    Precio de lista
-        ↓ 20% OFF
-    Precio para 2 cuotas sin interés
-        ↓ 20% OFF adicional
-    Precio final efectivo / transferencia
+    Ejemplo:
+    Sheets = $75.970
+    Precio final = $75.970
+    Precio 2 cuotas = $91.164
+    Precio de lista = $106.358
+
+    No se muestra "40% OFF".
     */
 
-    const descuentoCuotas = 20;
-    const descuentoTransferencia = 20;
+    const precioFinal = numero(producto.precioLista);
     const cuotas = 2;
 
     const precioCuotas =
-        lista > 0
-        ?
-        Math.round(
-            lista *
-            (1 - descuentoCuotas / 100)
-        )
-        :
-        0;
+        precioFinal > 0
+        ? Math.round(precioFinal * 1.20)
+        : 0;
 
-    const precioTransferencia =
-        precioCuotas > 0
-        ?
-        Math.round(
-            precioCuotas *
-            (1 - descuentoTransferencia / 100)
-        )
-        :
-        0;
+    const precioLista =
+        precioFinal > 0
+        ? Math.round(precioFinal * 1.40)
+        : 0;
 
     const valorCuota =
         precioCuotas > 0
-        ?
-        Math.round(
-            precioCuotas / cuotas
-        )
-        :
-        0;
+        ? Math.round(precioCuotas / cuotas)
+        : 0;
 
     return {
-        lista: lista,
+        final: precioFinal,
         precioCuotas: precioCuotas,
-        precioTransferencia: precioTransferencia,
+        lista: precioLista,
         cuotas: cuotas,
-        valorCuota: valorCuota,
-        descuentoCuotas: descuentoCuotas,
-        descuentoTransferencia:
-            descuentoTransferencia
+        valorCuota: valorCuota
     };
 }
 
@@ -6076,88 +6150,55 @@ function mostrarProductos(
                     "ORIGINALES"
                 ){
 
-                    const precios =
-                        precioOriginal(
-                            producto
-                        );
+                    const precios = precioOriginal(producto);
 
-
-                    if(
-                        precios.lista > 0
-                    ){
+                    if(precios.final > 0){
 
                         precioHTML = `
 
-                            <div
-                            class="original-precio">
+                            <div class="original-precio">
 
-                                <div
-                                class="precio-label">
+                                <div class="original-final-label">
+                                    PRECIO FINAL
+                                </div>
 
-                                    PRECIO DE LISTA
+                                <div class="original-final">
+                                    ${dinero(precios.final)}
+                                </div>
+
+                                <div class="original-descuento">
+                                    -20% DESCUENTO
+                                </div>
+
+                                <div class="original-cuotas-bloque">
+
+                                    <div class="original-cuotas-label">
+                                        2 CUOTAS SIN INTERÉS
+                                    </div>
+
+                                    <div class="original-cuotas-precio">
+                                        ${dinero(precios.precioCuotas)}
+                                    </div>
+
+                                    <div class="original-cuotas-info">
+                                        2 × ${dinero(precios.valorCuota)}
+                                    </div>
+
+                                    <div class="original-descuento">
+                                        -20% DESCUENTO
+                                    </div>
 
                                 </div>
 
-                                <div
-                                class="precio-lista-grande">
+                                <div class="original-lista-bloque">
 
-                                    ${dinero(
-                                        precios.lista
-                                    )}
+                                    <div class="original-lista">
+                                        ${dinero(precios.lista)}
+                                    </div>
 
-                                </div>
-
-
-                                <div
-                                class="original-linea-descuento">
-
-                                    <span>
-                                        20% OFF
-                                    </span>
-
-                                    <strong>
-                                        ${dinero(
-                                            precios.precioCuotas
-                                        )}
-                                    </strong>
-
-                                </div>
-
-
-                                <div
-                                class="original-cuotas">
-
-                                    ${precios.cuotas}
-                                    cuotas sin interés de
-                                    ${dinero(
-                                        precios.valorCuota
-                                    )}
-
-                                </div>
-
-
-                                <div
-                                class="original-transferencia">
-
-                                    <span>
-                                        20% OFF EXTRA
-                                    </span>
-
-                                    <strong>
-                                        ${dinero(
-                                            precios.precioTransferencia
-                                        )}
-                                    </strong>
-
-                                </div>
-
-
-                                <div
-                                class="original-transferencia-texto">
-
-                                    Precio final pagando
-                                    en efectivo /
-                                    transferencia
+                                    <div class="original-lista-label">
+                                        PRECIO DE LISTA
+                                    </div>
 
                                 </div>
 
@@ -6165,20 +6206,14 @@ function mostrarProductos(
 
                         `;
 
-                    }
-
-                    else{
+                    } else {
 
                         precioHTML = `
-
-                            <div
-                            class="precio">
-
+                            <div class="precio">
                                 Consultar
-
                             </div>
-
                         `;
+
                     }
 
                 }
