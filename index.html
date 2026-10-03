@@ -8664,6 +8664,12 @@ function actualizarResumenCarrito(){
                 ${dinero(
                     calculo.precioNormal
                 )}
+
+                ${
+                    formaPagoActual === "TARJETA_2_CUOTAS"
+                    ? ` · 2 cuotas de ${dinero(Math.round(calculo.totalFinal / 2))}`
+                    : ""
+                }
             </strong>
 
         </div>
