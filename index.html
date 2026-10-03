@@ -4848,13 +4848,14 @@ function stockClase(producto){
 function precioOriginal(producto){
 
     /*
-    ORIGINALES — estructura definitiva de precios:
+    ORIGINALES — los precios vienen directamente de Google Sheets:
 
-    valorReal de Google Sheets = precio FINAL
-    efectivo / transferencia.
+    Columna D = valorReal = precio efectivo / transferencia.
+    Columna P = precioLista = precio de lista publicado.
 
-    Precio de lista = final + 40%
-    2 cuotas = 20% menos que el precio de lista.
+    La web NO recalcula el precio de lista.
+    Solo calcula las 2 cuotas a partir del precio de lista:
+    total 2 cuotas = precioLista × 0,80.
     */
 
     const precioFinal =
@@ -4862,12 +4863,10 @@ function precioOriginal(producto){
         ? numero(producto.valorReal)
         : numero(producto.precioParticular);
 
-    const cuotas = 2;
-
     const precioLista =
-        precioFinal > 0
-        ? Math.round(precioFinal * 1.40)
-        : 0;
+        numero(producto.precioLista);
+
+    const cuotas = 2;
 
     const precioCuotas =
         precioLista > 0
