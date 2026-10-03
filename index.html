@@ -8604,7 +8604,7 @@ function pagarMercadoPago(){
         terminado = true;
 
         if(respuesta && respuesta.ok){
-            const url = respuesta.sandboxInitPoint || respuesta.initPoint;
+           const url = respuesta.initPoint;
             if(url){
                 window.location.href = url;
                 return;
