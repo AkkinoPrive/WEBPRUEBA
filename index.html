@@ -3940,6 +3940,62 @@ RESULTADO:
 
 </style>
 
+
+<style id="akkino-promos-premium">
+/* PROMOCIONES — diseño premium AKKINO */
+.promociones-titulo{
+    margin-top:12px !important;
+    margin-bottom:8px !important;
+    padding-bottom:6px !important;
+    border-bottom:1px solid rgba(212,175,55,.22) !important;
+    color:#d4af37 !important;
+    font-size:10px !important;
+    font-weight:800 !important;
+    letter-spacing:1.8px !important;
+    text-transform:uppercase !important;
+}
+
+.promos{
+    display:grid !important;
+    grid-template-columns:1fr 1fr !important;
+    gap:7px !important;
+    margin-top:0 !important;
+}
+
+.promo{
+    min-height:38px !important;
+    display:flex !important;
+    align-items:center !important;
+    justify-content:center !important;
+    box-sizing:border-box !important;
+    padding:7px 6px !important;
+    border-radius:6px !important;
+    font-size:11px !important;
+    font-weight:800 !important;
+    letter-spacing:.2px !important;
+    color:#f5f5f5 !important;
+    border:1px solid rgba(212,175,55,.42) !important;
+    box-shadow:none !important;
+    background:#141414 !important;
+}
+
+.promo-2{
+    background:linear-gradient(180deg,#1b1b1b,#101010) !important;
+}
+
+.promo-3{
+    background:linear-gradient(180deg,#d8b84c,#b99325) !important;
+    color:#111 !important;
+    border-color:#e2c765 !important;
+}
+
+@media(max-width:700px){
+    .promos{
+        grid-template-columns:1fr !important;
+    }
+}
+</style>
+
 </head>
 
 
@@ -6793,7 +6849,7 @@ function mostrarProductos(
                             `
 
                             <div class="promociones-titulo">
-                                🎉 PROMOCIONES
+                                PROMOCIONES
                             </div>
 
                             <div class="promos">
@@ -6803,7 +6859,7 @@ function mostrarProductos(
                                     ?
                                     `
                                     <div class="promo promo-2">
-                                        🔥🔥 &nbsp; 2 x ${dinero(promo2)}
+                                        2 x ${dinero(promo2)}
                                     </div>
                                     `
                                     :
@@ -6815,7 +6871,7 @@ function mostrarProductos(
                                     ?
                                     `
                                     <div class="promo promo-3">
-                                        🔥🔥🔥 &nbsp; 3 x ${dinero(promo3)}
+                                        3 x ${dinero(promo3)}
                                     </div>
                                     `
                                     :
@@ -7715,7 +7771,7 @@ function renderizarCarrito(){
             <div class="promo-detalle-titulo">
                 ${
                     (promo3Usadas > 0 && promo2Usadas > 0)
-                    ? "🎉 PROMOCIONES APLICADAS"
+                    ? "PROMOCIONES APLICADAS"
                     : "🎉 PROMOCIÓN APLICADA"
                 }
             </div>
