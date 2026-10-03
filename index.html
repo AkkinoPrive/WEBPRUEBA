@@ -4307,6 +4307,23 @@ RESULTADO:
     opacity:.7;
     pointer-events:none;
 }
+
+
+/* =========================================================
+   AKKINO V40 — CUOTAS DESTACADAS
+   ========================================================= */
+.original-cuotas-label{
+    color:#39cf6a !important;
+    font-size:10px !important;
+    font-weight:900 !important;
+    letter-spacing:1px !important;
+}
+
+.original-cuotas-label .cuota-monto{
+    color:#fff !important;
+    font-size:12px;
+    font-weight:900;
+}
 </style>
 
 </head>
@@ -7066,9 +7083,11 @@ function mostrarProductos(
                                     class="original-cuotas-label">
 
                                         2 CUOTAS SIN INTERÉS DE
-                                        ${dinero(
-                                            precios.valorCuota
-                                        )}
+                                        <span class="cuota-monto">
+                                            ${dinero(
+                                                precios.valorCuota
+                                            )}
+                                        </span>
 
                                     </div>
 
