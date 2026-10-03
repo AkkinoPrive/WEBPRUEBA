@@ -3251,11 +3251,20 @@ RESULTADO:
 .original-final-label,
 .original-cuotas-label,
 .original-lista-label{
-    color:#777;
+    color:#9a9a9a;
     font-size:9px;
     font-weight:600;
     letter-spacing:1.5px;
     text-transform:uppercase;
+}
+
+.original-cuotas-valor{
+    color:#d4af37;
+    font-size:13px;
+    font-weight:900;
+    letter-spacing:.3px;
+    margin-left:4px;
+    white-space:nowrap;
 }
 
 .original-final{
@@ -3374,7 +3383,7 @@ RESULTADO:
 }
 
 .original-cuotas-label{
-    color:#888;
+    color:#39cf6a;
     font-size:8px;
     font-weight:600;
     letter-spacing:1.3px;
@@ -3382,8 +3391,8 @@ RESULTADO:
 
 .original-cuotas-precio{
     margin-top:4px;
-    color:#f1f1f1;
-    font-size:21px;
+    color:#fff;
+    font-size:24px;
     line-height:1.1;
     font-weight:800;
 }
@@ -3552,7 +3561,7 @@ RESULTADO:
 }
 
 .original-cuotas-label{
-    color:#888;
+    color:#39cf6a;
     font-size:8px;
     font-weight:600;
     letter-spacing:1.3px;
@@ -3560,8 +3569,8 @@ RESULTADO:
 
 .original-cuotas-precio{
     margin-top:4px;
-    color:#f1f1f1;
-    font-size:21px;
+    color:#fff;
+    font-size:24px;
     line-height:1.1;
     font-weight:800;
 }
@@ -6814,7 +6823,7 @@ function mostrarProductos(
                                     class="original-cuotas-label">
 
                                         2 CUOTAS SIN INTERÉS DE
-                                        ${dinero(precios.valorCuota)}
+                                        <span class="original-cuotas-valor">${dinero(precios.valorCuota)}</span>
 
                                     </div>
 
