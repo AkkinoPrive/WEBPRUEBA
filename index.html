@@ -2551,7 +2551,7 @@ RESULTADO:
 
 <style id="akkino-mayorista-carousel">
 /* =========================================================
-   AKKINO PRIVÉ — HERO MAYORISTA CARRUSEL
+   AKKINO PRIVÉ — MAYORISTA / BANNERS IMAGEN
    ========================================================= */
 
 #heroMayorista{
@@ -2566,245 +2566,42 @@ RESULTADO:
 .mayorista-carousel{
     position:relative;
     width:100%;
-    min-height:540px;
     overflow:hidden;
     border:1px solid rgba(212,175,55,.48);
     border-radius:18px;
-    background:
-        radial-gradient(circle at 80% 20%,rgba(212,175,55,.13),transparent 35%),
-        linear-gradient(120deg,#090909,#11110e 60%,#050505);
+    background:#090909;
     box-shadow:
         inset 0 0 70px rgba(212,175,55,.045),
         0 20px 60px rgba(0,0,0,.28);
 }
 
 .mayorista-slide{
-    position:absolute;
-    inset:0;
-    display:grid;
-    grid-template-columns:minmax(0,1.12fr) minmax(300px,.88fr);
-    gap:20px;
-    padding:42px 58px 68px;
+    display:none;
+    position:relative;
+    width:100%;
+    margin:0;
+    padding:0;
     opacity:0;
-    visibility:hidden;
-    transform:translateX(25px);
-    transition:
-        opacity .45s ease,
-        transform .45s ease,
-        visibility .45s;
 }
 
 .mayorista-slide.activa{
+    display:block;
     opacity:1;
-    visibility:visible;
-    transform:translateX(0);
+    animation:mayoristaFade .35s ease;
 }
 
-.mayorista-slide-copy{
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    min-width:0;
+@keyframes mayoristaFade{
+    from{opacity:.55}
+    to{opacity:1}
 }
 
-.mayorista-kicker{
-    color:#d4af37;
-    font-size:10px;
-    letter-spacing:4px;
-    font-weight:800;
-    margin-bottom:16px;
-}
-
-.mayorista-slide h2{
-    margin:0 0 18px;
-    max-width:720px;
-    font-family:Georgia,"Times New Roman",serif;
-    font-size:43px;
-    line-height:1.03;
-    color:#fff;
-}
-
-.mayorista-slide h2 span{
-    color:#d4af37;
-    font-style:italic;
-}
-
-.mayorista-slide-copy > p{
-    max-width:680px;
-    margin:6px 0;
-    color:#d1d1d1;
-    font-size:15px;
-    line-height:1.55;
-}
-
-.mayorista-slide-copy > p strong{
-    color:#d4af37;
-}
-
-.mayorista-slide-media{
-    min-width:0;
-    min-height:360px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position:relative;
-}
-
-.mayorista-slide-media::before{
-    content:"";
-    position:absolute;
-    width:260px;
-    height:260px;
-    border-radius:50%;
-    background:rgba(212,175,55,.09);
-    filter:blur(25px);
-}
-
-.mayorista-slide-media img{
-    position:relative;
+.mayorista-slide-banner{
+    display:block;
     width:100%;
-    height:360px;
-    object-fit:contain;
-    filter:
-        drop-shadow(0 20px 28px rgba(0,0,0,.7))
-        drop-shadow(0 0 22px rgba(212,175,55,.08));
-}
-
-.mayorista-info-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-    margin-top:8px;
-    max-width:680px;
-}
-
-.mayorista-info-card{
-    border:1px solid rgba(212,175,55,.32);
-    border-radius:12px;
-    padding:13px 15px;
-    background:linear-gradient(135deg,rgba(255,255,255,.055),rgba(212,175,55,.045));
-    box-shadow:inset 0 0 24px rgba(212,175,55,.025);
-}
-
-.mayorista-info-card strong{
-    display:block;
-    margin-bottom:5px;
-    color:#d4af37;
-    font-size:11px;
-    letter-spacing:1.2px;
-    text-transform:uppercase;
-}
-
-.mayorista-info-card span{
-    color:#e8e8e8;
-    font-size:12px;
-    line-height:1.5;
-}
-
-.mayorista-precios{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-    max-width:720px;
-    margin-top:7px;
-}
-
-.mayorista-precio-card{
-    padding:15px 10px;
-    text-align:center;
-    border:1px solid rgba(212,175,55,.45);
-    border-radius:12px;
-    background:linear-gradient(145deg,rgba(212,175,55,.10),rgba(0,0,0,.18));
-}
-
-.mayorista-precio-card small{
-    display:block;
-    color:#cfcfcf;
-    font-size:10px;
-    margin-bottom:6px;
-}
-
-.mayorista-precio-card b{
-    display:block;
-    color:#d4af37;
-    font-family:Georgia,"Times New Roman",serif;
-    font-size:25px;
-    line-height:1.05;
-}
-
-.mayorista-precio-card span{
-    color:#aaa;
-    font-size:9px;
-}
-
-.mayorista-minimo{
-    margin-top:14px;
-    color:#fff;
-    font-size:12px;
-    font-weight:700;
-    padding:9px 12px;
-    border:1px solid rgba(212,175,55,.35);
-    border-radius:9px;
-    background:rgba(212,175,55,.06);
-    display:inline-block;
-}
-
-.mayorista-escalas{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:7px 18px;
-    max-height:290px;
-    overflow:auto;
-    padding-right:7px;
-}
-
-.mayorista-escalas div{
-    color:#e7e7e7;
-    font-size:11px;
-    line-height:1.35;
-}
-
-.mayorista-escalas b{
-    color:#fff;
-}
-
-.mayorista-escalas small{
-    color:#8e8e8e;
-}
-
-.mayorista-condiciones{
-    max-width:680px;
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:4px 24px;
-}
-
-.mayorista-condiciones p{
+    height:auto;
+    max-width:100%;
     margin:0;
-    color:#d4d4d4;
-    font-size:11px;
-    line-height:1.42;
-}
-
-.mayorista-condiciones .condicion-separador{
-    grid-column:1/-1;
-    color:#d4af37;
-    margin-top:8px;
-}
-
-.mayorista-descuento{
-    grid-column:1/-1;
-    margin-top:9px;
-    padding:11px 13px;
-    border:1px solid rgba(212,175,55,.42);
-    border-radius:9px;
-    background:rgba(212,175,55,.08);
-    color:#f0f0f0;
-    font-size:12px;
-}
-
-.mayorista-descuento strong{
-    color:#d4af37;
+    object-fit:contain;
 }
 
 .mayorista-arrow{
@@ -2812,16 +2609,17 @@ RESULTADO:
     top:50%;
     transform:translateY(-50%);
     z-index:4;
-    width:42px;
-    height:42px;
+    width:44px;
+    height:44px;
     border-radius:50%;
-    border:1px solid rgba(212,175,55,.55);
-    background:rgba(5,5,5,.82);
+    border:1px solid rgba(212,175,55,.65);
+    background:rgba(5,5,5,.78);
     color:#d4af37;
-    font-size:29px;
+    font-size:30px;
     line-height:1;
     cursor:pointer;
     transition:.2s ease;
+    backdrop-filter:blur(6px);
 }
 
 .mayorista-arrow:hover{
@@ -2829,24 +2627,16 @@ RESULTADO:
     color:#111;
 }
 
-.mayorista-prev{
-    left:13px;
-}
-
-.mayorista-next{
-    right:13px;
-}
+.mayorista-prev{left:14px}
+.mayorista-next{right:14px}
 
 .mayorista-carousel-bottom{
-    position:absolute;
-    left:0;
-    right:0;
-    bottom:15px;
-    z-index:5;
     display:flex;
     align-items:center;
     justify-content:center;
-    gap:22px;
+    gap:18px;
+    padding:14px 12px;
+    background:#090909;
 }
 
 .mayorista-dots{
@@ -2882,1143 +2672,32 @@ RESULTADO:
 }
 
 @media(max-width:800px){
-
     .mayorista-carousel{
-        min-height:760px;
+        min-height:0;
+        border-radius:14px;
     }
 
-    .mayorista-slide{
-        grid-template-columns:1fr;
-        padding:28px 38px 72px;
-        overflow-y:auto;
+    .mayorista-slide-banner{
+        width:100%;
+        height:auto;
+        display:block;
     }
 
-    .mayorista-slide-media{
-        min-height:180px;
-        order:-1;
+    .mayorista-arrow{
+        width:38px;
+        height:38px;
+        font-size:25px;
     }
 
-    .mayorista-slide-media img{
-        height:210px;
-    }
-
-    .mayorista-info-grid,
-    .mayorista-precios{
-        grid-template-columns:1fr;
-    }
-
-    .mayorista-precio-card b{
-        font-size:28px;
-    }
-
-    .mayorista-slide h2{
-        font-size:31px;
-    }
-
-    .mayorista-escalas{
-        grid-template-columns:1fr;
-        max-height:235px;
-    }
-
-    .mayorista-condiciones{
-        grid-template-columns:1fr;
-    }
-
-    .mayorista-condiciones .condicion-separador,
-    .mayorista-descuento{
-        grid-column:1;
-    }
+    .mayorista-prev{left:10px}
+    .mayorista-next{right:10px}
 
     .mayorista-carousel-bottom{
         gap:10px;
         flex-direction:column;
-        bottom:10px;
-    }
-
-    .mayorista-arrow{
-        width:34px;
-        height:34px;
-        font-size:23px;
+        padding:10px 8px 12px;
     }
 }
-
-
-/* =========================================================
-   AKKINO V2 — NAVEGACION PREMIUM
-   ========================================================= */
-
-.categorias{
-    max-width:1100px;
-    margin:18px auto 30px;
-    padding:0 15px;
-}
-
-.categorias-principales{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:0;
-    border-bottom:1px solid rgba(255,255,255,.08);
-    margin-bottom:18px;
-}
-
-.categorias-principales .categoria-btn{
-    position:relative;
-    border:none;
-    border-radius:0;
-    background:transparent;
-    color:#777;
-    padding:13px 24px;
-    font-family:Arial,Helvetica,sans-serif;
-    font-size:11px;
-    font-weight:600;
-    letter-spacing:2px;
-    cursor:pointer;
-    transition:color .25s ease;
-}
-
-.categorias-principales .categoria-btn:hover{
-    color:#ddd;
-}
-
-.categorias-principales .categoria-btn.activa{
-    background:transparent;
-    color:#d4af37;
-}
-
-.categorias-principales .categoria-btn.activa::after{
-    content:"";
-    position:absolute;
-    left:20%;
-    right:20%;
-    bottom:-1px;
-    height:1px;
-    background:#d4af37;
-}
-
-.subcategorias{
-    display:flex;
-    justify-content:center;
-}
-
-.filtros-extra{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-wrap:wrap;
-    gap:7px;
-}
-
-.filtro-extra{
-    border:1px solid #292929;
-    padding:7px 13px;
-    border-radius:999px;
-    background:#101010;
-    color:#777;
-    cursor:pointer;
-    font-size:10px;
-    letter-spacing:1px;
-    transition:.2s ease;
-}
-
-.filtro-extra:hover{
-    color:#ddd;
-    border-color:#555;
-}
-
-.filtro-extra.activo{
-    background:rgba(212,175,55,.10);
-    border-color:rgba(212,175,55,.55);
-    color:#d4af37;
-}
-
-@media(max-width:600px){
-
-    .categorias{
-        margin-top:12px;
-        margin-bottom:24px;
-    }
-
-    .categorias-principales{
-        justify-content:flex-start;
-        overflow-x:auto;
-        scrollbar-width:none;
-    }
-
-    .categorias-principales::-webkit-scrollbar{
-        display:none;
-    }
-
-    .categorias-principales .categoria-btn{
-        flex:none;
-        padding:12px 17px;
-        font-size:9px;
-        letter-spacing:1.5px;
-    }
-
-    .filtros-extra{
-        justify-content:flex-start;
-        overflow-x:auto;
-        flex-wrap:nowrap;
-        scrollbar-width:none;
-        width:100%;
-        padding-bottom:3px;
-    }
-
-    .filtros-extra::-webkit-scrollbar{
-        display:none;
-    }
-
-    .filtro-extra{
-        flex:none;
-        font-size:9px;
-        padding:7px 11px;
-    }
-}
-
-
-
-/* =========================================================
-   AKKINO V2 — STOCK VISIBLE EN LA PARTE SUPERIOR
-   ========================================================= */
-
-.producto-card{
-    position:relative;
-}
-
-.producto-card .estado,
-.producto-card .stock,
-.producto-card .disponibilidad{
-    display:block;
-}
-
-/* Si el HTML genera el estado fuera del bloque de información,
-   lo llevamos visualmente a la zona superior de la tarjeta. */
-.producto-card .estado{
-    order:-10;
-    margin:0 0 9px;
-    padding:0;
-    font-size:10px;
-    font-weight:700;
-    letter-spacing:1.2px;
-    line-height:1.2;
-}
-
-/* Disponible: verde limpio, visible y separado del resto */
-.producto-card .estado.disponible,
-.producto-card .stock.disponible,
-.producto-card .disponibilidad.disponible{
-    color:#42c96b;
-}
-
-/* Evita que el texto de stock quede apretado u oculto */
-.producto-card .info,
-.producto-card .producto-info,
-.producto-card .card-info{
-    position:relative;
-}
-
-/* Estado que aparezca dentro del contenido de la tarjeta */
-.producto-card .info .estado,
-.producto-card .producto-info .estado,
-.producto-card .card-info .estado{
-    margin-top:0;
-    margin-bottom:10px;
-}
-
-/* Cuando la tarjeta utiliza flex, el estado queda primero */
-.producto-card .info,
-.producto-card .producto-info,
-.producto-card .card-info{
-    display:flex;
-    flex-direction:column;
-}
-
-/* Mantener nombre y precio después del estado */
-.producto-card .info .estado + *,
-.producto-card .producto-info .estado + *,
-.producto-card .card-info .estado + *{
-    margin-top:0;
-}
-
-/* Refuerzo para la etiqueta textual de disponibilidad */
-.estado-disponible,
-.disponible{
-    color:#42c96b !important;
-    font-weight:700;
-}
-
-/* En móvil también debe conservarse arriba y ser legible */
-@media(max-width:600px){
-    .producto-card .estado,
-    .producto-card .stock,
-    .producto-card .disponibilidad{
-        font-size:9px;
-        letter-spacing:1px;
-        margin-bottom:8px;
-    }
-}
-
-
-
-/* =========================================================
-   AKKINO V4 — DISPONIBILIDAD ARRIBA DE LA INFORMACIÓN
-   ========================================================= */
-
-.producto > .stock{
-    width:100%;
-    min-height:30px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:7px 10px;
-    margin:0;
-    border-top:1px solid rgba(255,255,255,.05);
-    border-bottom:1px solid rgba(255,255,255,.06);
-    font-size:10px;
-    font-weight:800;
-    letter-spacing:1.5px;
-    line-height:1;
-    text-transform:uppercase;
-}
-
-.producto > .stock.disponible{
-    color:#43d26b;
-    background:rgba(43,180,82,.075);
-}
-
-.producto > .stock.pedido{
-    color:#e0ad25;
-    background:rgba(224,173,37,.075);
-}
-
-.producto > .stock.sin-stock{
-    color:#e05252;
-    background:rgba(224,82,82,.075);
-}
-
-.producto > .producto-info{
-    padding-top:15px;
-}
-
-/* Eliminamos el margen que antes dejaba el stock pegado al final */
-.producto-info .stock{
-    margin:0;
-}
-
-@media(max-width:600px){
-
-    .producto > .stock{
-        min-height:27px;
-        padding:6px 8px;
-        font-size:9px;
-        letter-spacing:1.2px;
-    }
-
-    .producto > .producto-info{
-        padding-top:12px;
-    }
-}
-
-
-
-/* =========================================================
-   AKKINO — PRECIO ORIGINAL ESTILO FICHA PREMIUM
-   ========================================================= */
-
-.original-precio{
-    margin-top:4px;
-    padding-top:3px;
-}
-
-.precio-lista-grande{
-    font-size:26px;
-    line-height:1.15;
-    font-weight:800;
-    color:#f5f5f5;
-    margin-top:2px;
-}
-
-.original-linea-descuento{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    margin-top:12px;
-    padding-top:10px;
-    border-top:1px solid #292929;
-}
-
-.original-linea-descuento span{
-    color:#35c96a;
-    font-size:11px;
-    font-weight:800;
-    letter-spacing:1px;
-}
-
-.original-linea-descuento strong{
-    color:#35c96a;
-    font-size:19px;
-    font-weight:800;
-}
-
-.original-cuotas{
-    margin-top:5px;
-    color:#9d9d9d;
-    font-size:11px;
-    line-height:1.4;
-}
-
-.original-transferencia{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    margin-top:13px;
-    padding:11px 0 0;
-    border-top:1px solid rgba(53,201,106,.18);
-}
-
-.original-transferencia span{
-    color:#35c96a;
-    font-size:10px;
-    font-weight:800;
-    letter-spacing:.8px;
-}
-
-.original-transferencia strong{
-    color:#35c96a;
-    font-size:23px;
-    font-weight:900;
-}
-
-.original-transferencia-texto{
-    margin-top:4px;
-    color:#8d8d8d;
-    font-size:10px;
-    line-height:1.35;
-}
-
-@media(max-width:600px){
-
-    .precio-lista-grande{
-        font-size:22px;
-    }
-
-    .original-linea-descuento strong{
-        font-size:17px;
-    }
-
-    .original-transferencia strong{
-        font-size:20px;
-    }
-
-    .original-linea-descuento,
-    .original-transferencia{
-        gap:7px;
-    }
-}
-
-
-
-/* =========================================================
-   AKKINO — PRECIOS ORIGINALES
-   ========================================================= */
-
-.original-precio{
-    margin-top:2px;
-}
-
-.original-final-label,
-.original-cuotas-label,
-.original-lista-label{
-    color:#777;
-    font-size:9px;
-    font-weight:600;
-    letter-spacing:1.5px;
-    text-transform:uppercase;
-}
-
-.original-final{
-    margin-top:3px;
-    color:#fff;
-    font-size:28px;
-    line-height:1.1;
-    font-weight:900;
-}
-
-.original-descuento{
-    margin-top:3px;
-    color:#39cf6a;
-    font-size:10px;
-    font-weight:800;
-    letter-spacing:.8px;
-}
-
-.original-cuotas-bloque{
-    margin-top:13px;
-    padding-top:11px;
-    border-top:1px solid #292929;
-}
-
-.original-cuotas-precio{
-    margin-top:3px;
-    color:#e7e7e7;
-    font-size:21px;
-    font-weight:800;
-}
-
-.original-cuotas-info{
-    margin-top:3px;
-    color:#8c8c8c;
-    font-size:10px;
-}
-
-.original-cuotas-bloque .original-descuento{
-    margin-top:4px;
-}
-
-.original-lista-bloque{
-    margin-top:13px;
-    padding-top:11px;
-    border-top:1px solid rgba(255,255,255,.08);
-}
-
-.original-lista{
-    color:#858585;
-    font-size:18px;
-    font-weight:700;
-    text-decoration:line-through;
-    text-decoration-thickness:1px;
-}
-
-.original-lista-label{
-    margin-top:3px;
-    color:#666;
-}
-
-@media(max-width:600px){
-
-    .original-final{
-        font-size:24px;
-    }
-
-    .original-cuotas-precio{
-        font-size:19px;
-    }
-
-    .original-lista{
-        font-size:17px;
-    }
-
-}
-
-
-
-/* =========================================================
-   AKKINO — ORIGINALES / ORDEN DE PRECIOS
-   ========================================================= */
-
-.original-precio{
-    margin-top:2px;
-}
-
-/* 1 — LISTA: pequeña y tachada */
-.original-lista-bloque{
-    margin:0;
-    padding:0 0 10px;
-}
-
-.original-lista{
-    color:#707070;
-    font-size:15px;
-    line-height:1.1;
-    font-weight:700;
-    text-decoration:line-through;
-    text-decoration-thickness:1px;
-}
-
-.original-lista-label{
-    margin-top:3px;
-    color:#5f5f5f;
-    font-size:8px;
-    font-weight:600;
-    letter-spacing:1.3px;
-}
-
-/* 2 — CUOTAS: segundo nivel de importancia */
-.original-cuotas-bloque{
-    margin:0;
-    padding:10px 0;
-    border-top:1px solid #292929;
-    border-bottom:1px solid #292929;
-}
-
-.original-cuotas-label{
-    color:#888;
-    font-size:8px;
-    font-weight:600;
-    letter-spacing:1.3px;
-}
-
-.original-cuotas-precio{
-    margin-top:4px;
-    color:#f1f1f1;
-    font-size:21px;
-    line-height:1.1;
-    font-weight:800;
-}
-
-.original-cuotas-info{
-    margin-top:3px;
-    color:#858585;
-    font-size:10px;
-}
-
-.original-descuento{
-    margin-top:4px;
-    color:#39cf6a;
-    font-size:9px;
-    font-weight:800;
-    letter-spacing:.7px;
-}
-
-/* 3 — EFECTIVO / TRANSFERENCIA: precio protagonista */
-.original-final-bloque{
-    margin-top:11px;
-}
-
-.original-final-label{
-    color:#39cf6a;
-    font-size:9px;
-    font-weight:800;
-    letter-spacing:1.1px;
-}
-
-.original-final{
-    margin-top:3px;
-    color:#fff;
-    font-size:28px;
-    line-height:1.05;
-    font-weight:900;
-}
-
-.original-final-bloque .original-descuento{
-    margin-top:4px;
-}
-
-@media(max-width:600px){
-
-    .original-lista{
-        font-size:14px;
-    }
-
-    .original-cuotas-precio{
-        font-size:19px;
-    }
-
-    .original-final{
-        font-size:24px;
-    }
-}
-
-
-
-/* =========================================================
-   AKKINO V8 — HOME SIMPLE
-   ========================================================= */
-
-.akkino-home{
-    max-width:1100px;
-    margin:0 auto 30px;
-    padding:0 15px;
-}
-
-.home-intro{
-    position:relative;
-    overflow:hidden;
-    min-height:225px;
-    display:flex;
-    align-items:center;
-    padding:38px 45px;
-    border:1px solid rgba(212,175,55,.28);
-    border-radius:18px;
-    background:
-        radial-gradient(circle at 88% 35%,rgba(212,175,55,.14),transparent 28%),
-        linear-gradient(135deg,#151515,#080808);
-}
-
-.home-intro-copy{
-    max-width:680px;
-}
-
-.home-eyebrow{
-    color:#d4af37;
-    font-size:10px;
-    letter-spacing:4px;
-    margin-bottom:13px;
-}
-
-.home-title{
-    font-family:Georgia,"Times New Roman",serif;
-    font-size:clamp(32px,4vw,48px);
-    line-height:1;
-    font-weight:400;
-}
-
-.home-title span{
-    color:#d4af37;
-    font-style:italic;
-}
-
-.home-text{
-    max-width:600px;
-    margin-top:14px;
-    color:#999;
-    font-size:12px;
-    line-height:1.7;
-}
-
-
-
-
-@media(max-width:700px){
-    .home-intro{
-        min-height:0;
-        padding:28px 22px;
-    }
-
-    .home-title{
-        font-size:34px;
-    }
-}
-
-
-
-/* =========================================================
-   AKKINO — PRECIOS ORIGINALES / VALORES YA DESCONTADOS
-   ========================================================= */
-
-.original-precio{
-    margin-top:2px;
-}
-
-.original-lista-bloque{
-    margin:0;
-    padding:0 0 10px;
-}
-
-.original-lista{
-    color:#686868;
-    font-size:14px;
-    line-height:1.1;
-    font-weight:700;
-    text-decoration:line-through;
-    text-decoration-thickness:1px;
-}
-
-.original-lista-label{
-    margin-top:3px;
-    color:#5d5d5d;
-    font-size:8px;
-    font-weight:600;
-    letter-spacing:1.3px;
-}
-
-.original-cuotas-bloque{
-    margin:0;
-    padding:10px 0;
-    border-top:1px solid #292929;
-    border-bottom:1px solid #292929;
-}
-
-.original-cuotas-label{
-    color:#888;
-    font-size:8px;
-    font-weight:600;
-    letter-spacing:1.3px;
-}
-
-.original-cuotas-precio{
-    margin-top:4px;
-    color:#f1f1f1;
-    font-size:21px;
-    line-height:1.1;
-    font-weight:800;
-}
-
-.original-cuotas-info{
-    margin-top:3px;
-    color:#858585;
-    font-size:10px;
-}
-
-.original-final-bloque{
-    margin-top:11px;
-}
-
-.original-final-label{
-    color:#39cf6a;
-    font-size:9px;
-    font-weight:800;
-    letter-spacing:1.1px;
-}
-
-.original-final{
-    margin-top:3px;
-    color:#fff;
-    font-size:29px;
-    line-height:1.05;
-    font-weight:900;
-}
-
-@media(max-width:600px){
-
-    .original-lista{
-        font-size:14px;
-    }
-
-    .original-cuotas-precio{
-        font-size:19px;
-    }
-
-    .original-final{
-        font-size:25px;
-    }
-}
-
-
-
-/* =========================================================
-   AKKINO V11 — HOME ESTILO E-COMMERCE PREMIUM
-   Inspirado en la estructura de una tienda de perfumería,
-   manteniendo identidad AKKINO.
-   ========================================================= */
-
-.akkino-home-v11{
-    max-width:1280px;
-    margin:0 auto 42px;
-}
-
-.akkino-hero-v11{
-    position:relative;
-    min-height:310px;
-    display:flex;
-    align-items:center;
-    overflow:hidden;
-    border:1px solid #272727;
-    border-radius:2px;
-    background:
-        radial-gradient(circle at 80% 50%,rgba(212,175,55,.12),transparent 30%),
-        linear-gradient(105deg,#0c0c0c,#151515 58%,#090909);
-}
-
-.akkino-hero-v11::after{
-    content:"";
-    position:absolute;
-    right:-130px;
-    top:-170px;
-    width:460px;
-    height:460px;
-    border:1px solid rgba(212,175,55,.13);
-    border-radius:50%;
-    box-shadow:0 0 0 35px rgba(212,175,55,.025),
-               0 0 0 70px rgba(212,175,55,.015);
-}
-
-.akkino-hero-copy-v11{
-    position:relative;
-    z-index:2;
-    max-width:700px;
-    padding:48px 58px;
-}
-
-.akkino-kicker-v11{
-    color:#d4af37;
-    font-size:9px;
-    letter-spacing:4px;
-    margin-bottom:14px;
-}
-
-.akkino-title-v11{
-    font-family:Georgia,"Times New Roman",serif;
-    font-size:clamp(36px,5vw,64px);
-    font-weight:400;
-    line-height:.98;
-    letter-spacing:-1px;
-}
-
-.akkino-title-v11 span{
-    color:#d4af37;
-    font-style:italic;
-}
-
-.akkino-copy-v11{
-    max-width:570px;
-    margin-top:17px;
-    color:#8d8d8d;
-    font-size:11px;
-    line-height:1.75;
-}
-
-.akkino-hero-actions-v11{
-    display:flex;
-    flex-wrap:wrap;
-    gap:9px;
-    margin-top:23px;
-}
-
-.akkino-hero-btn-v11{
-    border:1px solid #3a3a3a;
-    background:transparent;
-    color:#c9c9c9;
-    padding:11px 18px;
-    font-size:9px;
-    letter-spacing:1.2px;
-    cursor:pointer;
-    transition:.2s ease;
-}
-
-.akkino-hero-btn-v11:hover{
-    background:#d4af37;
-    border-color:#d4af37;
-    color:#111;
-}
-
-.akkino-info-strip-v11{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    margin-top:13px;
-    border:1px solid #242424;
-    background:#0d0d0d;
-}
-
-.akkino-info-item-v11{
-    min-height:70px;
-    display:flex;
-    align-items:center;
-    gap:11px;
-    padding:14px 17px;
-    border-right:1px solid #242424;
-}
-
-.akkino-info-item-v11:last-child{
-    border-right:0;
-}
-
-.akkino-info-icon-v11{
-    color:#d4af37;
-    font-size:16px;
-}
-
-.akkino-info-item-v11 strong{
-    display:block;
-    color:#ddd;
-    font-size:9px;
-    letter-spacing:.8px;
-    font-weight:700;
-}
-
-.akkino-info-item-v11 span{
-    display:block;
-    margin-top:3px;
-    color:#686868;
-    font-size:8px;
-}
-
-.akkino-showcase-v11{
-    margin-top:40px;
-}
-
-.akkino-showcase-head-v11{
-    display:flex;
-    align-items:end;
-    justify-content:space-between;
-    margin-bottom:16px;
-    padding:0 2px;
-}
-
-.akkino-showcase-head-v11 h2{
-    margin:0;
-    font-family:Georgia,"Times New Roman",serif;
-    font-size:24px;
-    font-weight:400;
-}
-
-.akkino-showcase-head-v11 span{
-    color:#666;
-    font-size:8px;
-    letter-spacing:2px;
-}
-
-.akkino-showcase-row-v11{
-    display:grid;
-    grid-template-columns:repeat(6,minmax(0,1fr));
-    gap:12px;
-}
-
-.akkino-showcase-card-v11{
-    position:relative;
-    min-width:0;
-    overflow:hidden;
-    border:1px solid #252525;
-    background:#0d0d0d;
-    cursor:pointer;
-    transition:.22s ease;
-}
-
-.akkino-showcase-card-v11:hover{
-    transform:translateY(-3px);
-    border-color:#51451e;
-}
-
-.akkino-showcase-img-v11{
-    width:100%;
-    height:190px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:#fff;
-    overflow:hidden;
-}
-
-.akkino-showcase-img-v11 img{
-    width:100%;
-    height:100%;
-    object-fit:contain;
-}
-
-.akkino-showcase-body-v11{
-    padding:11px;
-}
-
-.akkino-showcase-name-v11{
-    height:31px;
-    overflow:hidden;
-    color:#e8e8e8;
-    font-size:10px;
-    line-height:1.45;
-}
-
-.akkino-showcase-price-v11{
-    margin-top:7px;
-    color:#fff;
-    font-size:14px;
-    font-weight:800;
-}
-
-.akkino-showcase-price-v11 span{
-    margin-left:4px;
-    color:#39cf6a;
-    font-size:7px;
-    font-weight:700;
-}
-
-.akkino-showcase-sub-v11{
-    margin-top:4px;
-    color:#777;
-    font-size:8px;
-}
-
-.akkino-catalog-head-v11{
-    max-width:1280px;
-    margin:0 auto;
-}
-
-@media(max-width:1100px){
-    .akkino-showcase-row-v11{
-        grid-template-columns:repeat(4,minmax(0,1fr));
-    }
-}
-
-@media(max-width:800px){
-    .akkino-info-strip-v11{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-    .akkino-info-item-v11:nth-child(2){
-        border-right:0;
-    }
-
-    .akkino-info-item-v11:nth-child(-n+2){
-        border-bottom:1px solid #242424;
-    }
-
-    .akkino-showcase-row-v11{
-        display:flex;
-        overflow-x:auto;
-        gap:10px;
-        padding-bottom:5px;
-        scrollbar-width:none;
-    }
-
-    .akkino-showcase-row-v11::-webkit-scrollbar{
-        display:none;
-    }
-
-    .akkino-showcase-card-v11{
-        flex:0 0 165px;
-    }
-
-    .akkino-showcase-img-v11{
-        height:170px;
-    }
-}
-
-@media(max-width:600px){
-    .akkino-home-v11{
-        margin-bottom:28px;
-    }
-
-    .akkino-hero-v11{
-        min-height:270px;
-    }
-
-    .akkino-hero-copy-v11{
-        padding:34px 25px;
-    }
-
-    .akkino-title-v11{
-        font-size:39px;
-    }
-
-    .akkino-copy-v11{
-        font-size:10px;
-    }
-
-    .akkino-info-item-v11{
-        min-height:64px;
-        padding:11px;
-    }
-
-    .akkino-showcase-head-v11 h2{
-        font-size:21px;
-    }
-}
-
-
-
-/* V11 header */
-.marca{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-.marca img{
-    width:280px;
-    max-width:70vw;
-    height:auto;
-    display:block;
-}
-
-@media(max-width:600px){
-    .marca img{
-        width:225px;
-        max-width:75vw;
-    }
-}
-
 </style>
 
 </head>
@@ -4455,138 +3134,31 @@ RESULTADO:
 
             <div class="mayorista-carousel">
 
-                <!-- SLIDE 1 -->
-
-                <article
-                    class="mayorista-slide activa"
-                    data-slide="0">
-
-                    <div class="mayorista-slide-copy">
-
-                        <div class="mayorista-kicker">
-                            AKKINO PRIVÉ · MAYORISTA
-                        </div>
-
-                        <h2>
-                            Inspiraciones pensadas
-                            <span>para revender.</span>
-                        </h2>
-
-                        <p>
-                            Inspirados en las fragancias más reconocidas del mundo.
-                        </p>
-
-                        <div class="mayorista-info-grid">
-                            <div class="mayorista-info-card">
-                                <strong>💼 Ideal para</strong>
-                                <span>Barberías · Tiendas · Farmacias · Regalerías · Revendedores</span>
-                            </div>
-
-                            <div class="mayorista-info-card">
-                                <strong>💰 Precio sugerido</strong>
-                                <span>Venta al público: <b style="color:#d4af37;font-size:16px;">$25.000 a $35.000</b></span>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="mayorista-slide-media">
-                        <img src="assets/akkino-60ml-mayorista.jpg" alt="Presentación AKKINO Privé 60 ml" loading="lazy">
-                    </div>
-
+                <article class="mayorista-slide activa" data-slide="0">
+                    <img
+                        class="mayorista-slide-banner"
+                        src="assets/mayorista-banner-1.jpg"
+                        alt="AKKINO Privé Mayorista — Inspiraciones pensadas para revender"
+                        loading="eager">
                 </article>
 
-                <!-- SLIDE 2 -->
-
-                <article
-                    class="mayorista-slide"
-                    data-slide="1">
-
-                    <div class="mayorista-slide-copy">
-
-                        <div class="mayorista-kicker">
-                            PRECIOS MAYORISTAS
-                        </div>
-
-                        <h2>
-                            Más unidades,
-                            <span>mejor precio.</span>
-                        </h2>
-
-                        <div class="mayorista-minimo">
-                            📦 Mínimo de compra: <strong>10 unidades</strong>
-                        </div>
-
-                        <div class="mayorista-precios">
-                            <div class="mayorista-precio-card">
-                                <small>10 — 50 unidades</small>
-                                <b>$13.500</b>
-                                <span>por unidad</span>
-                            </div>
-
-                            <div class="mayorista-precio-card">
-                                <small>51 — 250 unidades</small>
-                                <b>$12.500</b>
-                                <span>por unidad</span>
-                            </div>
-
-                            <div class="mayorista-precio-card">
-                                <small>+250 unidades</small>
-                                <b style="font-size:20px;">CONSULTAR</b>
-                                <span>precio especial</span>
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="mayorista-slide-media">
-                        <img src="assets/akkino-60ml-mayorista.jpg" alt="Presentación mayorista AKKINO Privé 60 ml" loading="lazy">
-                    </div>
-
+                <article class="mayorista-slide" data-slide="1">
+                    <img
+                        class="mayorista-slide-banner"
+                        src="assets/mayorista-banner-2.jpg"
+                        alt="AKKINO Privé — Precios mayoristas"
+                        loading="lazy">
                 </article>
 
-                <!-- SLIDE 3 -->
-
-                <article
-                    class="mayorista-slide"
-                    data-slide="2">
-
-                    <div class="mayorista-slide-copy">
-
-                        <div class="mayorista-kicker">
-                            CONDICIONES MAYORISTAS
-                        </div>
-
-                        <h2>
-                            Todo lo que necesitás
-                            <span>para empezar.</span>
-                        </h2>
-
-                        <div class="mayorista-condiciones">
-                            <p>● Presentación en envase de 60ml</p>
-                            <p>● Packaging semi-transparente de plástico antigolpes</p>
-                            <p>● Excelente proyección y duración (8 a 10 horas)</p>
-
-                            <p class="condicion-separador">📍 <strong>Formas de pago:</strong></p>
-                            <p>● Efectivo</p>
-                            <p>● Transferencia</p>
-                            <p>● Recibimos USDT</p>
-
-                            <p class="condicion-separador">📦 <strong>Modalidad de trabajo</strong></p>
-                            <p>💳 Los pedidos se confirman con el pago del 100%, se cierra pedido cada lunes y se despachan una vez recibida la mercadería del proveedor.</p>
-                            <p>🚚 Plazo estimado de entrega: <strong>2 a 5 días hábiles.</strong></p>
-                        </div>
-
-                    </div>
-
-                    <div class="mayorista-slide-media">
-                        <img src="assets/akkino-60ml-mayorista.jpg" alt="Condiciones mayoristas AKKINO Privé" loading="lazy">
-                    </div>
-
+                <article class="mayorista-slide" data-slide="2">
+                    <img
+                        class="mayorista-slide-banner"
+                        src="assets/mayorista-banner-3.jpg"
+                        alt="AKKINO Privé — Condiciones mayoristas"
+                        loading="lazy">
                 </article>
 
             </div>
-
 
             <button
                 class="mayorista-arrow mayorista-prev"
@@ -4604,35 +3176,24 @@ RESULTADO:
                 ›
             </button>
 
-
             <div class="mayorista-carousel-bottom">
 
-                <div
-                    id="mayoristaDots"
-                    class="mayorista-dots">
-
+                <div id="mayoristaDots" class="mayorista-dots">
                     <button
                         type="button"
                         class="activo"
                         onclick="irSlideMayorista(0)"
-                        aria-label="Información general">
-                        1
-                    </button>
+                        aria-label="Información general">1</button>
 
                     <button
                         type="button"
                         onclick="irSlideMayorista(1)"
-                        aria-label="Escalas mayoristas">
-                        2
-                    </button>
+                        aria-label="Precios mayoristas">2</button>
 
                     <button
                         type="button"
                         onclick="irSlideMayorista(2)"
-                        aria-label="Condiciones mayoristas">
-                        3
-                    </button>
-
+                        aria-label="Condiciones mayoristas">3</button>
                 </div>
 
                 <button
@@ -4658,41 +3219,7 @@ RESULTADO:
 
 <section class="akkino-home-v11">
 
-    <div class="akkino-info-strip-v11">
-
-        <div class="akkino-info-item-v11">
-            <div class="akkino-info-icon-v11">✦</div>
-            <div>
-                <strong>ORIGINALES</strong>
-                <span>Perfumería original</span>
-            </div>
-        </div>
-
-        <div class="akkino-info-item-v11">
-            <div class="akkino-info-icon-v11">◇</div>
-            <div>
-                <strong>EXTRACTOS 60 ML</strong>
-                <span>Inspiraciones seleccionadas</span>
-            </div>
-        </div>
-
-        <div class="akkino-info-item-v11">
-            <div class="akkino-info-icon-v11">▱</div>
-            <div>
-                <strong>PARTICULAR</strong>
-                <span>Compra individual</span>
-            </div>
-        </div>
-
-        <div class="akkino-info-item-v11">
-            <div class="akkino-info-icon-v11">▦</div>
-            <div>
-                <strong>MAYORISTA</strong>
-                <span>Desde 5 unidades</span>
-            </div>
-        </div>
-
-    </div>
+    
 
 
     <div
