@@ -1625,197 +1625,8 @@ body{
 
 }
 
-
-/* =========================================================
-   AKKINO — METODOS DE PAGO
-   ========================================================= */
-.metodos-pago-akkino{
-    display:grid;
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    gap:10px;
-    margin-top:12px;
-}
-.metodo-pago{
-    appearance:none;
-    border:1px solid rgba(198,166,92,.30);
-    background:linear-gradient(145deg,#111,#080808);
-    color:#fff;
-    border-radius:12px;
-    padding:14px 10px 13px;
-    min-height:112px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:5px;
-    cursor:pointer;
-    text-align:center;
-    transition:.18s ease;
-    font-family:inherit;
-}
-.metodo-pago:hover{
-    border-color:#c6a65c;
-    transform:translateY(-1px);
-}
-.metodo-pago.activo{
-    border-color:#c6a65c;
-    box-shadow:0 0 0 1px rgba(198,166,92,.25),0 8px 24px rgba(0,0,0,.25);
-    background:linear-gradient(145deg,#19150c,#0b0b0b);
-}
-.metodo-pago.solo-originales,
-.metodo-pago.solo-originales:hover{
-    position:relative;
-    opacity:.48;
-    filter:grayscale(.75);
-    cursor:not-allowed;
-    transform:none;
-    border-color:rgba(198,166,92,.18);
-    box-shadow:none;
-}
-.metodo-pago.solo-originales .metodo-titulo,
-.metodo-pago.solo-originales .metodo-subtitulo{
-    text-decoration:line-through;
-}
-.metodo-pago.solo-originales::after{
-    content:"SOLO PARA PERFUMES ORIGINALES";
-    position:absolute;
-    left:8px;
-    right:8px;
-    bottom:8px;
-    padding:4px 3px;
-    border-radius:5px;
-    background:rgba(0,0,0,.82);
-    color:#c6a65c;
-    font-size:7px;
-    font-weight:900;
-    letter-spacing:.35px;
-    line-height:1.15;
-    text-decoration:none;
-}
-.metodo-pago.bloqueado-mayorista,
-.metodo-pago.bloqueado-mayorista:hover{
-    position:relative;
-    opacity:.42;
-    filter:grayscale(.9);
-    cursor:not-allowed;
-    transform:none;
-    border-color:rgba(198,166,92,.14);
-    box-shadow:none;
-}
-.metodo-pago.bloqueado-mayorista .metodo-titulo,
-.metodo-pago.bloqueado-mayorista .metodo-subtitulo{
-    text-decoration:line-through;
-}
-.metodo-pago.bloqueado-mayorista::after{
-    content:"NO DISPONIBLE EN MAYORISTA";
-    position:absolute;
-    left:8px;
-    right:8px;
-    bottom:8px;
-    padding:4px 3px;
-    border-radius:5px;
-    background:rgba(0,0,0,.86);
-    color:#c6a65c;
-    font-size:7px;
-    font-weight:900;
-    letter-spacing:.35px;
-    line-height:1.15;
-    text-decoration:none;
-}
-.metodo-icono{font-size:21px;line-height:1;margin-bottom:2px}
-.metodo-titulo{font-size:12px;font-weight:800;letter-spacing:.5px;line-height:1.15}
-.metodo-subtitulo{font-size:9px;font-weight:700;letter-spacing:.35px;line-height:1.25;color:#c6a65c}
-
-.akkino-transferencia-box{
-    margin-top:12px;
-    padding:14px;
-    border:1px solid rgba(198,166,92,.35);
-    border-radius:12px;
-    background:linear-gradient(145deg,#15120c,#0b0b0b);
-}
-.akkino-transferencia-titulo{
-    color:#c6a65c;
-    font-size:11px;
-    font-weight:900;
-    letter-spacing:1px;
-    margin-bottom:10px;
-}
-.akkino-transferencia-dato{
-    display:flex;
-    justify-content:space-between;
-    gap:12px;
-    padding:6px 0;
-    border-bottom:1px solid rgba(255,255,255,.08);
-    font-size:11px;
-}
-.akkino-transferencia-dato:last-of-type{
-    border-bottom:0;
-}
-.akkino-transferencia-dato span:first-child{
-    color:#888;
-}
-.akkino-transferencia-dato strong{
-    color:#fff;
-    text-align:right;
-}
-.akkino-transferencia-aviso{
-    margin-top:10px;
-    color:#cfcfcf;
-    font-size:10px;
-    line-height:1.45;
-}
-@media(max-width:640px){
-    .metodos-pago-akkino{gap:7px}
-    .metodo-pago{min-height:106px;padding:12px 6px}
-    .metodo-titulo{font-size:10px}
-    .metodo-subtitulo{font-size:8px}
-    .metodo-icono{font-size:18px}
-}
 </style>
 
-<style id="akkino-banner-v44">
-/* =========================================================
-   AKKINO V44 — BANNER SUPERIOR DESLIZANTE
-   ========================================================= */
-.akkino-banner-wrap{
-    width:100%;
-    overflow:hidden;
-    border-top:1px solid rgba(212,175,55,.12);
-    border-bottom:1px solid rgba(212,175,55,.16);
-    background:#090909;
-}
-.akkino-banner-track{
-    display:flex;
-    width:max-content;
-    animation:akkinoBannerSlide 24s linear infinite;
-    will-change:transform;
-}
-.akkino-banner-item{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    min-height:36px;
-    padding:0 34px;
-    color:#d4af37;
-    font-size:10px;
-    font-weight:700;
-    letter-spacing:2px;
-    text-transform:uppercase;
-    white-space:nowrap;
-}
-@keyframes akkinoBannerSlide{
-    from{transform:translateX(0)}
-    to{transform:translateX(-50%)}
-}
-@media(max-width:600px){
-    .akkino-banner-item{
-        min-height:34px;
-        padding:0 24px;
-        font-size:8px;
-        letter-spacing:1.4px;
-    }
-}
-</style>
 
 <style id="akkino-promociones">
 .promo-title{
@@ -2498,67 +2309,6 @@ RESULTADO:
     display:block !important;
 }
 
-/* =========================================================
-   AKKINO — DETALLE DE PRECIOS EN CARRITO
-   ========================================================= */
-#modalCarrito .pedido-precio-lista{
-    margin-top:6px;
-    color:#8f8f8f;
-    font-size:10px;
-    line-height:1.35;
-}
-
-#modalCarrito .pedido-precio-lista strong{
-    color:#bdbdbd;
-    font-weight:800;
-}
-
-#modalCarrito .pedido-precio-descuento{
-    margin-top:3px;
-    color:#d4af37;
-    font-size:9px;
-    font-weight:800;
-    letter-spacing:.35px;
-    text-transform:uppercase;
-}
-
-#modalCarrito .pedido-precio-cuotas{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    margin-top:6px;
-    padding-top:5px;
-    border-top:1px solid rgba(53,201,106,.18);
-}
-
-#modalCarrito .pedido-precio-cuotas span{
-    color:#35c96a;
-    font-size:9px;
-    font-weight:900;
-    letter-spacing:.45px;
-}
-
-#modalCarrito .pedido-precio-cuotas strong{
-    color:#fff;
-    font-size:12px;
-    font-weight:900;
-    white-space:nowrap;
-}
-
-#modalCarrito .pedido-precio-pago{
-    margin-top:5px;
-    color:#35c96a;
-    font-size:10px;
-    font-weight:700;
-}
-
-#modalCarrito .pedido-precio-pago strong{
-    color:#fff;
-    font-size:12px;
-    font-weight:900;
-}
-
 #modalCarrito .pedido-item-nuevo{
     position:relative !important;
 
@@ -2686,68 +2436,6 @@ RESULTADO:
 }
 
 /* =========================================================
-   AVISO MAYORISTA
-   ========================================================= */
-
-#modalCarrito .aviso-mayorista-carrito{
-    margin:12px 0 2px !important;
-    padding:13px 14px !important;
-    display:grid !important;
-    grid-template-columns:28px 1fr !important;
-    gap:3px 10px !important;
-    align-items:start !important;
-    background:linear-gradient(180deg,#171717,#111) !important;
-    border:1px solid rgba(212,175,55,.35) !important;
-    border-radius:10px !important;
-}
-
-#modalCarrito .aviso-mayorista-icono{
-    grid-row:1 / span 2 !important;
-    font-size:20px !important;
-    line-height:1.2 !important;
-}
-
-#modalCarrito .aviso-mayorista-contenido{
-    display:flex !important;
-    flex-direction:column !important;
-    gap:4px !important;
-}
-
-#modalCarrito .aviso-mayorista-contenido strong{
-    color:#f2c400 !important;
-    font-size:12px !important;
-    font-weight:900 !important;
-}
-
-#modalCarrito .aviso-mayorista-contenido span{
-    color:#cfcfcf !important;
-    font-size:10px !important;
-    line-height:1.4 !important;
-}
-
-#modalCarrito .aviso-mayorista-contenido b{
-    color:#fff !important;
-}
-
-#modalCarrito .aviso-mayorista-boton{
-    grid-column:2 !important;
-    justify-self:start !important;
-    margin-top:6px !important;
-    padding:8px 11px !important;
-    background:#d4af37 !important;
-    color:#111 !important;
-    border:0 !important;
-    border-radius:6px !important;
-    font-size:9px !important;
-    font-weight:900 !important;
-    cursor:pointer !important;
-}
-
-#modalCarrito .aviso-mayorista-boton:hover{
-    filter:brightness(1.08) !important;
-}
-
-/* =========================================================
    FORMA DE PAGO
    ========================================================= */
 
@@ -2858,110 +2546,6 @@ RESULTADO:
         gap:9px !important;
     }
 }
-
-/* =========================================================
-   ENTREGA / ENVÍO
-   ========================================================= */
-#modalCarrito .entrega-pedido{
-    margin-top:16px !important;
-    padding:15px !important;
-    background:#f5f5f5 !important;
-    border-radius:10px !important;
-}
-#modalCarrito .entrega-pedido-titulo{
-    display:block !important;
-    margin-bottom:10px !important;
-    font-size:12px !important;
-    font-weight:800 !important;
-    color:#222 !important;
-}
-#modalCarrito .entrega-opciones{
-    display:grid !important;
-    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
-    gap:8px !important;
-}
-#modalCarrito .entrega-opcion{
-    min-height:58px !important;
-    padding:9px !important;
-    border:1px solid #ddd !important;
-    border-radius:8px !important;
-    background:#fff !important;
-    color:#222 !important;
-    cursor:pointer !important;
-    text-align:left !important;
-}
-#modalCarrito .entrega-opcion.activa{
-    border-color:#d4af37 !important;
-    box-shadow:0 0 0 1px #d4af37 inset !important;
-}
-#modalCarrito .entrega-opcion strong{
-    display:block !important;
-    font-size:11px !important;
-}
-#modalCarrito .entrega-opcion span{
-    display:block !important;
-    margin-top:3px !important;
-    color:#777 !important;
-    font-size:9px !important;
-}
-#modalCarrito .entrega-gratis{
-    color:#17863b !important;
-    font-weight:800 !important;
-}
-#modalCarrito .datos-envio{
-    display:none;
-    margin-top:12px !important;
-    padding-top:12px !important;
-    border-top:1px solid #ddd !important;
-}
-#modalCarrito .datos-envio.visible{
-    display:block !important;
-}
-#modalCarrito .datos-envio-grid{
-    display:grid !important;
-    grid-template-columns:1fr 1fr !important;
-    gap:9px !important;
-}
-#modalCarrito .datos-envio-grid .campo-completo{
-    grid-column:1 / -1 !important;
-}
-#modalCarrito .datos-envio label{
-    display:block !important;
-    margin-bottom:4px !important;
-    font-size:9px !important;
-    font-weight:700 !important;
-    color:#555 !important;
-}
-#modalCarrito .datos-envio input,
-#modalCarrito .datos-envio select{
-    width:100% !important;
-    min-height:38px !important;
-    box-sizing:border-box !important;
-    padding:0 9px !important;
-    border:1px solid #d5d5d5 !important;
-    border-radius:7px !important;
-    background:#fff !important;
-    color:#111 !important;
-    font-size:11px !important;
-}
-#modalCarrito .envio-seleccionado{
-    margin-top:9px !important;
-    color:#17863b !important;
-    font-size:10px !important;
-    font-weight:800 !important;
-}
-@media(max-width:600px){
-    #modalCarrito .entrega-opciones{
-        grid-template-columns:1fr !important;
-    }
-    #modalCarrito .datos-envio-grid{
-        grid-template-columns:1fr !important;
-    }
-    #modalCarrito .datos-envio-grid .campo-completo{
-        grid-column:auto !important;
-    }
-}
-
 </style>
 
 
@@ -2982,7 +2566,7 @@ RESULTADO:
 .mayorista-carousel{
     position:relative;
     width:100%;
-    min-height:470px;
+    min-height:540px;
     overflow:hidden;
     border:1px solid rgba(212,175,55,.48);
     border-radius:18px;
@@ -2998,9 +2582,9 @@ RESULTADO:
     position:absolute;
     inset:0;
     display:grid;
-    grid-template-columns:minmax(0,1.25fr) minmax(250px,.75fr);
+    grid-template-columns:minmax(0,1.12fr) minmax(300px,.88fr);
     gap:20px;
-    padding:42px 55px 62px;
+    padding:42px 58px 68px;
     opacity:0;
     visibility:hidden;
     transform:translateX(25px);
@@ -3035,7 +2619,7 @@ RESULTADO:
     margin:0 0 18px;
     max-width:720px;
     font-family:Georgia,"Times New Roman",serif;
-    font-size:42px;
+    font-size:43px;
     line-height:1.03;
     color:#fff;
 }
@@ -3059,7 +2643,7 @@ RESULTADO:
 
 .mayorista-slide-media{
     min-width:0;
-    min-height:310px;
+    min-height:360px;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -3079,11 +2663,127 @@ RESULTADO:
 .mayorista-slide-media img{
     position:relative;
     width:100%;
-    height:330px;
+    height:360px;
     object-fit:contain;
     filter:
         drop-shadow(0 20px 28px rgba(0,0,0,.7))
         drop-shadow(0 0 22px rgba(212,175,55,.08));
+}
+
+/* =========================================================
+   BANNERS MAYORISTAS — IMAGEN COMPLETA
+   ========================================================= */
+.mayorista-carousel-imagenes{
+    min-height:0;
+    height:auto;
+    background:#080808;
+    overflow:hidden;
+}
+
+.mayorista-carousel-imagenes .mayorista-slide{
+    position:absolute;
+    inset:0;
+    display:flex;
+    padding:0;
+    transform:translateX(25px);
+}
+
+.mayorista-carousel-imagenes .mayorista-slide.activa{
+    position:relative;
+    transform:translateX(0);
+}
+
+.mayorista-carousel-imagenes .mayorista-slide > img{
+    display:block;
+    width:100%;
+    height:auto;
+    max-width:100%;
+    object-fit:contain;
+    border-radius:0;
+    filter:none;
+}
+
+.mayorista-carousel-imagenes + .mayorista-arrow{
+    z-index:10;
+}
+
+.mayorista-info-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-top:8px;
+    max-width:680px;
+}
+
+.mayorista-info-card{
+    border:1px solid rgba(212,175,55,.32);
+    border-radius:12px;
+    padding:13px 15px;
+    background:linear-gradient(135deg,rgba(255,255,255,.055),rgba(212,175,55,.045));
+    box-shadow:inset 0 0 24px rgba(212,175,55,.025);
+}
+
+.mayorista-info-card strong{
+    display:block;
+    margin-bottom:5px;
+    color:#d4af37;
+    font-size:11px;
+    letter-spacing:1.2px;
+    text-transform:uppercase;
+}
+
+.mayorista-info-card span{
+    color:#e8e8e8;
+    font-size:12px;
+    line-height:1.5;
+}
+
+.mayorista-precios{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+    max-width:720px;
+    margin-top:7px;
+}
+
+.mayorista-precio-card{
+    padding:15px 10px;
+    text-align:center;
+    border:1px solid rgba(212,175,55,.45);
+    border-radius:12px;
+    background:linear-gradient(145deg,rgba(212,175,55,.10),rgba(0,0,0,.18));
+}
+
+.mayorista-precio-card small{
+    display:block;
+    color:#cfcfcf;
+    font-size:10px;
+    margin-bottom:6px;
+}
+
+.mayorista-precio-card b{
+    display:block;
+    color:#d4af37;
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:25px;
+    line-height:1.05;
+}
+
+.mayorista-precio-card span{
+    color:#aaa;
+    font-size:9px;
+}
+
+.mayorista-minimo{
+    margin-top:14px;
+    color:#fff;
+    font-size:12px;
+    font-weight:700;
+    padding:9px 12px;
+    border:1px solid rgba(212,175,55,.35);
+    border-radius:9px;
+    background:rgba(212,175,55,.06);
+    display:inline-block;
 }
 
 .mayorista-escalas{
@@ -3107,13 +2807,6 @@ RESULTADO:
 
 .mayorista-escalas small{
     color:#8e8e8e;
-}
-
-.mayorista-minimo{
-    margin-top:15px;
-    color:#62d85d;
-    font-size:13px;
-    font-weight:800;
 }
 
 .mayorista-condiciones{
@@ -3228,7 +2921,7 @@ RESULTADO:
 @media(max-width:800px){
 
     .mayorista-carousel{
-        min-height:650px;
+        min-height:760px;
     }
 
     .mayorista-slide{
@@ -3243,7 +2936,16 @@ RESULTADO:
     }
 
     .mayorista-slide-media img{
-        height:180px;
+        height:210px;
+    }
+
+    .mayorista-info-grid,
+    .mayorista-precios{
+        grid-template-columns:1fr;
+    }
+
+    .mayorista-precio-card b{
+        font-size:28px;
     }
 
     .mayorista-slide h2{
@@ -4354,252 +4056,16 @@ RESULTADO:
     }
 }
 
-</style>
 
-
-<style id="akkino-promos-premium">
-/* PROMOCIONES — diseño premium AKKINO */
-.promociones-titulo{
-    margin-top:12px !important;
-    margin-bottom:8px !important;
-    padding-bottom:6px !important;
-    border-bottom:1px solid rgba(212,175,55,.22) !important;
-    color:#d4af37 !important;
-    font-size:10px !important;
-    font-weight:800 !important;
-    letter-spacing:1.8px !important;
-    text-transform:uppercase !important;
-}
-
-.promos{
-    display:grid !important;
-    grid-template-columns:1fr 1fr !important;
-    gap:7px !important;
-    margin-top:0 !important;
-}
-
-.promo{
-    min-height:38px !important;
-    display:flex !important;
-    align-items:center !important;
-    justify-content:center !important;
-    box-sizing:border-box !important;
-    padding:7px 6px !important;
-    border-radius:6px !important;
-    font-size:11px !important;
-    font-weight:800 !important;
-    letter-spacing:.2px !important;
-    color:#f5f5f5 !important;
-    border:1px solid rgba(212,175,55,.42) !important;
-    box-shadow:none !important;
-    background:#141414 !important;
-}
-
-.promo-2{
-    background:linear-gradient(180deg,#1b1b1b,#101010) !important;
-}
-
-.promo-3{
-    background:linear-gradient(180deg,#d8b84c,#b99325) !important;
-    color:#111 !important;
-    border-color:#e2c765 !important;
-}
-
-@media(max-width:700px){
-    .promos{
-        grid-template-columns:1fr !important;
+/* Overrides para banners mayoristas en imagen */
+@media (max-width: 700px){
+    .mayorista-carousel-imagenes{
+        border-radius:14px;
     }
-}
 
-
-/* =========================================================
-   PEDIDOS CON PRODUCTOS A PEDIDO
-   ========================================================= */
-
-.pedido-pendiente-aviso{
-    margin-top:14px;
-    padding:14px 16px;
-    border:1px solid rgba(212,175,55,.45);
-    border-radius:10px;
-    background:rgba(212,175,55,.055);
-    display:flex;
-    flex-direction:column;
-    gap:6px;
-    font-size:12px;
-    line-height:1.5;
-    color:#bdbdbd;
-}
-
-.pedido-pendiente-aviso strong{
-    color:#d4af37;
-    font-size:11px;
-    letter-spacing:1.2px;
-}
-
-.pedido-pendiente-aviso b{
-    color:#fff;
-}
-
-.selector-pago select:disabled{
-    opacity:.45;
-    cursor:not-allowed;
-}
-
-.enviar-whatsapp.pedido-consulta{
-    background:#111;
-    color:#d4af37;
-    border:1px solid rgba(212,175,55,.65);
-}
-
-.enviar-whatsapp.pedido-consulta:hover{
-    background:#181818;
-}
-
-/* =========================================================
-   MERCADO PAGO
-   ========================================================= */
-.boton-mercado-pago{
-    display:block;
-    width:100%;
-    margin-top:10px;
-    min-height:47px;
-    border:0;
-    border-radius:8px;
-    background:#3483fa;
-    color:#fff;
-    font-size:13px;
-    font-weight:900;
-    letter-spacing:.2px;
-    cursor:pointer;
-    transition:.2s ease;
-}
-.boton-mercado-pago:hover{
-    background:#2968c8;
-}
-.boton-mercado-pago:disabled{
-    opacity:.4;
-    cursor:not-allowed;
-}
-.mercado-pago-cargando{
-    opacity:.7;
-    pointer-events:none;
-}
-
-
-/* =========================================================
-   AKKINO V40 — CUOTAS DESTACADAS
-   ========================================================= */
-.original-cuotas-label{
-    color:#39cf6a !important;
-    font-size:10px !important;
-    font-weight:900 !important;
-    letter-spacing:1px !important;
-}
-
-.original-cuotas-label .cuota-monto{
-    color:#fff !important;
-    font-size:12px;
-    font-weight:900;
-}
-</style>
-
-
-<style id="akkino-selector-cristal-v45">
-/* =========================================================
-   AKKINO V45 — SELECTOR CRISTAL EXTRACTOS / ORIGINALES
-   ========================================================= */
-.categorias-principales{
-    display:grid !important;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:12px !important;
-    width:min(680px,100%);
-    margin:0 auto 18px !important;
-    padding:0 !important;
-    border-bottom:0 !important;
-}
-.categorias-principales .categoria-btn{
-    position:relative;
-    min-height:68px;
-    padding:13px 18px !important;
-    border:1px solid rgba(212,175,55,.24) !important;
-    border-radius:16px !important;
-    background:
-        linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.018) 48%,rgba(212,175,55,.035)) !important;
-    box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.10),
-        0 8px 24px rgba(0,0,0,.20) !important;
-    backdrop-filter:blur(12px);
-    -webkit-backdrop-filter:blur(12px);
-    color:#aaa !important;
-    font-size:12px !important;
-    font-weight:700 !important;
-    letter-spacing:1.8px !important;
-    transition:.22s ease !important;
-    overflow:hidden;
-}
-.categorias-principales .categoria-btn::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(115deg,transparent 20%,rgba(255,255,255,.10) 48%,transparent 72%);
-    transform:translateX(-120%);
-    transition:transform .55s ease;
-    pointer-events:none;
-}
-.categorias-principales .categoria-btn:hover::before{
-    transform:translateX(120%);
-}
-.categorias-principales .categoria-btn:hover{
-    color:#fff !important;
-    border-color:rgba(212,175,55,.55) !important;
-    transform:translateY(-1px);
-}
-.categorias-principales .categoria-btn.activa{
-    color:#f4d46b !important;
-    border-color:rgba(212,175,55,.82) !important;
-    background:
-        linear-gradient(135deg,rgba(212,175,55,.23),rgba(212,175,55,.08) 52%,rgba(255,255,255,.045)) !important;
-    box-shadow:
-        inset 0 1px 0 rgba(255,255,255,.16),
-        inset 0 0 28px rgba(212,175,55,.06),
-        0 8px 28px rgba(0,0,0,.26),
-        0 0 18px rgba(212,175,55,.08) !important;
-}
-.categorias-principales .categoria-btn.activa::after{
-    content:"";
-    position:absolute;
-    left:18%;
-    right:18%;
-    bottom:7px;
-    height:2px;
-    border-radius:99px;
-    background:#d4af37;
-    box-shadow:0 0 10px rgba(212,175,55,.45);
-}
-@media(max-width:600px){
-    .categorias{
-        margin-top:14px !important;
-        margin-bottom:24px !important;
-        padding:0 12px !important;
-    }
-    .categorias-principales{
-        grid-template-columns:repeat(2,minmax(0,1fr));
-        gap:9px !important;
+    .mayorista-carousel-imagenes .mayorista-slide > img{
         width:100%;
-        margin-bottom:16px !important;
-    }
-    .categorias-principales .categoria-btn{
-        min-height:62px;
-        padding:11px 7px !important;
-        border-radius:14px !important;
-        font-size:11px !important;
-        letter-spacing:1.1px !important;
-        line-height:1.35;
-    }
-    .categorias-principales .categoria-btn.activa::after{
-        left:20%;
-        right:20%;
-        bottom:6px;
+        height:auto;
     }
 }
 </style>
@@ -4859,21 +4325,6 @@ RESULTADO:
 
     <div id="catalogInner">
 
-<!-- =========================================================
-     BANNER SUPERIOR — AKKINO PRIVÉ
-     ========================================================= -->
-<div class="akkino-banner-wrap" aria-label="Información y beneficios de AKKINO Privé">
-    <div class="akkino-banner-track">
-        <div class="akkino-banner-item">🚚 ENVÍO GRATIS · PUERTO GENERAL SAN MARTÍN + SAN LORENZO · SIN MÍNIMO</div>
-        <div class="akkino-banner-item">💳 2 CUOTAS SIN INTERÉS</div>
-        <div class="akkino-banner-item">✨ PERFUMES ORIGINALES E INSPIRACIONES</div>
-        <div class="akkino-banner-item">📦 ENVÍO GRATIS A PARTIR DE $180.000</div>
-        <div class="akkino-banner-item">🚚 ENVÍO GRATIS · PUERTO GENERAL SAN MARTÍN + SAN LORENZO · SIN MÍNIMO</div>
-        <div class="akkino-banner-item">💳 2 CUOTAS SIN INTERÉS</div>
-        <div class="akkino-banner-item">✨ PERFUMES ORIGINALES E INSPIRACIONES</div>
-        <div class="akkino-banner-item">📦 ENVÍO GRATIS A PARTIR DE $180.000</div>
-    </div>
-</div>
 
 <!-- =======================================================
      HEADER
@@ -4939,8 +4390,272 @@ RESULTADO:
 
 
 <!-- =======================================================
-     CATEGORÍAS
+     HERO AKKINO
      ======================================================= -->
+
+<section class="hero-akkino catalog-welcome">
+
+    <div class="hero-panel">
+
+        <!-- =====================================================
+             HERO PARTICULAR
+             ===================================================== -->
+
+        <div
+            id="heroParticular"
+            class="hero-copy">
+
+            <div class="hero-kicker">
+                BIENVENIDO A AKKINO PRIVÉ
+            </div>
+
+            <div class="hero-title">
+                Todo tu mundo de fragancias,
+                <span>en un solo lugar.</span>
+            </div>
+
+            <div class="hero-text">
+                Desde acá podés armar tus pedidos de inspiraciones,
+                consultar las promociones vigentes y realizar tus
+                pedidos mayoristas. También encontrás nuestra sección
+                de perfumes originales.
+            </div>
+
+            <div class="catalog-welcome-grid">
+
+                <button
+                    class="welcome-card"
+                    onclick="
+                        seleccionarTipo('INSPIRACIONES 60ML');
+                        seleccionarFiltroExtra('TODOS');
+                        document.getElementById('productos').scrollIntoView({behavior:'smooth'})
+                    ">
+
+                    <div class="welcome-icon">✦</div>
+
+                    <div>
+                        <strong>INSPIRACIONES</strong>
+                        <span>
+                            Armá tu pedido y aprovechá
+                            las promociones vigentes.
+                        </span>
+                    </div>
+
+                    <b>VER COLECCIÓN →</b>
+
+                </button>
+
+
+                <button
+                    class="welcome-card"
+                    onclick="cambiarModo('mayorista')">
+
+                    <div class="welcome-icon">◇</div>
+
+                    <div>
+                        <strong>MAYORISTA</strong>
+                        <span>
+                            Consultá escalas, precios
+                            y armá tu pedido mayorista.
+                        </span>
+                    </div>
+
+                    <b>INGRESAR →</b>
+
+                </button>
+
+
+                <button
+                    class="welcome-card welcome-originales"
+                    onclick="
+                        cambiarModo('particular');
+                        seleccionarTipo('ORIGINALES');
+                        seleccionarFiltroExtra('TODOS');
+                        document.getElementById('productos').scrollIntoView({behavior:'smooth'})
+                    ">
+
+                    <div class="welcome-icon">◆</div>
+
+                    <div>
+                        <strong>PERFUMES ORIGINALES</strong>
+                        <span>
+                            Descubrí nuestra selección
+                            de fragancias originales.
+                        </span>
+                    </div>
+
+                    <b>VER ORIGINALES →</b>
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             HERO MAYORISTA — CARRUSEL
+             ===================================================== -->
+
+        <div
+            id="heroMayorista"
+            class="mayorista-hero"
+            aria-label="Información mayorista">
+
+            <div class="mayorista-carousel mayorista-carousel-imagenes">
+
+                <!-- BANNER 1 -->
+                <article class="mayorista-slide activa" data-slide="0">
+                    <img
+                        src="assets/mayorista-banner-1.jpg"
+                        alt="AKKINO PRIVÉ Mayorista - Inspiraciones pensadas para revender"
+                        loading="eager">
+                </article>
+
+                <!-- BANNER 2 -->
+                <article class="mayorista-slide" data-slide="1">
+                    <img
+                        src="assets/mayorista-banner-2.jpg"
+                        alt="AKKINO PRIVÉ Mayorista - Precios mayoristas"
+                        loading="lazy">
+                </article>
+
+                <!-- BANNER 3 -->
+                <article class="mayorista-slide" data-slide="2">
+                    <img
+                        src="assets/mayorista-banner-3.jpg"
+                        alt="AKKINO PRIVÉ Mayorista - Condiciones mayoristas"
+                        loading="lazy">
+                </article>
+
+            </div>
+
+
+            <button
+                class="mayorista-arrow mayorista-prev"
+                type="button"
+                onclick="cambiarSlideMayorista(-1)"
+                aria-label="Anterior">
+                ‹
+            </button>
+
+            <button
+                class="mayorista-arrow mayorista-next"
+                type="button"
+                onclick="cambiarSlideMayorista(1)"
+                aria-label="Siguiente">
+                ›
+            </button>
+
+
+            <div class="mayorista-carousel-bottom">
+
+                <div
+                    id="mayoristaDots"
+                    class="mayorista-dots">
+
+                    <button
+                        type="button"
+                        class="activo"
+                        onclick="irSlideMayorista(0)"
+                        aria-label="Información general">
+                        1
+                    </button>
+
+                    <button
+                        type="button"
+                        onclick="irSlideMayorista(1)"
+                        aria-label="Escalas mayoristas">
+                        2
+                    </button>
+
+                    <button
+                        type="button"
+                        onclick="irSlideMayorista(2)"
+                        aria-label="Condiciones mayoristas">
+                        3
+                    </button>
+
+                </div>
+
+                <button
+                    class="mayorista-catalogo-btn"
+                    type="button"
+                    onclick="
+                        seleccionarTipo('INSPIRACIONES 60ML');
+                        seleccionarFiltroExtra('TODOS');
+                        document.getElementById('productos').scrollIntoView({behavior:'smooth'})
+                    ">
+                    VER CATÁLOGO MAYORISTA →
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<section class="akkino-home-v11">
+
+    <div class="akkino-info-strip-v11">
+
+        <div class="akkino-info-item-v11">
+            <div class="akkino-info-icon-v11">✦</div>
+            <div>
+                <strong>ORIGINALES</strong>
+                <span>Perfumería original</span>
+            </div>
+        </div>
+
+        <div class="akkino-info-item-v11">
+            <div class="akkino-info-icon-v11">◇</div>
+            <div>
+                <strong>EXTRACTOS 60 ML</strong>
+                <span>Inspiraciones seleccionadas</span>
+            </div>
+        </div>
+
+        <div class="akkino-info-item-v11">
+            <div class="akkino-info-icon-v11">▱</div>
+            <div>
+                <strong>PARTICULAR</strong>
+                <span>Compra individual</span>
+            </div>
+        </div>
+
+        <div class="akkino-info-item-v11">
+            <div class="akkino-info-icon-v11">▦</div>
+            <div>
+                <strong>MAYORISTA</strong>
+                <span>Desde 5 unidades</span>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div
+    id="homeShowcasesV11">
+    </div>
+
+</section>
+
+
+<div id="catalogoAkkino" class="seccion-tienda">
+
+    <h2>
+        Descubrí tu próxima fragancia
+    </h2>
+
+    <span>
+        Catálogo oficial
+    </span>
+
+</div>
 
 <div
 id="categorias"
@@ -5055,123 +4770,31 @@ class="modal">
         <div id="listaCarrito"></div>
 
 
-        <div id="selectorPago" class="selector-pago">
+        <div
+        id="selectorPago"
+        class="selector-pago">
 
-            <label>FORMA DE PAGO</label>
+            <label>
+                FORMA DE PAGO
+            </label>
 
-            <div class="metodos-pago-akkino" id="metodosPagoAkkino">
+            <select
+            id="formaPagoPedido"
+            onchange="cambiarFormaPago(this.value)">
 
-                <button type="button" class="metodo-pago" data-forma="EFECTIVO" onclick="cambiarFormaPago('EFECTIVO')">
-                    <span class="metodo-icono">🏦</span>
-                    <span class="metodo-titulo">TRANSFERENCIA / EFECTIVO</span>
-                    <span class="metodo-subtitulo">MEJOR PRECIO</span>
-                </button>
+                <option value="EFECTIVO">
+                    EFECTIVO
+                </option>
 
-                <button type="button" class="metodo-pago" data-forma="MERCADO_PAGO_1_PAGO" onclick="cambiarFormaPago('MERCADO_PAGO_1_PAGO')">
-                    <span class="metodo-icono">💳</span>
-                    <span class="metodo-titulo">DÉBITO</span>
-                    <span class="metodo-subtitulo">20% OFF · PRECIO DE LISTA</span>
-                </button>
+                <option value="TRANSFERENCIA">
+                    TRANSFERENCIA
+                </option>
 
-                <button type="button" class="metodo-pago" data-forma="TARJETA_2_CUOTAS" onclick="cambiarFormaPago('TARJETA_2_CUOTAS')">
-                    <span class="metodo-icono">💳</span>
-                    <span class="metodo-titulo">CRÉDITO / TARJETA</span>
-                    <span class="metodo-subtitulo">20% OFF · 2 CUOTAS SIN INTERÉS</span>
-                </button>
+                <option value="TARJETA_2_CUOTAS">
+                    TARJETA — 2 CUOTAS
+                </option>
 
-            </div>
-
-            <select id="formaPagoPedido" aria-hidden="true" tabindex="-1" style="position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;">
-                <option value="EFECTIVO">TRANSFERENCIA / EFECTIVO</option>
-                <option value="TRANSFERENCIA">TRANSFERENCIA</option>
-                <option value="MERCADO_PAGO_1_PAGO">DÉBITO</option>
-                <option value="TARJETA_2_CUOTAS">CRÉDITO / TARJETA</option>
             </select>
-
-        </div>
-
-
-        <div id="entregaPedido" class="entrega-pedido">
-
-            <span class="entrega-pedido-titulo">¿CÓMO RECIBÍS TU PEDIDO?</span>
-
-            <div class="entrega-opciones">
-
-                <button type="button" class="entrega-opcion" data-entrega="PUERTO" onclick="seleccionarEntrega('PUERTO')">
-                    <strong>🏠 Puerto General San Martín</strong>
-                    <span class="entrega-gratis">ENVÍO GRATIS</span>
-                </button>
-
-                <button type="button" class="entrega-opcion" data-entrega="SAN_LORENZO" onclick="seleccionarEntrega('SAN_LORENZO')">
-                    <strong>🏠 San Lorenzo</strong>
-                    <span class="entrega-gratis">ENVÍO GRATIS</span>
-                </button>
-
-                <button type="button" class="entrega-opcion" data-entrega="OTRO" onclick="seleccionarEntrega('OTRO')">
-                    <strong>📦 Otro destino</strong>
-                    <span>Calcular envío</span>
-                </button>
-
-            </div>
-
-            <div id="envioSeleccionado" class="envio-seleccionado"></div>
-
-            <div id="datosEnvio" class="datos-envio">
-
-                <div class="datos-envio-grid">
-
-                    <div>
-                        <label for="envioNombre">NOMBRE Y APELLIDO *</label>
-                        <input id="envioNombre" type="text" autocomplete="name">
-                    </div>
-
-                    <div>
-                        <label for="envioDni">DNI *</label>
-                        <input id="envioDni" type="text" inputmode="numeric">
-                    </div>
-
-                    <div>
-                        <label for="envioTelefono">TELÉFONO *</label>
-                        <input id="envioTelefono" type="tel" autocomplete="tel">
-                    </div>
-
-                    <div>
-                        <label for="envioEmail">EMAIL *</label>
-                        <input id="envioEmail" type="email" autocomplete="email">
-                    </div>
-
-                    <div>
-                        <label for="envioProvincia">PROVINCIA *</label>
-                        <input id="envioProvincia" type="text" value="Santa Fe">
-                    </div>
-
-                    <div>
-                        <label for="envioLocalidad">LOCALIDAD *</label>
-                        <input id="envioLocalidad" type="text">
-                    </div>
-
-                    <div class="campo-completo">
-                        <label for="envioDireccion">DIRECCIÓN *</label>
-                        <input id="envioDireccion" type="text" autocomplete="street-address" placeholder="Calle y número">
-                    </div>
-
-                    <div>
-                        <label for="envioCodigoPostal">CÓDIGO POSTAL *</label>
-                        <input id="envioCodigoPostal" type="text" inputmode="numeric">
-                    </div>
-
-                    <div>
-                        <label for="envioTransporte">ENVÍO POR *</label>
-                        <select id="envioTransporte">
-                            <option value="">Seleccionar</option>
-                            <option value="Via Cargo">Via Cargo</option>
-                            <option value="Andreani">Andreani</option>
-                        </select>
-                    </div>
-
-                </div>
-
-            </div>
 
         </div>
 
@@ -5195,16 +4818,6 @@ class="modal">
 
         </button>
 
-        <button
-        id="botonMercadoPago"
-        class="boton-mercado-pago"
-        onclick="pagarMercadoPago()"
-        type="button">
-
-            PAGAR CON MERCADO PAGO
-
-        </button>
-
     </div>
 
 </div>
@@ -5220,13 +4833,19 @@ class="modal">
    ========================================================= */
 
 const API =
-"https://script.google.com/macros/s/AKfycbwGfbAuvnCU3F524cu62JuwO3RwdphZqCk3AFeJ-hvwnEcWOFdmEPQUHyvwRy3-J0LY/exec";
+"https://script.google.com/macros/s/AKfycbwVZWvj17WYo6amUDwZE7HG09dkkDSw9Zo0M0e6dfJ22TC7WHaDTtc1BnTa1XoTxmX0/exec";
 
 const WHATSAPP =
 "5493476552435";
 
 const MINIMO_MAYORISTA =
 10;
+
+const PRECIO_MAYORISTA_10_50 =
+13500;
+
+const PRECIO_MAYORISTA_51_250 =
+12500;
 
 const PRODUCTOS_POR_PAGINA =
 30;
@@ -5257,9 +4876,6 @@ let filtroExtraActual =
 
 let formaPagoActual =
 "EFECTIVO";
-
-let entregaActual =
-"";
 
 
 /* =========================================================
@@ -5488,14 +5104,13 @@ function stockClase(producto){
 function precioOriginal(producto){
 
     /*
-    ORIGINALES — los precios vienen directamente de Google Sheets:
+    ORIGINALES — estructura definitiva de precios:
 
-    Columna D = valorReal = precio efectivo / transferencia.
-    Columna P = precioLista = precio de lista publicado.
+    valorReal de Google Sheets = precio FINAL
+    efectivo / transferencia.
 
-    La web NO recalcula el precio de lista.
-    Solo calcula las 2 cuotas a partir del precio de lista:
-    total 2 cuotas = precioLista × 0,80.
+    Precio de lista = final + 40%
+    2 cuotas = 20% menos que el precio de lista.
     */
 
     const precioFinal =
@@ -5503,10 +5118,12 @@ function precioOriginal(producto){
         ? numero(producto.valorReal)
         : numero(producto.precioParticular);
 
-    const precioLista =
-        numero(producto.precioLista);
-
     const cuotas = 2;
+
+    const precioLista =
+        precioFinal > 0
+        ? Math.round(precioFinal * 1.40)
+        : 0;
 
     const precioCuotas =
         precioLista > 0
@@ -5531,17 +5148,7 @@ function precioOriginalSegunPago(producto){
 
     const precios = precioOriginal(producto);
 
-    /*
-    DÉBITO y CRÉDITO tienen el mismo precio comercial:
-    precio de lista menos 20%.
-    La diferencia es solamente la forma de pago:
-    DÉBITO = 1 pago.
-    CRÉDITO = 2 cuotas sin interés.
-    */
-    if(
-        formaPagoActual === "MERCADO_PAGO_1_PAGO" ||
-        formaPagoActual === "TARJETA_2_CUOTAS"
-    ){
+    if(formaPagoActual === "TARJETA_2_CUOTAS"){
         return precios.precioCuotas;
     }
 
@@ -6387,48 +5994,7 @@ function actualizarHeroModo(){
 
 
 function prepararImagenesMayorista(){
-
-    if(
-        !Array.isArray(perfumes) ||
-        !perfumes.length
-    ){
-        return;
-    }
-
-    /*
-    Usamos imágenes reales del catálogo como soporte visual
-    del carrusel. No se agregan imágenes externas.
-    */
-    const disponibles =
-        perfumes
-        .filter(
-            p =>
-                texto(p.foto) &&
-                tipoPrincipalProducto(p) !== "ORIGINALES"
-        )
-        .slice(0,3);
-
-    disponibles.forEach(
-        (producto,index) => {
-
-            const img =
-                document.getElementById(
-                    `mayoristaImagen${index}`
-                );
-
-            if(!img){
-                return;
-            }
-
-            img.src =
-                texto(producto.foto);
-
-            img.alt =
-                texto(producto.perfume) ||
-                "AKKINO Privé";
-
-        }
-    );
+    /* El carrusel usa la presentación real de 60 ml de AKKINO Privé. */
 }
 
 
@@ -6638,46 +6204,23 @@ function precioMayorista(
     cantidad
 ){
 
-    /*
-    Nueva escala mayorista:
-    10 a 50  -> columna precio10
-    51 a 250 -> columna precio50
-    +250     -> consultar
-
-    Las columnas 100, 250 y +500 del Sheet se conservan
-    para referencia futura, pero la web utiliza estas dos
-    escalas comerciales.
-    */
-
-    if(cantidad >= 251){
-        return 0;
-    }
-
-    if(cantidad >= 51){
-        return numero(producto.precio50);
-    }
-
-    if(cantidad >= 10){
-        return numero(producto.precio10);
-    }
+    if(cantidad >= 251) return 0;
+    if(cantidad >= 51) return PRECIO_MAYORISTA_51_250;
+    if(cantidad >= 10) return PRECIO_MAYORISTA_10_50;
 
     return 0;
 }
+
 
 function escalaMayorista(
     total
 ){
 
-    if(total >= 251)
-        return "+250 unidades — CONSULTAR";
+    if(total >= 251) return "+250 unidades · CONSULTAR";
+    if(total >= 51) return "51 a 250 unidades";
+    if(total >= 10) return "10 a 50 unidades";
 
-    if(total >= 51)
-        return "51 a 250 unidades";
-
-    if(total >= 10)
-        return "10 a 50 unidades";
-
-    return `Menos de ${MINIMO_MAYORISTA} unidades`;
+    return "Menos de 10 unidades";
 }
 
 
@@ -6690,335 +6233,6 @@ function proximaEscala(
     if(total < 251) return 251;
 
     return null;
-}
-
-/* =========================================================
-   PROMOCIONES PARTICULAR
-   ========================================================= */
-
-function calcularCarritoParticular(){
-
-    let precioNormal = 0;
-
-    let unidadesInspiraciones = 0;
-
-    let promo2 = 0;
-
-    let promo3 = 0;
-
-    /*
-    Las promociones 2x35 y 3x50 son promociones
-    GENERALES del pedido de inspiraciones.
-    No hace falta que sean dos o tres unidades
-    del mismo perfume.
-    */
-
-    carrito.forEach(
-        item => {
-
-            const producto =
-                item.producto;
-
-            const cantidad =
-                item.cantidad;
-
-            const tipo =
-                tipoPrincipalProducto(
-                    producto
-                );
-
-            const unitario =
-                tipo === "ORIGINALES"
-                ? precioOriginalSegunPago(producto)
-                : precioParticularProducto(producto);
-
-            precioNormal +=
-                unitario * cantidad;
-
-
-            /*
-            Solamente las inspiraciones
-            participan de 2x35 / 3x50.
-            */
-
-            if(
-                tipo ===
-                "INSPIRACIONES 60ML"
-            ){
-
-                unidadesInspiraciones +=
-                    cantidad;
-
-                if(!promo2){
-
-                    promo2 =
-                        numero(
-                            producto.promo2
-                        );
-
-                }
-
-                if(!promo3){
-
-                    promo3 =
-                        numero(
-                            producto.promo3
-                        );
-
-                }
-
-            }
-
-        }
-    );
-
-
-    /*
-    Si por algún motivo la API no trae promo2/promo3,
-    usamos los valores actuales de AKKINO.
-    */
-
-    if(
-        !promo2
-    ){
-
-        promo2 = 35000;
-
-    }
-
-    if(
-        !promo3
-    ){
-
-        promo3 = 50000;
-
-    }
-
-
-    /*
-    Calculamos la mejor combinación:
-
-    3 unidades -> promo3
-    2 unidades -> promo2
-    1 unidad   -> precio normal
-
-    Ejemplos:
-    1 = 20.000
-    2 = 35.000
-    3 = 50.000
-    4 = 70.000
-    5 = 85.000
-    6 = 100.000
-    */
-
-    let mejorTotalPromos =
-        unidadesInspiraciones *
-        20000;
-
-
-    /*
-    Usamos el precio real de las unidades
-    restantes. Para que funcione aunque haya
-    precios particulares distintos, primero
-    armamos el precio normal de las inspiraciones.
-    */
-
-    let precioNormalInspiraciones = 0;
-
-    carrito.forEach(
-        item => {
-
-            if(
-                tipoPrincipalProducto(
-                    item.producto
-                ) ===
-                "INSPIRACIONES 60ML"
-            ){
-
-                precioNormalInspiraciones +=
-                    precioParticularProducto(
-                        item.producto
-                    ) *
-                    item.cantidad;
-
-            }
-
-        }
-    );
-
-
-    mejorTotalPromos =
-        precioNormalInspiraciones;
-
-
-    let mejorDetalle =
-        [];
-
-
-    /*
-    Probamos todas las cantidades posibles
-    de promociones de 3 y 2 unidades y nos
-    quedamos con el menor total.
-    */
-
-    for(
-        let cantidad3 = 0;
-        cantidad3 <=
-        Math.floor(
-            unidadesInspiraciones / 3
-        );
-        cantidad3++
-    ){
-
-        for(
-            let cantidad2 = 0;
-            cantidad2 <=
-            Math.floor(
-                (
-                    unidadesInspiraciones -
-                    cantidad3 * 3
-                ) / 2
-            );
-            cantidad2++
-        ){
-
-            const restantes =
-                unidadesInspiraciones -
-                cantidad3 * 3 -
-                cantidad2 * 2;
-
-
-            /*
-            Para las unidades restantes usamos
-            un promedio/precio unitario real.
-            */
-
-            const precioUnitarioPromedio =
-                unidadesInspiraciones > 0
-                ?
-                precioNormalInspiraciones /
-                unidadesInspiraciones
-                :
-                0;
-
-
-            const totalCombinacion =
-                cantidad3 * promo3 +
-                cantidad2 * promo2 +
-                restantes *
-                precioUnitarioPromedio;
-
-
-            if(
-                totalCombinacion <
-                mejorTotalPromos
-            ){
-
-                mejorTotalPromos =
-                    totalCombinacion;
-
-                mejorDetalle = [];
-
-                if(cantidad3){
-
-                    mejorDetalle.push(
-                        `${cantidad3} promo 3 unidades`
-                    );
-
-                }
-
-                if(cantidad2){
-
-                    mejorDetalle.push(
-                        `${cantidad2} promo 2 unidades`
-                    );
-
-                }
-
-            }
-
-        }
-
-    }
-
-
-    /*
-    Total de originales + total promocional
-    de inspiraciones.
-    */
-
-    let totalOriginales =
-        0;
-
-
-    carrito.forEach(
-        item => {
-
-            if(
-                tipoPrincipalProducto(
-                    item.producto
-                ) ===
-                "ORIGINALES"
-            ){
-
-                totalOriginales +=
-                    precioOriginalSegunPago(
-                        item.producto
-                    ) *
-                    item.cantidad;
-
-            }
-
-        }
-    );
-
-
-    const totalFinal =
-        totalOriginales +
-        mejorTotalPromos;
-
-
-    return {
-
-        precioNormal:
-            precioNormal,
-
-        totalFinal:
-            totalFinal,
-
-        ahorro:
-            Math.max(
-                0,
-                precioNormal -
-                totalFinal
-            ),
-
-        detallePromos:
-            mejorDetalle
-
-    };
-
-}
-
-
-
-/* =========================================================
-   MOSTRAR PAGINA
-   ========================================================= */
-
-
-/* =========================================================
-   AKKINO V11 — HOME SHOWCASES
-   Usa los productos existentes del Sheets.
-   No requiere columnas nuevas.
-   ========================================================= */
-
-function escaparAttrV11(valor){
-    return String(valor || "")
-        .replace(/&/g,"&amp;")
-        .replace(/"/g,"&quot;")
-        .replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;");
 }
 
 
@@ -7393,12 +6607,26 @@ function mostrarProductos(
                                     <div
                                     class="original-cuotas-label">
 
-                                        2 CUOTAS SIN INTERÉS DE
-                                        <span class="cuota-monto">
-                                            ${dinero(
-                                                precios.valorCuota
-                                            )}
-                                        </span>
+                                        2 CUOTAS SIN INTERÉS
+
+                                    </div>
+
+                                    <div
+                                    class="original-cuotas-precio">
+
+                                        ${dinero(
+                                            precios.precioCuotas
+                                        )}
+
+                                    </div>
+
+                                    <div
+                                    class="original-cuotas-info">
+
+                                        2 ×
+                                        ${dinero(
+                                            precios.valorCuota
+                                        )}
 
                                     </div>
 
@@ -7502,7 +6730,7 @@ function mostrarProductos(
                             `
 
                             <div class="promociones-titulo">
-                                PROMOCIONES
+                                🎉 PROMOCIONES
                             </div>
 
                             <div class="promos">
@@ -7512,7 +6740,7 @@ function mostrarProductos(
                                     ?
                                     `
                                     <div class="promo promo-2">
-                                        2 x ${dinero(promo2)}
+                                        🔥🔥 &nbsp; 2 x ${dinero(promo2)}
                                     </div>
                                     `
                                     :
@@ -7524,7 +6752,7 @@ function mostrarProductos(
                                     ?
                                     `
                                     <div class="promo promo-3">
-                                        3 x ${dinero(promo3)}
+                                        🔥🔥🔥 &nbsp; 3 x ${dinero(promo3)}
                                     </div>
                                     `
                                     :
@@ -7602,7 +6830,9 @@ function mostrarProductos(
                         <div
                         class="mayorista-precio">
 
-                            ${precio > 0 ? dinero(precio) : "CONSULTAR"}
+                            ${dinero(
+                                precio
+                            )}
 
                         </div>
 
@@ -7628,13 +6858,6 @@ function mostrarProductos(
                                 )}
 
                                 ${
-                                    totalPedido >= 251
-                                    ?
-                                    `
-                                    <br>
-                                    Precio mayorista: CONSULTAR
-                                    `
-                                    :
                                     siguiente
                                     ?
                                     `
@@ -8121,9 +7344,7 @@ function actualizarCarrito(){
 
 
     totalBarra.textContent =
-        modoActual === "mayorista" && total >= 251
-        ? "TOTAL A COTIZAR"
-        : `TOTAL ${dinero(
+        `TOTAL ${dinero(
             totalPedidoBarra
         )}`;
 
@@ -8431,7 +7652,7 @@ function renderizarCarrito(){
             <div class="promo-detalle-titulo">
                 ${
                     (promo3Usadas > 0 && promo2Usadas > 0)
-                    ? "PROMOCIONES APLICADAS"
+                    ? "🎉 PROMOCIONES APLICADAS"
                     : "🎉 PROMOCIÓN APLICADA"
                 }
             </div>
@@ -8530,54 +7751,6 @@ function renderizarCarrito(){
         "";
 
 
-    /* =========================================================
-       AVISO MAYORISTA
-       ========================================================= */
-
-    const todosAdmitenMayorista =
-        carrito.length > 0 &&
-        carrito.every(
-            item =>
-                tipoPrincipalProducto(item.producto) !== "ORIGINALES"
-        );
-
-    const avisoMayoristaHTML =
-        modoActual === "particular" &&
-        totalUnidades() >= MINIMO_MAYORISTA &&
-        todosAdmitenMayorista
-        ?
-        `
-        <div class="aviso-mayorista-carrito">
-            <div class="aviso-mayorista-icono">📦</div>
-
-            <div class="aviso-mayorista-contenido">
-                <strong>¿ESTÁS COMPRANDO 10 O MÁS UNIDADES?</strong>
-                <span>
-                    Pasá al modo <b>MAYORISTA</b> para aprovechar nuestros precios especiales por cantidad.
-                </span>
-            </div>
-
-            <button
-            type="button"
-            class="aviso-mayorista-boton"
-            onclick="cambiarModo('mayorista'); cerrarCarrito();">
-                VER PRECIOS MAYORISTAS
-            </button>
-        </div>
-        `
-        :
-        "";
-
-
-    const bloquePrePagoHTML =
-        `
-        <div class="bloque-pre-pago">
-            ${detallePromoHTML}
-            ${avisoMayoristaHTML}
-        </div>
-        `;
-
-
     cont.innerHTML =
         carrito
         .map(
@@ -8586,77 +7759,29 @@ function renderizarCarrito(){
                 const producto =
                     item.producto;
 
-                const esOriginal =
-                    tipoPrincipalProducto(producto) === "ORIGINALES";
-
-                const preciosOriginal =
-                    esOriginal
-                    ? precioOriginal(producto)
-                    : null;
-
                 const precio =
-                    modoActual === "mayorista"
-                    ? precioMayorista(
+                    modoActual ===
+                    "mayorista"
+
+                    ?
+
+                    precioMayorista(
                         producto,
                         Math.max(
                             totalUnidades(),
                             MINIMO_MAYORISTA
                         )
                     )
-                    : (esOriginal
-                        ? precioOriginalSegunPago(producto)
+
+                    :
+
+                    (tipoPrincipalProducto(producto) === "ORIGINALES"
+                        ? precioOriginal(producto).final
                         : precioParticularProducto(producto));
 
                 const subtotal =
                     precio *
                     item.cantidad;
-
-                let detallePrecio = "";
-
-                if(esOriginal && modoActual === "particular") {
-
-                    if(formaPagoActual === "TARJETA_2_CUOTAS") {
-                        detallePrecio = `
-                            <div class="pedido-precio-lista">
-                                Precio de lista: <strong>${dinero(preciosOriginal.lista)}</strong>
-                            </div>
-                            <div class="pedido-precio-descuento">
-                                20% OFF · Crédito / tarjeta
-                            </div>
-                            <div class="pedido-precio-cuotas">
-                                <span>2 CUOTAS SIN INTERÉS</span>
-                                <strong>2 × ${dinero(preciosOriginal.valorCuota)}</strong>
-                            </div>
-                        `;
-                    }
-                    else if(formaPagoActual === "MERCADO_PAGO_1_PAGO") {
-                        detallePrecio = `
-                            <div class="pedido-precio-lista">
-                                Precio de lista: <strong>${dinero(preciosOriginal.lista)}</strong>
-                            </div>
-                            <div class="pedido-precio-descuento">
-                                20% OFF · Débito · 1 pago
-                            </div>
-                            <div class="pedido-precio-pago">
-                                Débito: <strong>${dinero(preciosOriginal.precioCuotas)}</strong>
-                            </div>
-                        `;
-                    }
-                    else {
-                        detallePrecio = `
-                            <div class="pedido-precio-lista">
-                                Precio de lista: <strong>${dinero(preciosOriginal.lista)}</strong>
-                            </div>
-                            <div class="pedido-precio-descuento">
-                                Precio especial · transferencia / efectivo
-                            </div>
-                            <div class="pedido-precio-pago">
-                                Transferencia / efectivo: <strong>${dinero(preciosOriginal.final)}</strong>
-                            </div>
-                        `;
-                    }
-
-                }
 
                 return `
 
@@ -8673,8 +7798,6 @@ function renderizarCarrito(){
                             <div class="pedido-item-cantidad">
                                 Cantidad: ${item.cantidad}
                             </div>
-
-                            ${detallePrecio}
 
                             <div class="pedido-item-subtotal">
                                 Subtotal: ${dinero(subtotal)}
@@ -8725,7 +7848,8 @@ function renderizarCarrito(){
 
 
     /*
-    Agregamos promociones / aviso mayorista antes del selector.
+    Agregamos el detalle de promociones
+    antes del selector de pago.
     */
 
     const selector =
@@ -8736,30 +7860,29 @@ function renderizarCarrito(){
     if(
         selector &&
         !selector.previousElementSibling?.classList.contains(
-            "bloque-pre-pago"
+            "promo-detalle"
         )
     ){
 
         selector.insertAdjacentHTML(
             "beforebegin",
-            bloquePrePagoHTML
+            detallePromoHTML
         );
 
     }
     else if(
         selector &&
         selector.previousElementSibling?.classList.contains(
-            "bloque-pre-pago"
+            "promo-detalle"
         )
     ){
 
         selector.previousElementSibling.outerHTML =
-            bloquePrePagoHTML;
+            detallePromoHTML;
 
     }
 
 
-    actualizarOpcionesPago();
     actualizarResumenCarrito();
 
 }
@@ -8826,125 +7949,6 @@ function modificarCantidad(
 
 
 /* =========================================================
-   CONTROL DE DISPONIBILIDAD DEL PEDIDO
-   ========================================================= */
-
-function hayProductosAPedido(){
-
-    return carrito.some(
-        item => obtenerEstado(item.producto) === "A PEDIDO"
-    );
-}
-
-function actualizarOpcionesPago(){
-
-    const selector = document.getElementById("formaPagoPedido");
-    if(!selector){ return; }
-
-    const todosOriginalesDisponibles =
-        carrito.length > 0 &&
-        carrito.every(item =>
-            tipoPrincipalProducto(item.producto) === "ORIGINALES" &&
-            obtenerEstado(item.producto) === "DISPONIBLE"
-        );
-
-    const hayInspiraciones = carrito.some(
-        item => tipoPrincipalProducto(item.producto) === "INSPIRACIONES 60ML"
-    );
-
-    const puedePagoTarjeta = modoActual === "particular" && !hayProductosAPedido();
-    const botones = document.querySelectorAll("#metodosPagoAkkino .metodo-pago");
-
-    botones.forEach(boton => {
-        const forma = boton.dataset.forma;
-        let permitido = puedePagoTarjeta;
-        const esTarjeta =
-            forma === "MERCADO_PAGO_1_PAGO" ||
-            forma === "TARJETA_2_CUOTAS";
-
-        boton.classList.remove("solo-originales", "bloqueado-mayorista");
-
-        if(esTarjeta){
-            permitido = puedePagoTarjeta && todosOriginalesDisponibles;
-
-            if(modoActual === "mayorista"){
-                boton.classList.add("bloqueado-mayorista");
-            }
-            else if(!permitido && puedePagoTarjeta && !todosOriginalesDisponibles){
-                boton.classList.add("solo-originales");
-            }
-        }
-
-        // Los métodos de tarjeta permanecen visibles cuando hay Extractos,
-        // pero quedan bloqueados y marcados como exclusivos para Originales.
-        boton.hidden = false;
-        boton.disabled = !permitido;
-
-        boton.classList.toggle(
-            "activo",
-            formaPagoActual === forma && permitido
-        );
-    });
-
-    if(
-        (formaPagoActual === "MERCADO_PAGO_1_PAGO" ||
-         formaPagoActual === "TARJETA_2_CUOTAS") &&
-        !todosOriginalesDisponibles
-    ){
-        formaPagoActual = "EFECTIVO";
-    }
-
-    if(formaPagoActual === "TRANSFERENCIA"){
-        formaPagoActual = "EFECTIVO";
-    }
-
-    selector.value = formaPagoActual;
-}
-
-
-function actualizarEstadoBotonPedido(){
-
-    actualizarOpcionesPago();
-
-    const boton = document.querySelector(".enviar-whatsapp");
-    const botonMP = document.getElementById("botonMercadoPago");
-    const selector = document.getElementById("formaPagoPedido");
-
-    const hayPedido = hayProductosAPedido();
-    const puedePagar =
-        carrito.length > 0 &&
-        modoActual === "particular" &&
-        !hayPedido;
-
-    if(boton){
-        boton.textContent = hayPedido
-            ? "CONSULTAR PEDIDO POR WHATSAPP"
-            : "ENVIAR PEDIDO POR WHATSAPP";
-
-        boton.classList.toggle("pedido-consulta", hayPedido);
-    }
-
-    if(selector){
-        selector.disabled = hayPedido;
-        selector.title = hayPedido
-            ? "Este pedido contiene productos A PEDIDO y debe confirmarse por WhatsApp."
-            : "";
-    }
-
-    if(botonMP){
-        const habilitar = puedePagar &&
-            (formaPagoActual === "MERCADO_PAGO_1_PAGO" || formaPagoActual === "TARJETA_2_CUOTAS");
-
-        botonMP.disabled = !habilitar;
-        botonMP.style.display = puedePagar ? "block" : "none";
-        botonMP.textContent =
-            formaPagoActual === "TARJETA_2_CUOTAS"
-            ? "CONTINUAR CON CRÉDITO — 2 CUOTAS"
-            : "CONTINUAR CON DÉBITO — 1 PAGO";
-    }
-}
-
-/* =========================================================
    FORMA DE PAGO
    ========================================================= */
 
@@ -8952,43 +7956,9 @@ function cambiarFormaPago(
     forma
 ){
 
-    if(hayProductosAPedido()){
-        return;
-    }
+    formaPagoActual =
+        forma;
 
-    if(
-        modoActual === "mayorista" &&
-        (forma === "MERCADO_PAGO_1_PAGO" || forma === "TARJETA_2_CUOTAS")
-    ){
-        formaPagoActual = "EFECTIVO";
-        actualizarOpcionesPago();
-        actualizarResumenCarrito();
-        return;
-    }
-
-    const hayInspiraciones = carrito.some(
-        item => tipoPrincipalProducto(item.producto) === "INSPIRACIONES 60ML"
-    );
-
-    if((forma === "TARJETA_2_CUOTAS" || forma === "MERCADO_PAGO_1_PAGO") && hayInspiraciones){
-        formaPagoActual = "EFECTIVO";
-        actualizarOpcionesPago();
-        actualizarResumenCarrito();
-        return;
-    }
-
-    if(forma === "MERCADO_PAGO" && modoActual !== "particular"){
-        formaPagoActual = "EFECTIVO";
-        actualizarOpcionesPago();
-        actualizarResumenCarrito();
-        return;
-    }
-
-    formaPagoActual = forma;
-
-    document.querySelectorAll("#metodosPagoAkkino .metodo-pago").forEach(boton => {
-        boton.classList.toggle("activo", boton.dataset.forma === formaPagoActual);
-    });
     actualizarResumenCarrito();
 }
 
@@ -9012,7 +7982,6 @@ function actualizarResumenCarrito(){
         cont.innerHTML =
             "";
 
-        actualizarEstadoBotonPedido();
         return;
     }
 
@@ -9063,7 +8032,6 @@ function actualizarResumenCarrito(){
 
             `;
 
-            actualizarEstadoBotonPedido();
             return;
         }
 
@@ -9071,22 +8039,19 @@ function actualizarResumenCarrito(){
         let totalFinal =
             0;
 
-        const consultarMayorista = total >= 251;
 
-        if(!consultarMayorista){
-            carrito.forEach(
-                item => {
+        carrito.forEach(
+            item => {
 
-                    totalFinal +=
-                        precioMayorista(
-                            item.producto,
-                            total
-                        ) *
-                        item.cantidad;
+                totalFinal +=
+                    precioMayorista(
+                        item.producto,
+                        total
+                    ) *
+                    item.cantidad;
 
-                }
-            );
-        }
+            }
+        );
 
 
         cont.innerHTML = `
@@ -9140,7 +8105,6 @@ function actualizarResumenCarrito(){
 
         `;
 
-        actualizarEstadoBotonPedido();
         return;
     }
 
@@ -9162,12 +8126,6 @@ function actualizarResumenCarrito(){
                 ${dinero(
                     calculo.precioNormal
                 )}
-
-                ${
-                    formaPagoActual === "TARJETA_2_CUOTAS"
-                    ? ` · 2 cuotas de ${dinero(Math.round(calculo.totalFinal / 2))}`
-                    : ""
-                }
             </strong>
 
         </div>
@@ -9197,45 +8155,6 @@ function actualizarResumenCarrito(){
         }
 
 
-        ${
-            (formaPagoActual === "EFECTIVO" || formaPagoActual === "TRANSFERENCIA")
-            ?
-            `
-            <div class="akkino-transferencia-box">
-                <div class="akkino-transferencia-titulo">
-                    DATOS PARA TRANSFERENCIA
-                </div>
-
-                <div class="akkino-transferencia-dato">
-                    <span>Alias</span>
-                    <strong>akkinoprive</strong>
-                </div>
-
-                <div class="akkino-transferencia-dato">
-                    <span>CVU</span>
-                    <strong>0000003100080816942802</strong>
-                </div>
-
-                <div class="akkino-transferencia-dato">
-                    <span>CUIT</span>
-                    <strong>20-38595340-3</strong>
-                </div>
-
-                <div class="akkino-transferencia-dato">
-                    <span>Entidad</span>
-                    <strong>Mercado Pago</strong>
-                </div>
-
-                <div class="akkino-transferencia-aviso">
-                    Si elegís transferencia, realizá el pago y enviá el comprobante por WhatsApp junto con tu pedido.
-                </div>
-            </div>
-            `
-            :
-            ""
-        }
-
-
         <div
         class="resumen-linea">
 
@@ -9245,10 +8164,8 @@ function actualizarResumenCarrito(){
 
             <strong>
                 ${formaPagoActual === "TARJETA_2_CUOTAS"
-                    ? "CRÉDITO / TARJETA — 2 CUOTAS"
-                    : formaPagoActual === "MERCADO_PAGO_1_PAGO"
-                    ? "DÉBITO — 1 PAGO"
-                    : "TRANSFERENCIA / EFECTIVO"}
+                    ? "TARJETA — 2 CUOTAS"
+                    : formaPagoActual}
             </strong>
 
         </div>
@@ -9258,7 +8175,7 @@ function actualizarResumenCarrito(){
         class="resumen-linea resumen-total">
 
             <span>
-                ${hayProductosAPedido() ? "TOTAL ESTIMADO" : "TOTAL"}
+                TOTAL
             </span>
 
             <strong>
@@ -9269,218 +8186,13 @@ function actualizarResumenCarrito(){
 
         </div>
 
-        ${
-            hayProductosAPedido()
-            ?
-            `
-            <div class="pedido-pendiente-aviso">
-                <strong>ESTE PEDIDO REQUIERE CONFIRMACIÓN</strong>
-                <span>
-                    Incluye uno o más perfumes <b>A PEDIDO</b>. No se puede realizar el pago desde la web.
-                    Te contactaremos por WhatsApp para confirmar disponibilidad, plazo y si querés abonarlo y esperarlo.
-                </span>
-            </div>
-            `
-            : ""
-        }
-
     `;
-
-    actualizarEstadoBotonPedido();
-}
-
-
-/* =========================================================
-   MERCADO PAGO — CHECKOUT PRO DE PRUEBA
-   ========================================================= */
-
-function pagarMercadoPago(){
-
-    if(!carrito.length){
-        alert("No hay productos en el pedido.");
-        return;
-    }
-
-    if(modoActual !== "particular"){
-        alert("Mercado Pago está disponible por ahora para pedidos particulares.");
-        return;
-    }
-
-    if(hayProductosAPedido()){
-        alert("Este pedido contiene productos A PEDIDO. Primero hay que confirmar disponibilidad por WhatsApp.");
-        return;
-    }
-
-    if(formaPagoActual !== "MERCADO_PAGO_1_PAGO" && formaPagoActual !== "TARJETA_2_CUOTAS"){
-        alert("Seleccioná DÉBITO o CRÉDITO / TARJETA como forma de pago.");
-        return;
-    }
-
-    const boton = document.getElementById("botonMercadoPago");
-    if(boton){
-        boton.disabled = true;
-        boton.classList.add("mercado-pago-cargando");
-        boton.textContent = "CONECTANDO CON EL MEDIO DE PAGO...";
-    }
-
-    const callbackName = "__akkinoMP_" + Date.now();
-    const script = document.createElement("script");
-
-    const items = carrito.map(item => ({
-        perfume: item.producto.perfume,
-        cantidad: item.cantidad
-    }));
-
-    const params = new URLSearchParams();
-    params.set("action", "crear_preferencia");
-    params.set("callback", callbackName);
-    params.set("medioPago", formaPagoActual);
-    params.set("modo", modoActual);
-    params.set("items", JSON.stringify(items));
-
-    let terminado = false;
-
-    function limpiar(){
-        try{ delete window[callbackName]; }catch(e){ window[callbackName] = undefined; }
-        if(script.parentNode){ script.parentNode.removeChild(script); }
-        if(boton){
-            boton.disabled = false;
-            boton.classList.remove("mercado-pago-cargando");
-            boton.textContent = formaPagoActual === "TARJETA_2_CUOTAS"
-                ? "CONTINUAR CON CRÉDITO — 2 CUOTAS"
-                : "CONTINUAR CON DÉBITO — 1 PAGO";
-        }
-    }
-
-    window[callbackName] = function(respuesta){
-        terminado = true;
-
-        if(respuesta && respuesta.ok){
-            const url = respuesta.initPoint;
-            if(url){
-                window.location.href = url;
-                return;
-            }
-        }
-
-        limpiar();
-        alert(
-            respuesta && respuesta.error
-            ? "Error en el medio de pago: " + respuesta.error
-            : "No se pudo iniciar el pago."
-        );
-    };
-
-    script.onerror = function(){
-        if(terminado) return;
-        limpiar();
-        alert("No se pudo conectar con el sistema de pagos.");
-    };
-
-    script.src = API + "?" + params.toString();
-    document.body.appendChild(script);
 }
 
 
 /* =========================================================
    ENVIAR WHATSAPP
    ========================================================= */
-
-function seleccionarEntrega(tipo){
-
-    entregaActual = tipo;
-
-    document.querySelectorAll("#entregaPedido .entrega-opcion").forEach(boton => {
-        boton.classList.toggle("activa", boton.dataset.entrega === tipo);
-    });
-
-    const datos = document.getElementById("datosEnvio");
-    const resumen = document.getElementById("envioSeleccionado");
-
-    if(tipo === "OTRO"){
-        datos.classList.add("visible");
-        resumen.textContent = "📦 Envío a domicilio — completá tus datos para calcular el envío.";
-    }
-    else{
-        datos.classList.remove("visible");
-        resumen.textContent = tipo === "PUERTO"
-            ? "✓ Puerto General San Martín — ENVÍO GRATIS"
-            : "✓ San Lorenzo — ENVÍO GRATIS";
-    }
-}
-
-function obtenerDatosEnvio(){
-
-    if(entregaActual === "PUERTO"){
-        return {
-            valido:true,
-            texto:"Puerto General San Martín — ENVÍO GRATIS"
-        };
-    }
-
-    if(entregaActual === "SAN_LORENZO"){
-        return {
-            valido:true,
-            texto:"San Lorenzo — ENVÍO GRATIS"
-        };
-    }
-
-    if(entregaActual !== "OTRO"){
-        return { valido:false };
-    }
-
-    const campos = {
-        nombre: document.getElementById("envioNombre").value.trim(),
-        dni: document.getElementById("envioDni").value.trim(),
-        telefono: document.getElementById("envioTelefono").value.trim(),
-        email: document.getElementById("envioEmail").value.trim(),
-        provincia: document.getElementById("envioProvincia").value.trim(),
-        localidad: document.getElementById("envioLocalidad").value.trim(),
-        direccion: document.getElementById("envioDireccion").value.trim(),
-        codigoPostal: document.getElementById("envioCodigoPostal").value.trim(),
-        transporte: document.getElementById("envioTransporte").value
-    };
-
-    const faltantes = [];
-    const nombres = {
-        nombre:"Nombre y apellido",
-        dni:"DNI",
-        telefono:"Teléfono",
-        email:"Email",
-        provincia:"Provincia",
-        localidad:"Localidad",
-        direccion:"Dirección",
-        codigoPostal:"Código postal",
-        transporte:"Via Cargo o Andreani"
-    };
-
-    Object.keys(nombres).forEach(clave => {
-        if(!campos[clave]) faltantes.push(nombres[clave]);
-    });
-
-    if(faltantes.length){
-        return {
-            valido:false,
-            error:"Completá los datos de envío: " + faltantes.join(", ") + "."
-        };
-    }
-
-    return {
-        valido:true,
-        texto:
-            "Otro destino — envío por " + campos.transporte + "%0A" +
-            "Nombre y apellido: " + encodeURIComponent(campos.nombre) + "%0A" +
-            "DNI: " + encodeURIComponent(campos.dni) + "%0A" +
-            "Teléfono: " + encodeURIComponent(campos.telefono) + "%0A" +
-            "Email: " + encodeURIComponent(campos.email) + "%0A" +
-            "Provincia: " + encodeURIComponent(campos.provincia) + "%0A" +
-            "Localidad: " + encodeURIComponent(campos.localidad) + "%0A" +
-            "Dirección: " + encodeURIComponent(campos.direccion) + "%0A" +
-            "Código postal: " + encodeURIComponent(campos.codigoPostal) + "%0A" +
-            "Envío por: " + encodeURIComponent(campos.transporte)
-    };
-}
-
 
 function enviarWhatsApp(){
 
@@ -9505,72 +8217,6 @@ function enviarWhatsApp(){
 
         alert(
             `El pedido mayorista requiere mínimo ${MINIMO_MAYORISTA} unidades.`
-        );
-
-        return;
-    }
-
-
-    const datosEntrega =
-        obtenerDatosEnvio();
-
-    if(!datosEntrega.valido){
-        alert(
-            datosEntrega.error ||
-            "Seleccioná cómo querés recibir tu pedido."
-        );
-        return;
-    }
-
-
-    /*
-    Si el pedido mezcla DISPONIBLES con A PEDIDO,
-    no se permite pago ni confirmación automática.
-    Se deriva a WhatsApp para que el cliente decida
-    si quiere esperar el producto faltante y abonarlo.
-    */
-
-    const pedidoPendiente =
-        hayProductosAPedido();
-
-    if(pedidoPendiente){
-
-        let mensajeConsulta =
-            "Hola AKKINO Privé!%0A%0A" +
-            "Quiero consultar este pedido. Incluye productos DISPONIBLES y productos A PEDIDO.%0A%0A";
-
-        carrito.forEach(
-            item => {
-
-                const estado =
-                    obtenerEstado(item.producto);
-
-                mensajeConsulta +=
-                    `${item.cantidad} x ${encodeURIComponent(
-                        item.producto.perfume
-                    )} - ${encodeURIComponent(
-                        estado
-                    )}%0A`;
-            }
-        );
-
-        mensajeConsulta +=
-            "%0AEl pedido contiene productos A PEDIDO. Quiero confirmar disponibilidad y plazo antes de pagar.%0A" +
-            "Si el producto debe esperarse, decidiré si quiero abonarlo y esperar la entrega.";
-
-        mensajeConsulta +=
-            "%0A%0AENTREGA:%0A" +
-            datosEntrega.texto;
-
-        const urlConsulta =
-            "https://wa.me/" +
-            WHATSAPP +
-            "?text=" +
-            mensajeConsulta;
-
-        window.open(
-            urlConsulta,
-            "_blank"
         );
 
         return;
@@ -9609,15 +8255,11 @@ function enviarWhatsApp(){
                 "mayorista"
             ){
 
-                const unidadesMayorista = totalUnidades();
-
                 precioUnitario =
-                    unidadesMayorista >= 251
-                    ? 0
-                    : precioMayorista(
+                    precioMayorista(
                         producto,
                         Math.max(
-                            unidadesMayorista,
+                            totalUnidades(),
                             MINIMO_MAYORISTA
                         )
                     );
@@ -9659,9 +8301,9 @@ function enviarWhatsApp(){
                 `${item.cantidad} x ${encodeURIComponent(
                     producto.perfume
                 )} - ${encodeURIComponent(
-                    precioUnitario > 0
-                    ? dinero(precioUnitario)
-                    : "CONSULTAR"
+                    dinero(
+                        precioUnitario
+                    )
                 )}%0A`;
 
         }
@@ -9699,31 +8341,22 @@ function enviarWhatsApp(){
         const unidades =
             totalUnidades();
 
-        const consultarMayorista =
-            unidades >= 251;
 
+        carrito.forEach(
+            item => {
 
-        if(!consultarMayorista){
-            carrito.forEach(
-                item => {
+                totalFinal +=
+                    precioMayorista(
+                        item.producto,
+                        unidades
+                    ) *
+                    item.cantidad;
 
-                    totalFinal +=
-                        precioMayorista(
-                            item.producto,
-                            unidades
-                        ) *
-                        item.cantidad;
-
-                }
-            );
-        }
+            }
+        );
 
 
         mensaje +=
-            consultarMayorista
-            ?
-            "TOTAL MAYORISTA: CONSULTAR%0A"
-            :
             `TOTAL MAYORISTA: ${encodeURIComponent(
                 dinero(
                     totalFinal
@@ -9747,9 +8380,7 @@ function enviarWhatsApp(){
 
 
     mensaje +=
-        "%0AENTREGA:%0A" +
-        datosEntrega.texto +
-        "%0A%0AGracias!";
+        "%0AGracias!";
 
 
     const url =
