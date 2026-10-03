@@ -5113,7 +5113,8 @@ function precioOriginal(producto){
     No se muestra "40% OFF".
     */
 
-    const precioFinal = numero(producto.precioLista);
+    const precioParticular = numero(producto.precioParticular);
+    const precioFinal = precioParticular > 0 ? precioParticular : numero(producto.precioLista);
     const cuotas = 2;
 
     const precioCuotas =
@@ -8224,9 +8225,9 @@ function renderizarCarrito(){
 
                     :
 
-                    precioParticularProducto(
-                        producto
-                    );
+                    (tipoPrincipalProducto(producto) === "ORIGINALES"
+                        ? precioOriginal(producto).final
+                        : precioParticularProducto(producto));
 
                 const subtotal =
                     precio *
