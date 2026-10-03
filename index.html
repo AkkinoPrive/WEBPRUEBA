@@ -5196,7 +5196,7 @@ const WHATSAPP =
 "5493476552435";
 
 const MINIMO_MAYORISTA =
-5;
+10;
 
 const PRODUCTOS_POR_PAGINA =
 30;
@@ -6608,97 +6608,46 @@ function precioMayorista(
     cantidad
 ){
 
-    const escalas = [
-        {
-            min:100,
-            precio:
-                numero(
-                    producto.precio100
-                )
-        },
-        {
-            min:50,
-            precio:
-                numero(
-                    producto.precio50
-                )
-        },
-        {
-            min:30,
-            precio:
-                numero(
-                    producto.precio30
-                )
-        },
-        {
-            min:20,
-            precio:
-                numero(
-                    producto.precio20
-                )
-        },
-        {
-            min:10,
-            precio:
-                numero(
-                    producto.precio10
-                )
-        },
-        {
-            min:5,
-            precio:
-                numero(
-                    producto.precio5
-                )
-        }
-    ];
+    /*
+    Nueva escala mayorista:
+    10 a 50  -> columna precio10
+    51 a 250 -> columna precio50
+    +250     -> consultar
 
+    Las columnas 100, 250 y +500 del Sheet se conservan
+    para referencia futura, pero la web utiliza estas dos
+    escalas comerciales.
+    */
 
-    for(
-        const escala
-        of escalas
-    ){
-
-        if(
-            cantidad >=
-            escala.min &&
-            escala.precio > 0
-        ){
-
-            return escala.precio;
-        }
+    if(cantidad >= 251){
+        return 0;
     }
 
+    if(cantidad >= 51){
+        return numero(producto.precio50);
+    }
 
-    return numero(
-        producto.precio5
-    );
+    if(cantidad >= 10){
+        return numero(producto.precio10);
+    }
+
+    return 0;
 }
-
 
 function escalaMayorista(
     total
 ){
 
-    if(total >= 100)
-        return "100+ unidades";
+    if(total >= 251)
+        return "+250 unidades — CONSULTAR";
 
-    if(total >= 50)
-        return "50 unidades";
-
-    if(total >= 30)
-        return "30 unidades";
-
-    if(total >= 20)
-        return "20 unidades";
+    if(total >= 51)
+        return "51 a 250 unidades";
 
     if(total >= 10)
-        return "10 unidades";
+        return "10 a 50 unidades";
 
-    if(total >= 5)
-        return "5 unidades";
-
-    return "Menos de 5 unidades";
+    return `Menos de ${MINIMO_MAYORISTA} unidades`;
 }
 
 
@@ -6706,31 +6655,12 @@ function proximaEscala(
     total
 ){
 
-    const escalas = [
-        5,
-        10,
-        20,
-        30,
-        50,
-        100
-    ];
-
-    for(
-        const escala
-        of escalas
-    ){
-
-        if(
-            total < escala
-        ){
-
-            return escala;
-        }
-    }
+    if(total < 10) return 10;
+    if(total < 51) return 51;
+    if(total < 251) return 251;
 
     return null;
 }
-
 
 /* =========================================================
    PROMOCIONES PARTICULAR
@@ -7642,9 +7572,7 @@ function mostrarProductos(
                         <div
                         class="mayorista-precio">
 
-                            ${dinero(
-                                precio
-                            )}
+                            ${precio > 0 ? dinero(precio) : "CONSULTAR"}
 
                         </div>
 
@@ -7670,6 +7598,13 @@ function mostrarProductos(
                                 )}
 
                                 ${
+                                    totalPedido >= 251
+                                    ?
+                                    `
+                                    <br>
+                                    Precio mayorista: CONSULTAR
+                                    `
+                                    :
                                     siguiente
                                     ?
                                     `
@@ -8156,7 +8091,9 @@ function actualizarCarrito(){
 
 
     totalBarra.textContent =
-        `TOTAL ${dinero(
+        modoActual === "mayorista" && total >= 251
+        ? "TOTAL A COTIZAR"
+        : `TOTAL ${dinero(
             totalPedidoBarra
         )}`;
 
@@ -8584,7 +8521,7 @@ function renderizarCarrito(){
             <div class="aviso-mayorista-icono">📦</div>
 
             <div class="aviso-mayorista-contenido">
-                <strong>¿ESTÁS COMPRANDO 5 O MÁS UNIDADES?</strong>
+                <strong>¿ESTÁS COMPRANDO 10 O MÁS UNIDADES?</strong>
                 <span>
                     Pasá al modo <b>MAYORISTA</b> para aprovechar nuestros precios especiales por cantidad.
                 </span>
@@ -9091,19 +9028,22 @@ function actualizarResumenCarrito(){
         let totalFinal =
             0;
 
+        const consultarMayorista = total >= 251;
 
-        carrito.forEach(
-            item => {
+        if(!consultarMayorista){
+            carrito.forEach(
+                item => {
 
-                totalFinal +=
-                    precioMayorista(
-                        item.producto,
-                        total
-                    ) *
-                    item.cantidad;
+                    totalFinal +=
+                        precioMayorista(
+                            item.producto,
+                            total
+                        ) *
+                        item.cantidad;
 
-            }
-        );
+                }
+            );
+        }
 
 
         cont.innerHTML = `
@@ -9626,11 +9566,15 @@ function enviarWhatsApp(){
                 "mayorista"
             ){
 
+                const unidadesMayorista = totalUnidades();
+
                 precioUnitario =
-                    precioMayorista(
+                    unidadesMayorista >= 251
+                    ? 0
+                    : precioMayorista(
                         producto,
                         Math.max(
-                            totalUnidades(),
+                            unidadesMayorista,
                             MINIMO_MAYORISTA
                         )
                     );
@@ -9672,9 +9616,9 @@ function enviarWhatsApp(){
                 `${item.cantidad} x ${encodeURIComponent(
                     producto.perfume
                 )} - ${encodeURIComponent(
-                    dinero(
-                        precioUnitario
-                    )
+                    precioUnitario > 0
+                    ? dinero(precioUnitario)
+                    : "CONSULTAR"
                 )}%0A`;
 
         }
@@ -9712,22 +9656,31 @@ function enviarWhatsApp(){
         const unidades =
             totalUnidades();
 
+        const consultarMayorista =
+            unidades >= 251;
 
-        carrito.forEach(
-            item => {
 
-                totalFinal +=
-                    precioMayorista(
-                        item.producto,
-                        unidades
-                    ) *
-                    item.cantidad;
+        if(!consultarMayorista){
+            carrito.forEach(
+                item => {
 
-            }
-        );
+                    totalFinal +=
+                        precioMayorista(
+                            item.producto,
+                            unidades
+                        ) *
+                        item.cantidad;
+
+                }
+            );
+        }
 
 
         mensaje +=
+            consultarMayorista
+            ?
+            "TOTAL MAYORISTA: CONSULTAR%0A"
+            :
             `TOTAL MAYORISTA: ${encodeURIComponent(
                 dinero(
                     totalFinal
