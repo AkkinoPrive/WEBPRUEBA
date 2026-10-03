@@ -26,17 +26,7 @@ href="favicon.png">
 
 body{
     background:
-    radial-gradient(
-        circle at 50% -10%,
-        rgba(212,175,55,.12),
-        transparent 34%
-    ),
-    linear-gradient(
-        180deg,
-        #090909 0%,
-        #0d0d0d 48%,
-        #070707 100%
-    );
+    linear-gradient(180deg, #0b0b0b 0%, #111111 48%, #090909 100%);
 
     font-family:
     Arial,
@@ -65,23 +55,7 @@ body{
     z-index:9000;
     min-height:100vh;
     overflow:hidden;
-    background:
-        radial-gradient(
-            ellipse at 50% 44%,
-            rgba(212,175,55,.10),
-            transparent 32%
-        ),
-        radial-gradient(
-            ellipse at 80% 20%,
-            rgba(212,175,55,.06),
-            transparent 28%
-        ),
-        linear-gradient(
-            135deg,
-            #020202 0%,
-            #090909 48%,
-            #020202 100%
-        );
+    background:linear-gradient(135deg, #050505 0%, #111111 50%, #070707 100%);
     display:flex;
     flex-direction:column;
     transition:
@@ -3538,6 +3512,432 @@ RESULTADO:
     }
 }
 
+
+
+/* =========================================================
+   AKKINO — PRECIOS ORIGINALES / VALORES YA DESCONTADOS
+   ========================================================= */
+
+.original-precio{
+    margin-top:2px;
+}
+
+.original-lista-bloque{
+    margin:0;
+    padding:0 0 10px;
+}
+
+.original-lista{
+    color:#686868;
+    font-size:14px;
+    line-height:1.1;
+    font-weight:700;
+    text-decoration:line-through;
+    text-decoration-thickness:1px;
+}
+
+.original-lista-label{
+    margin-top:3px;
+    color:#5d5d5d;
+    font-size:8px;
+    font-weight:600;
+    letter-spacing:1.3px;
+}
+
+.original-cuotas-bloque{
+    margin:0;
+    padding:10px 0;
+    border-top:1px solid #292929;
+    border-bottom:1px solid #292929;
+}
+
+.original-cuotas-label{
+    color:#888;
+    font-size:8px;
+    font-weight:600;
+    letter-spacing:1.3px;
+}
+
+.original-cuotas-precio{
+    margin-top:4px;
+    color:#f1f1f1;
+    font-size:21px;
+    line-height:1.1;
+    font-weight:800;
+}
+
+.original-cuotas-info{
+    margin-top:3px;
+    color:#858585;
+    font-size:10px;
+}
+
+.original-final-bloque{
+    margin-top:11px;
+}
+
+.original-final-label{
+    color:#39cf6a;
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:1.1px;
+}
+
+.original-final{
+    margin-top:3px;
+    color:#fff;
+    font-size:29px;
+    line-height:1.05;
+    font-weight:900;
+}
+
+@media(max-width:600px){
+
+    .original-lista{
+        font-size:14px;
+    }
+
+    .original-cuotas-precio{
+        font-size:19px;
+    }
+
+    .original-final{
+        font-size:25px;
+    }
+}
+
+
+
+/* =========================================================
+   AKKINO V11 — HOME ESTILO E-COMMERCE PREMIUM
+   Inspirado en la estructura de una tienda de perfumería,
+   manteniendo identidad AKKINO.
+   ========================================================= */
+
+.akkino-home-v11{
+    max-width:1280px;
+    margin:0 auto 42px;
+}
+
+.akkino-hero-v11{
+    position:relative;
+    min-height:310px;
+    display:flex;
+    align-items:center;
+    overflow:hidden;
+    border:1px solid #272727;
+    border-radius:2px;
+    background:
+        radial-gradient(circle at 80% 50%,rgba(212,175,55,.12),transparent 30%),
+        linear-gradient(105deg,#0c0c0c,#151515 58%,#090909);
+}
+
+.akkino-hero-v11::after{
+    content:"";
+    position:absolute;
+    right:-130px;
+    top:-170px;
+    width:460px;
+    height:460px;
+    border:1px solid rgba(212,175,55,.13);
+    border-radius:50%;
+    box-shadow:0 0 0 35px rgba(212,175,55,.025),
+               0 0 0 70px rgba(212,175,55,.015);
+}
+
+.akkino-hero-copy-v11{
+    position:relative;
+    z-index:2;
+    max-width:700px;
+    padding:48px 58px;
+}
+
+.akkino-kicker-v11{
+    color:#d4af37;
+    font-size:9px;
+    letter-spacing:4px;
+    margin-bottom:14px;
+}
+
+.akkino-title-v11{
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:clamp(36px,5vw,64px);
+    font-weight:400;
+    line-height:.98;
+    letter-spacing:-1px;
+}
+
+.akkino-title-v11 span{
+    color:#d4af37;
+    font-style:italic;
+}
+
+.akkino-copy-v11{
+    max-width:570px;
+    margin-top:17px;
+    color:#8d8d8d;
+    font-size:11px;
+    line-height:1.75;
+}
+
+.akkino-hero-actions-v11{
+    display:flex;
+    flex-wrap:wrap;
+    gap:9px;
+    margin-top:23px;
+}
+
+.akkino-hero-btn-v11{
+    border:1px solid #3a3a3a;
+    background:transparent;
+    color:#c9c9c9;
+    padding:11px 18px;
+    font-size:9px;
+    letter-spacing:1.2px;
+    cursor:pointer;
+    transition:.2s ease;
+}
+
+.akkino-hero-btn-v11:hover{
+    background:#d4af37;
+    border-color:#d4af37;
+    color:#111;
+}
+
+.akkino-info-strip-v11{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    margin-top:13px;
+    border:1px solid #242424;
+    background:#0d0d0d;
+}
+
+.akkino-info-item-v11{
+    min-height:70px;
+    display:flex;
+    align-items:center;
+    gap:11px;
+    padding:14px 17px;
+    border-right:1px solid #242424;
+}
+
+.akkino-info-item-v11:last-child{
+    border-right:0;
+}
+
+.akkino-info-icon-v11{
+    color:#d4af37;
+    font-size:16px;
+}
+
+.akkino-info-item-v11 strong{
+    display:block;
+    color:#ddd;
+    font-size:9px;
+    letter-spacing:.8px;
+    font-weight:700;
+}
+
+.akkino-info-item-v11 span{
+    display:block;
+    margin-top:3px;
+    color:#686868;
+    font-size:8px;
+}
+
+.akkino-showcase-v11{
+    margin-top:40px;
+}
+
+.akkino-showcase-head-v11{
+    display:flex;
+    align-items:end;
+    justify-content:space-between;
+    margin-bottom:16px;
+    padding:0 2px;
+}
+
+.akkino-showcase-head-v11 h2{
+    margin:0;
+    font-family:Georgia,"Times New Roman",serif;
+    font-size:24px;
+    font-weight:400;
+}
+
+.akkino-showcase-head-v11 span{
+    color:#666;
+    font-size:8px;
+    letter-spacing:2px;
+}
+
+.akkino-showcase-row-v11{
+    display:grid;
+    grid-template-columns:repeat(6,minmax(0,1fr));
+    gap:12px;
+}
+
+.akkino-showcase-card-v11{
+    position:relative;
+    min-width:0;
+    overflow:hidden;
+    border:1px solid #252525;
+    background:#0d0d0d;
+    cursor:pointer;
+    transition:.22s ease;
+}
+
+.akkino-showcase-card-v11:hover{
+    transform:translateY(-3px);
+    border-color:#51451e;
+}
+
+.akkino-showcase-img-v11{
+    width:100%;
+    height:190px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#fff;
+    overflow:hidden;
+}
+
+.akkino-showcase-img-v11 img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+}
+
+.akkino-showcase-body-v11{
+    padding:11px;
+}
+
+.akkino-showcase-name-v11{
+    height:31px;
+    overflow:hidden;
+    color:#e8e8e8;
+    font-size:10px;
+    line-height:1.45;
+}
+
+.akkino-showcase-price-v11{
+    margin-top:7px;
+    color:#fff;
+    font-size:14px;
+    font-weight:800;
+}
+
+.akkino-showcase-price-v11 span{
+    margin-left:4px;
+    color:#39cf6a;
+    font-size:7px;
+    font-weight:700;
+}
+
+.akkino-showcase-sub-v11{
+    margin-top:4px;
+    color:#777;
+    font-size:8px;
+}
+
+.akkino-catalog-head-v11{
+    max-width:1280px;
+    margin:0 auto;
+}
+
+@media(max-width:1100px){
+    .akkino-showcase-row-v11{
+        grid-template-columns:repeat(4,minmax(0,1fr));
+    }
+}
+
+@media(max-width:800px){
+    .akkino-info-strip-v11{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .akkino-info-item-v11:nth-child(2){
+        border-right:0;
+    }
+
+    .akkino-info-item-v11:nth-child(-n+2){
+        border-bottom:1px solid #242424;
+    }
+
+    .akkino-showcase-row-v11{
+        display:flex;
+        overflow-x:auto;
+        gap:10px;
+        padding-bottom:5px;
+        scrollbar-width:none;
+    }
+
+    .akkino-showcase-row-v11::-webkit-scrollbar{
+        display:none;
+    }
+
+    .akkino-showcase-card-v11{
+        flex:0 0 165px;
+    }
+
+    .akkino-showcase-img-v11{
+        height:170px;
+    }
+}
+
+@media(max-width:600px){
+    .akkino-home-v11{
+        margin-bottom:28px;
+    }
+
+    .akkino-hero-v11{
+        min-height:270px;
+    }
+
+    .akkino-hero-copy-v11{
+        padding:34px 25px;
+    }
+
+    .akkino-title-v11{
+        font-size:39px;
+    }
+
+    .akkino-copy-v11{
+        font-size:10px;
+    }
+
+    .akkino-info-item-v11{
+        min-height:64px;
+        padding:11px;
+    }
+
+    .akkino-showcase-head-v11 h2{
+        font-size:21px;
+    }
+}
+
+
+
+/* V11 header */
+.marca{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.marca img{
+    width:280px;
+    max-width:70vw;
+    height:auto;
+    display:block;
+}
+
+@media(max-width:600px){
+    .marca img{
+        width:225px;
+        max-width:75vw;
+    }
+}
+
 </style>
 
 </head>
@@ -3803,7 +4203,7 @@ RESULTADO:
 <div class="header">
 
     <div class="marca">
-        AKKINO
+        <img src="logo.png" alt="AKKINO PRIVÉ">
     </div>
 
     <div class="subtitulo">
@@ -4234,7 +4634,104 @@ RESULTADO:
 </section>
 
 
-<div class="seccion-tienda">
+
+<section class="akkino-home-v11">
+
+    <div class="akkino-hero-v11">
+
+        <div class="akkino-hero-copy-v11">
+
+            <div class="akkino-kicker-v11">
+                PERFUMERÍA · AKKINO PRIVÉ
+            </div>
+
+            <div class="akkino-title-v11">
+                Encontrá tu próxima
+                <span>fragancia.</span>
+            </div>
+
+            <div class="akkino-copy-v11">
+                Perfumes originales e inspiraciones de 60 ml.
+                Elegí tu modalidad de compra y descubrí nuestra
+                selección de fragancias.
+            </div>
+
+            <div class="akkino-hero-actions-v11">
+
+                <button
+                class="akkino-hero-btn-v11"
+                onclick="
+                    document.getElementById('modoParticular').click();
+                    document.getElementById('catalogoAkkino').scrollIntoView({
+                        behavior:'smooth'
+                    });
+                ">
+                    🛍️ COMPRAR COMO PARTICULAR
+                </button>
+
+                <button
+                class="akkino-hero-btn-v11"
+                onclick="
+                    document.getElementById('modoMayorista').click();
+                    document.getElementById('catalogoAkkino').scrollIntoView({
+                        behavior:'smooth'
+                    });
+                ">
+                    📦 PRECIOS MAYORISTAS
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="akkino-info-strip-v11">
+
+        <div class="akkino-info-item-v11">
+            <div class="akkino-info-icon-v11">✦</div>
+            <div>
+                <strong>ORIGINALES</strong>
+                <span>Perfumería original</span>
+            </div>
+        </div>
+
+        <div class="akkino-info-item-v11">
+            <div class="akkino-info-icon-v11">◇</div>
+            <div>
+                <strong>EXTRACTOS 60 ML</strong>
+                <span>Inspiraciones seleccionadas</span>
+            </div>
+        </div>
+
+        <div class="akkino-info-item-v11">
+            <div class="akkino-info-icon-v11">▱</div>
+            <div>
+                <strong>PARTICULAR</strong>
+                <span>Compra individual</span>
+            </div>
+        </div>
+
+        <div class="akkino-info-item-v11">
+            <div class="akkino-info-icon-v11">▦</div>
+            <div>
+                <strong>MAYORISTA</strong>
+                <span>Desde 5 unidades</span>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div
+    id="homeShowcasesV11">
+    </div>
+
+</section>
+
+
+<div id="catalogoAkkino" class="seccion-tienda">
 
     <h2>
         Descubrí tu próxima fragancia
@@ -4919,6 +5416,8 @@ function cargarPerfumes(){
             perfumes =
                 data;
 
+
+            renderHomeShowcasesV11();
 
             crearCategorias();
 
@@ -6249,6 +6748,251 @@ function calcularCarritoParticular(){
    MOSTRAR PAGINA
    ========================================================= */
 
+
+/* =========================================================
+   AKKINO V11 — HOME SHOWCASES
+   Usa los productos existentes del Sheets.
+   No requiere columnas nuevas.
+   ========================================================= */
+
+function escaparAttrV11(valor){
+    return String(valor || "")
+        .replace(/&/g,"&amp;")
+        .replace(/"/g,"&quot;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;");
+}
+
+
+function imagenProductoV11(producto){
+
+    return (
+        producto.imagen ||
+        producto.foto ||
+        producto.urlImagen ||
+        producto.image ||
+        producto.imagenUrl ||
+        ""
+    );
+}
+
+
+function renderHomeShowcasesV11(){
+
+    const cont =
+        document.getElementById(
+            "homeShowcasesV11"
+        );
+
+    if(!cont || !Array.isArray(perfumes)){
+        return;
+    }
+
+
+    const disponibles =
+        perfumes.filter(
+            p =>
+                normalizar(
+                    p.tipo
+                ).includes("ORIGINAL")
+                ||
+                normalizar(
+                    p.tipo
+                ).includes("INSPIRACION")
+        );
+
+
+    const productosBase =
+        disponibles.length
+        ?
+        disponibles
+        :
+        perfumes;
+
+
+    const destacados =
+        productosBase
+        .slice(0,6);
+
+
+    const novedades =
+        productosBase
+        .slice(6,12);
+
+
+    const tendencias =
+        productosBase
+        .slice(12,18);
+
+
+    function crearFila(titulo, etiqueta, lista){
+
+        if(!lista.length){
+            return "";
+        }
+
+
+        return `
+
+            <section class="akkino-showcase-v11">
+
+                <div
+                class="akkino-showcase-head-v11">
+
+                    <h2>
+                        ${titulo}
+                    </h2>
+
+                    <span>
+                        ${etiqueta}
+                    </span>
+
+                </div>
+
+
+                <div
+                class="akkino-showcase-row-v11">
+
+                    ${
+                        lista
+                        .map(
+                            producto => {
+
+                                const img =
+                                    imagenProductoV11(
+                                        producto
+                                    );
+
+                                const precio =
+                                    precioParticularProducto(
+                                        producto
+                                    );
+
+                                return `
+
+                                    <article
+                                    class="akkino-showcase-card-v11"
+                                    onclick="
+                                        seleccionarTipo(
+                                            '${escapeJS(
+                                                tipoPrincipalProducto(
+                                                    producto
+                                                )
+                                            )}'
+                                        );
+                                        document.getElementById(
+                                            'catalogoAkkino'
+                                        ).scrollIntoView({
+                                            behavior:'smooth'
+                                        });
+                                    ">
+
+                                        <div
+                                        class="akkino-showcase-img-v11">
+
+                                            ${
+                                                img
+                                                ?
+                                                `
+                                                <img
+                                                src="${escaparAttrV11(img)}"
+                                                alt="${escaparAttrV11(
+                                                    producto.perfume
+                                                )}"
+                                                loading="lazy">
+                                                `
+                                                :
+                                                ""
+                                            }
+
+                                        </div>
+
+
+                                        <div
+                                        class="akkino-showcase-body-v11">
+
+                                            <div
+                                            class="akkino-showcase-name-v11">
+
+                                                ${escapeHTML(
+                                                    producto.perfume
+                                                    || ""
+                                                )}
+
+                                            </div>
+
+
+                                            ${
+                                                precio > 0
+                                                ?
+                                                `
+                                                <div
+                                                class="akkino-showcase-price-v11">
+
+                                                    ${dinero(
+                                                        precio
+                                                    )}
+
+                                                    <span>
+                                                        DISPONIBLE
+                                                    </span>
+
+                                                </div>
+                                                `
+                                                :
+                                                ""
+                                            }
+
+
+                                            <div
+                                            class="akkino-showcase-sub-v11">
+
+                                                ${
+                                                    producto.categoria
+                                                    || ""
+                                                }
+
+                                            </div>
+
+                                        </div>
+
+                                    </article>
+
+                                `;
+                            }
+                        )
+                        .join("")
+                    }
+
+                </div>
+
+            </section>
+
+        `;
+    }
+
+
+    cont.innerHTML =
+        crearFila(
+            "Destacados",
+            "SELECCIÓN AKKINO",
+            destacados
+        )
+        +
+        crearFila(
+            "Novedades",
+            "RECIÉN INCORPORADOS",
+            novedades
+        )
+        +
+        crearFila(
+            "Tendencias",
+            "PRIMAVERA · VERANO",
+            tendencias
+        );
+}
+
+
 function mostrarPagina(){
 
     const inicio =
@@ -6359,7 +7103,7 @@ function mostrarProductos(
                             <div
                             class="original-precio">
 
-                                <!-- 1. PRECIO DE LISTA -->
+                                <!-- PRECIO DE LISTA: REFERENCIA -->
 
                                 <div
                                 class="original-lista-bloque">
@@ -6383,7 +7127,7 @@ function mostrarProductos(
                                 </div>
 
 
-                                <!-- 2. PRECIO EN 2 CUOTAS -->
+                                <!-- PRECIO DE 2 CUOTAS: YA DESCONTADO -->
 
                                 <div
                                 class="original-cuotas-bloque">
@@ -6414,17 +7158,10 @@ function mostrarProductos(
 
                                     </div>
 
-                                    <div
-                                    class="original-descuento">
-
-                                        -20% DESCUENTO
-
-                                    </div>
-
                                 </div>
 
 
-                                <!-- 3. PRECIO FINAL EFECTIVO -->
+                                <!-- PRECIO EFECTIVO: YA DESCONTADO -->
 
                                 <div
                                 class="original-final-bloque">
@@ -6442,13 +7179,6 @@ function mostrarProductos(
                                         ${dinero(
                                             precios.final
                                         )}
-
-                                    </div>
-
-                                    <div
-                                    class="original-descuento">
-
-                                        -20% DESCUENTO
 
                                     </div>
 
