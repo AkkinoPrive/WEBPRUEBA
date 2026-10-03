@@ -3994,6 +3994,50 @@ RESULTADO:
         grid-template-columns:1fr !important;
     }
 }
+
+
+/* =========================================================
+   PEDIDOS CON PRODUCTOS A PEDIDO
+   ========================================================= */
+
+.pedido-pendiente-aviso{
+    margin-top:14px;
+    padding:14px 16px;
+    border:1px solid rgba(212,175,55,.45);
+    border-radius:10px;
+    background:rgba(212,175,55,.055);
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    font-size:12px;
+    line-height:1.5;
+    color:#bdbdbd;
+}
+
+.pedido-pendiente-aviso strong{
+    color:#d4af37;
+    font-size:11px;
+    letter-spacing:1.2px;
+}
+
+.pedido-pendiente-aviso b{
+    color:#fff;
+}
+
+.selector-pago select:disabled{
+    opacity:.45;
+    cursor:not-allowed;
+}
+
+.enviar-whatsapp.pedido-consulta{
+    background:#111;
+    color:#d4af37;
+    border:1px solid rgba(212,175,55,.65);
+}
+
+.enviar-whatsapp.pedido-consulta:hover{
+    background:#181818;
+}
 </style>
 
 </head>
@@ -8068,12 +8112,50 @@ function modificarCantidad(
 
 
 /* =========================================================
+   CONTROL DE DISPONIBILIDAD DEL PEDIDO
+   ========================================================= */
+
+function hayProductosAPedido(){
+
+    return carrito.some(
+        item => obtenerEstado(item.producto) === "A PEDIDO"
+    );
+}
+
+function actualizarEstadoBotonPedido(){
+
+    const boton = document.querySelector(".enviar-whatsapp");
+    const selector = document.getElementById("formaPagoPedido");
+
+    const hayPedido = hayProductosAPedido();
+
+    if(boton){
+        boton.textContent = hayPedido
+            ? "CONSULTAR PEDIDO POR WHATSAPP"
+            : "ENVIAR PEDIDO POR WHATSAPP";
+
+        boton.classList.toggle("pedido-consulta", hayPedido);
+    }
+
+    if(selector){
+        selector.disabled = hayPedido;
+        selector.title = hayPedido
+            ? "Este pedido contiene productos A PEDIDO y debe confirmarse por WhatsApp."
+            : "";
+    }
+}
+
+/* =========================================================
    FORMA DE PAGO
    ========================================================= */
 
 function cambiarFormaPago(
     forma
 ){
+
+    if(hayProductosAPedido()){
+        return;
+    }
 
     formaPagoActual =
         forma;
@@ -8101,6 +8183,7 @@ function actualizarResumenCarrito(){
         cont.innerHTML =
             "";
 
+        actualizarEstadoBotonPedido();
         return;
     }
 
@@ -8151,6 +8234,7 @@ function actualizarResumenCarrito(){
 
             `;
 
+            actualizarEstadoBotonPedido();
             return;
         }
 
@@ -8224,6 +8308,7 @@ function actualizarResumenCarrito(){
 
         `;
 
+        actualizarEstadoBotonPedido();
         return;
     }
 
@@ -8294,7 +8379,7 @@ function actualizarResumenCarrito(){
         class="resumen-linea resumen-total">
 
             <span>
-                TOTAL
+                ${hayProductosAPedido() ? "TOTAL ESTIMADO" : "TOTAL"}
             </span>
 
             <strong>
@@ -8305,7 +8390,24 @@ function actualizarResumenCarrito(){
 
         </div>
 
+        ${
+            hayProductosAPedido()
+            ?
+            `
+            <div class="pedido-pendiente-aviso">
+                <strong>ESTE PEDIDO REQUIERE CONFIRMACIÓN</strong>
+                <span>
+                    Incluye uno o más perfumes <b>A PEDIDO</b>. No se puede realizar el pago desde la web.
+                    Te contactaremos por WhatsApp para confirmar disponibilidad, plazo y si querés abonarlo y esperarlo.
+                </span>
+            </div>
+            `
+            : ""
+        }
+
     `;
+
+    actualizarEstadoBotonPedido();
 }
 
 
@@ -8336,6 +8438,56 @@ function enviarWhatsApp(){
 
         alert(
             `El pedido mayorista requiere mínimo ${MINIMO_MAYORISTA} unidades.`
+        );
+
+        return;
+    }
+
+
+    /*
+    Si el pedido mezcla DISPONIBLES con A PEDIDO,
+    no se permite pago ni confirmación automática.
+    Se deriva a WhatsApp para que el cliente decida
+    si quiere esperar el producto faltante y abonarlo.
+    */
+
+    const pedidoPendiente =
+        hayProductosAPedido();
+
+    if(pedidoPendiente){
+
+        let mensajeConsulta =
+            "Hola AKKINO Privé!%0A%0A" +
+            "Quiero consultar este pedido. Incluye productos DISPONIBLES y productos A PEDIDO.%0A%0A";
+
+        carrito.forEach(
+            item => {
+
+                const estado =
+                    obtenerEstado(item.producto);
+
+                mensajeConsulta +=
+                    `${item.cantidad} x ${encodeURIComponent(
+                        item.producto.perfume
+                    )} - ${encodeURIComponent(
+                        estado
+                    )}%0A`;
+            }
+        );
+
+        mensajeConsulta +=
+            "%0AEl pedido contiene productos A PEDIDO. Quiero confirmar disponibilidad y plazo antes de pagar.%0A" +
+            "Si el producto debe esperarse, decidiré si quiero abonarlo y esperar la entrega.";
+
+        const urlConsulta =
+            "https://wa.me/" +
+            WHATSAPP +
+            "?text=" +
+            mensajeConsulta;
+
+        window.open(
+            urlConsulta,
+            "_blank"
         );
 
         return;
