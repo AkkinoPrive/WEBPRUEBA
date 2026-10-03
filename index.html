@@ -4645,9 +4645,6 @@ RESULTADO:
     </div>
 
 
-    <div
-    id="homeShowcasesV11">
-    </div>
 
 </section>
 
@@ -4795,6 +4792,10 @@ class="modal">
 
                 <option value="TRANSFERENCIA">
                     TRANSFERENCIA
+                </option>
+
+                <option value="TARJETA_2_CUOTAS">
+                    TARJETA — 2 CUOTAS
                 </option>
 
             </select>
@@ -5101,30 +5102,30 @@ function stockClase(producto){
 function precioOriginal(producto){
 
     /*
-    En Google Sheets se carga UN SOLO VALOR:
-    el PRECIO FINAL.
+    ORIGINALES — estructura definitiva de precios:
 
-    Ejemplo:
-    Sheets = $75.970
-    Precio final = $75.970
-    Precio 2 cuotas = $91.164
-    Precio de lista = $106.358
+    valorReal de Google Sheets = precio FINAL
+    efectivo / transferencia.
 
-    No se muestra "40% OFF".
+    Precio de lista = final + 40%
+    2 cuotas = 20% menos que el precio de lista.
     */
 
-    const precioParticular = numero(producto.precioParticular);
-    const precioFinal = precioParticular > 0 ? precioParticular : numero(producto.precioLista);
-    const cuotas = 2;
+    const precioFinal =
+        numero(producto.valorReal) > 0
+        ? numero(producto.valorReal)
+        : numero(producto.precioParticular);
 
-    const precioCuotas =
-        precioFinal > 0
-        ? Math.round(precioFinal * 1.20)
-        : 0;
+    const cuotas = 2;
 
     const precioLista =
         precioFinal > 0
         ? Math.round(precioFinal * 1.40)
+        : 0;
+
+    const precioCuotas =
+        precioLista > 0
+        ? Math.round(precioLista * 0.80)
         : 0;
 
     const valorCuota =
@@ -5141,6 +5142,16 @@ function precioOriginal(producto){
     };
 }
 
+function precioOriginalSegunPago(producto){
+
+    const precios = precioOriginal(producto);
+
+    if(formaPagoActual === "TARJETA_2_CUOTAS"){
+        return precios.precioCuotas;
+    }
+
+    return precios.final;
+}
 
 function precioParticularProducto(producto){
 
@@ -6393,7 +6404,7 @@ function calcularCarritoParticular(){
 
             const unitario =
                 tipo === "ORIGINALES"
-                ? precioOriginal(producto).final
+                ? precioOriginalSegunPago(producto)
                 : precioParticularProducto(producto);
 
             precioNormal +=
@@ -8606,6 +8617,22 @@ function actualizarResumenCarrito(){
 
 
         <div
+        class="resumen-linea">
+
+            <span>
+                FORMA DE PAGO
+            </span>
+
+            <strong>
+                ${formaPagoActual === "TARJETA_2_CUOTAS"
+                    ? "TARJETA — 2 CUOTAS"
+                    : formaPagoActual}
+            </strong>
+
+        </div>
+
+
+        <div
         class="resumen-linea resumen-total">
 
             <span>
@@ -8717,7 +8744,7 @@ function enviarWhatsApp(){
                         );
 
                     precioUnitario =
-                        precios.final;
+                        precioOriginalSegunPago(producto);
 
                 }
 
