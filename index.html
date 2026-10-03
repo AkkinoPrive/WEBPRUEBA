@@ -8046,6 +8046,7 @@ function renderizarCarrito(){
     }
 
 
+    actualizarOpcionesPago();
     actualizarResumenCarrito();
 
 }
@@ -8122,7 +8123,47 @@ function hayProductosAPedido(){
     );
 }
 
+function actualizarOpcionesPago(){
+
+    const selector = document.getElementById("formaPagoPedido");
+
+    if(!selector){
+        return;
+    }
+
+    /*
+       Las 2 cuotas son exclusivas de los ORIGINALes.
+       Si el carrito contiene inspiraciones, no ofrecemos
+       tarjeta en 2 cuotas para todo el pedido.
+    */
+    const hayInspiraciones = carrito.some(
+        item => tipoPrincipalProducto(item.producto) === "INSPIRACIONES 60ML"
+    );
+
+    const hayOriginales = carrito.some(
+        item => tipoPrincipalProducto(item.producto) === "ORIGINALES"
+    );
+
+    const opcionCuotas = selector.querySelector(
+        'option[value="TARJETA_2_CUOTAS"]'
+    );
+
+    if(opcionCuotas){
+        const permitirCuotas = hayOriginales && !hayInspiraciones;
+        opcionCuotas.hidden = !permitirCuotas;
+        opcionCuotas.disabled = !permitirCuotas;
+
+        if(!permitirCuotas && formaPagoActual === "TARJETA_2_CUOTAS"){
+            formaPagoActual = "EFECTIVO";
+        }
+    }
+
+    selector.value = formaPagoActual;
+}
+
 function actualizarEstadoBotonPedido(){
+
+    actualizarOpcionesPago();
 
     const boton = document.querySelector(".enviar-whatsapp");
     const selector = document.getElementById("formaPagoPedido");
@@ -8154,6 +8195,19 @@ function cambiarFormaPago(
 ){
 
     if(hayProductosAPedido()){
+        return;
+    }
+
+    /* Las cuotas solo están disponibles cuando TODO el carrito
+       corresponde a productos Originales. */
+    const hayInspiraciones = carrito.some(
+        item => tipoPrincipalProducto(item.producto) === "INSPIRACIONES 60ML"
+    );
+
+    if(forma === "TARJETA_2_CUOTAS" && hayInspiraciones){
+        formaPagoActual = "EFECTIVO";
+        actualizarOpcionesPago();
+        actualizarResumenCarrito();
         return;
     }
 
