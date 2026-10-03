@@ -2886,6 +2886,141 @@ RESULTADO:
         font-size:23px;
     }
 }
+
+
+/* =========================================================
+   AKKINO V2 — NAVEGACION PREMIUM
+   ========================================================= */
+
+.categorias{
+    max-width:1100px;
+    margin:18px auto 30px;
+    padding:0 15px;
+}
+
+.categorias-principales{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:0;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    margin-bottom:18px;
+}
+
+.categorias-principales .categoria-btn{
+    position:relative;
+    border:none;
+    border-radius:0;
+    background:transparent;
+    color:#777;
+    padding:13px 24px;
+    font-family:Arial,Helvetica,sans-serif;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:2px;
+    cursor:pointer;
+    transition:color .25s ease;
+}
+
+.categorias-principales .categoria-btn:hover{
+    color:#ddd;
+}
+
+.categorias-principales .categoria-btn.activa{
+    background:transparent;
+    color:#d4af37;
+}
+
+.categorias-principales .categoria-btn.activa::after{
+    content:"";
+    position:absolute;
+    left:20%;
+    right:20%;
+    bottom:-1px;
+    height:1px;
+    background:#d4af37;
+}
+
+.subcategorias{
+    display:flex;
+    justify-content:center;
+}
+
+.filtros-extra{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:7px;
+}
+
+.filtro-extra{
+    border:1px solid #292929;
+    padding:7px 13px;
+    border-radius:999px;
+    background:#101010;
+    color:#777;
+    cursor:pointer;
+    font-size:10px;
+    letter-spacing:1px;
+    transition:.2s ease;
+}
+
+.filtro-extra:hover{
+    color:#ddd;
+    border-color:#555;
+}
+
+.filtro-extra.activo{
+    background:rgba(212,175,55,.10);
+    border-color:rgba(212,175,55,.55);
+    color:#d4af37;
+}
+
+@media(max-width:600px){
+
+    .categorias{
+        margin-top:12px;
+        margin-bottom:24px;
+    }
+
+    .categorias-principales{
+        justify-content:flex-start;
+        overflow-x:auto;
+        scrollbar-width:none;
+    }
+
+    .categorias-principales::-webkit-scrollbar{
+        display:none;
+    }
+
+    .categorias-principales .categoria-btn{
+        flex:none;
+        padding:12px 17px;
+        font-size:9px;
+        letter-spacing:1.5px;
+    }
+
+    .filtros-extra{
+        justify-content:flex-start;
+        overflow-x:auto;
+        flex-wrap:nowrap;
+        scrollbar-width:none;
+        width:100%;
+        padding-bottom:3px;
+    }
+
+    .filtros-extra::-webkit-scrollbar{
+        display:none;
+    }
+
+    .filtro-extra{
+        flex:none;
+        font-size:9px;
+        padding:7px 11px;
+    }
+}
+
 </style>
 
 </head>
@@ -3768,7 +3903,7 @@ let productosFiltrados =
 [];
 
 let tipoActual =
-"TODOS";
+"INSPIRACIONES 60ML";
 
 let filtroExtraActual =
 "TODOS";
@@ -4325,6 +4460,10 @@ cargarPerfumes();
    CATEGORIAS PRINCIPALES
    ========================================================= */
 
+/* =========================================================
+   CATEGORIAS PRINCIPALES — AKKINO V2
+   ========================================================= */
+
 function crearCategorias(){
 
     const cont =
@@ -4338,47 +4477,39 @@ function crearCategorias(){
         class="categorias-principales">
 
             <button
-            class="categoria-btn activa"
-            data-tipo="TODOS"
-            onclick="
-            seleccionarTipo(
-                'TODOS'
-            )">
-
-                TODOS
-
-            </button>
-
-
-            <button
-            class="categoria-btn"
+            class="categoria-btn
+            ${tipoActual === "INSPIRACIONES 60ML" ? "activa" : ""}"
             data-tipo="INSPIRACIONES 60ML"
             onclick="
-            seleccionarTipo(
-                'INSPIRACIONES 60ML'
-            )">
+                seleccionarTipo(
+                    'INSPIRACIONES 60ML'
+                )
+            ">
 
-                INSPIRACIONES 60ML
+                EXTRACTOS 60 ML
 
             </button>
 
 
             ${
-                modoActual ===
-                "particular"
+                modoActual === "particular"
                 ?
                 `
+
                 <button
-                class="categoria-btn"
+                class="categoria-btn
+                ${tipoActual === "ORIGINALES" ? "activa" : ""}"
                 data-tipo="ORIGINALES"
                 onclick="
-                seleccionarTipo(
-                    'ORIGINALES'
-                )">
+                    seleccionarTipo(
+                        'ORIGINALES'
+                    )
+                ">
 
-                    PERFUMES ORIGINALES
+                    ORIGINALES
 
                 </button>
+
                 `
                 :
                 ""
@@ -4390,14 +4521,13 @@ function crearCategorias(){
         <div
         id="subcategorias"
         class="subcategorias">
+
         </div>
 
     `;
 
     mostrarSubcategorias();
 }
-
-
 function seleccionarTipo(tipo){
 
     tipoActual =
@@ -4436,6 +4566,10 @@ function seleccionarTipo(tipo){
    FILTROS SECUNDARIOS
    ========================================================= */
 
+/* =========================================================
+   FILTROS SECUNDARIOS — AKKINO V2
+   ========================================================= */
+
 function mostrarSubcategorias(){
 
     const cont =
@@ -4446,22 +4580,39 @@ function mostrarSubcategorias(){
     let filtros = [];
 
 
+    /*
+    ---------------------------------------------------------
+    EXTRACTOS
+    ---------------------------------------------------------
+    */
+
     if(
         tipoActual ===
         "INSPIRACIONES 60ML"
     ){
 
         filtros = [
+
             "TODOS",
+
             "MASCULINOS",
+
             "FEMENINOS",
+
             "UNISEX",
-            "STOCK INSPIRACIONES",
-            "NUEVOS INGRESOS",
-            "SIN STOCK"
+
+            "EN STOCK"
+
         ];
 
     }
+
+
+    /*
+    ---------------------------------------------------------
+    ORIGINALES
+    ---------------------------------------------------------
+    */
 
     else if(
         tipoActual ===
@@ -4469,25 +4620,15 @@ function mostrarSubcategorias(){
     ){
 
         filtros = [
+
             "TODOS",
-            "DISPONIBLES",
-            "A PEDIDO",
-            "SIN STOCK",
-            "NUEVOS INGRESOS"
-        ];
 
-    }
-
-    else{
-
-        filtros = [
-            "TODOS",
             "MASCULINOS",
+
             "FEMENINOS",
-            "UNISEX",
-            "STOCK INSPIRACIONES",
-            "NUEVOS INGRESOS",
-            "SIN STOCK"
+
+            "UNISEX"
+
         ];
 
     }
@@ -4504,21 +4645,17 @@ function mostrarSubcategorias(){
 
                 <button
                 class="filtro-extra ${
-                    filtroExtraActual ===
-                    filtro
+                    filtroExtraActual === filtro
                     ? "activo"
                     : ""
                 }"
                 onclick="
-                seleccionarFiltroExtra(
-                    '${escapeJS(
-                        filtro
-                    )}'
-                )">
+                    seleccionarFiltroExtra(
+                        '${escapeJS(filtro)}'
+                    )
+                ">
 
-                    ${escapeHTML(
-                        filtro
-                    )}
+                    ${escapeHTML(filtro)}
 
                 </button>
 
@@ -4530,8 +4667,6 @@ function mostrarSubcategorias(){
 
     `;
 }
-
-
 function seleccionarFiltroExtra(
     filtro
 ){
@@ -4816,37 +4951,14 @@ function aplicarFiltros(){
                         break;
 
 
-                    case "STOCK INSPIRACIONES":
+                    case "EN STOCK":
 
                         coincideExtra =
-                            tipo ===
-                            "INSPIRACIONES 60ML" &&
                             estado ===
                             "DISPONIBLE";
 
                         break;
-
-
-                    case "NUEVOS INGRESOS":
-
-                        coincideExtra =
-                            nuevoIngresoProducto(
-                                producto
-                            );
-
-                        break;
-
-
-                    case "SIN STOCK":
-
-                        coincideExtra =
-                            estado ===
-                            "SIN STOCK";
-
-                        break;
-
-
-                    case "DISPONIBLES":
+case "DISPONIBLES":
 
                         coincideExtra =
                             estado ===
@@ -5091,8 +5203,11 @@ function cambiarModo(modo){
         modoActual === "mayorista" &&
         tipoActual === "ORIGINALES"
     ){
-        tipoActual = "TODOS";
-        filtroExtraActual = "TODOS";
+        tipoActual =
+            "INSPIRACIONES 60ML";
+
+        filtroExtraActual =
+            "TODOS";
     }
 
     crearCategorias();
