@@ -4038,6 +4038,36 @@ RESULTADO:
 .enviar-whatsapp.pedido-consulta:hover{
     background:#181818;
 }
+
+/* =========================================================
+   MERCADO PAGO
+   ========================================================= */
+.boton-mercado-pago{
+    display:block;
+    width:100%;
+    margin-top:10px;
+    min-height:47px;
+    border:0;
+    border-radius:8px;
+    background:#3483fa;
+    color:#fff;
+    font-size:13px;
+    font-weight:900;
+    letter-spacing:.2px;
+    cursor:pointer;
+    transition:.2s ease;
+}
+.boton-mercado-pago:hover{
+    background:#2968c8;
+}
+.boton-mercado-pago:disabled{
+    opacity:.4;
+    cursor:not-allowed;
+}
+.mercado-pago-cargando{
+    opacity:.7;
+    pointer-events:none;
+}
 </style>
 
 </head>
@@ -4496,6 +4526,10 @@ class="modal">
                     TRANSFERENCIA
                 </option>
 
+                <option value="MERCADO_PAGO">
+                    MERCADO PAGO
+                </option>
+
                 <option value="TARJETA_2_CUOTAS">
                     TARJETA — 2 CUOTAS
                 </option>
@@ -4521,6 +4555,16 @@ class="modal">
         onclick="enviarWhatsApp()">
 
             ENVIAR PEDIDO POR WHATSAPP
+
+        </button>
+
+        <button
+        id="botonMercadoPago"
+        class="boton-mercado-pago"
+        onclick="pagarMercadoPago()"
+        type="button">
+
+            PAGAR CON MERCADO PAGO
 
         </button>
 
@@ -6339,9 +6383,9 @@ function calcularCarritoParticular(){
             ){
 
                 totalOriginales +=
-                    precioOriginal(
+                    precioOriginalSegunPago(
                         item.producto
-                    ).final *
+                    ) *
                     item.cantidad;
 
             }
@@ -8131,11 +8175,6 @@ function actualizarOpcionesPago(){
         return;
     }
 
-    /*
-       Las 2 cuotas son exclusivas de los ORIGINALes.
-       Si el carrito contiene inspiraciones, no ofrecemos
-       tarjeta en 2 cuotas para todo el pedido.
-    */
     const hayInspiraciones = carrito.some(
         item => tipoPrincipalProducto(item.producto) === "INSPIRACIONES 60ML"
     );
@@ -8148,12 +8187,26 @@ function actualizarOpcionesPago(){
         'option[value="TARJETA_2_CUOTAS"]'
     );
 
+    const opcionMP = selector.querySelector(
+        'option[value="MERCADO_PAGO"]'
+    );
+
     if(opcionCuotas){
         const permitirCuotas = hayOriginales && !hayInspiraciones;
         opcionCuotas.hidden = !permitirCuotas;
         opcionCuotas.disabled = !permitirCuotas;
 
         if(!permitirCuotas && formaPagoActual === "TARJETA_2_CUOTAS"){
+            formaPagoActual = "EFECTIVO";
+        }
+    }
+
+    if(opcionMP){
+        const permitirMP = modoActual === "particular";
+        opcionMP.hidden = !permitirMP;
+        opcionMP.disabled = !permitirMP;
+
+        if(!permitirMP && formaPagoActual === "MERCADO_PAGO"){
             formaPagoActual = "EFECTIVO";
         }
     }
@@ -8166,9 +8219,14 @@ function actualizarEstadoBotonPedido(){
     actualizarOpcionesPago();
 
     const boton = document.querySelector(".enviar-whatsapp");
+    const botonMP = document.getElementById("botonMercadoPago");
     const selector = document.getElementById("formaPagoPedido");
 
     const hayPedido = hayProductosAPedido();
+    const puedePagar =
+        carrito.length > 0 &&
+        modoActual === "particular" &&
+        !hayPedido;
 
     if(boton){
         boton.textContent = hayPedido
@@ -8184,6 +8242,18 @@ function actualizarEstadoBotonPedido(){
             ? "Este pedido contiene productos A PEDIDO y debe confirmarse por WhatsApp."
             : "";
     }
+
+    if(botonMP){
+        const habilitar = puedePagar &&
+            (formaPagoActual === "MERCADO_PAGO" || formaPagoActual === "TARJETA_2_CUOTAS");
+
+        botonMP.disabled = !habilitar;
+        botonMP.style.display = puedePagar ? "block" : "none";
+        botonMP.textContent =
+            formaPagoActual === "TARJETA_2_CUOTAS"
+            ? "PAGAR CON MERCADO PAGO — 2 CUOTAS"
+            : "PAGAR CON MERCADO PAGO";
+    }
 }
 
 /* =========================================================
@@ -8198,8 +8268,6 @@ function cambiarFormaPago(
         return;
     }
 
-    /* Las cuotas solo están disponibles cuando TODO el carrito
-       corresponde a productos Originales. */
     const hayInspiraciones = carrito.some(
         item => tipoPrincipalProducto(item.producto) === "INSPIRACIONES 60ML"
     );
@@ -8211,9 +8279,14 @@ function cambiarFormaPago(
         return;
     }
 
-    formaPagoActual =
-        forma;
+    if(forma === "MERCADO_PAGO" && modoActual !== "particular"){
+        formaPagoActual = "EFECTIVO";
+        actualizarOpcionesPago();
+        actualizarResumenCarrito();
+        return;
+    }
 
+    formaPagoActual = forma;
     actualizarResumenCarrito();
 }
 
@@ -8462,6 +8535,98 @@ function actualizarResumenCarrito(){
     `;
 
     actualizarEstadoBotonPedido();
+}
+
+
+/* =========================================================
+   MERCADO PAGO — CHECKOUT PRO DE PRUEBA
+   ========================================================= */
+
+function pagarMercadoPago(){
+
+    if(!carrito.length){
+        alert("No hay productos en el pedido.");
+        return;
+    }
+
+    if(modoActual !== "particular"){
+        alert("Mercado Pago está disponible por ahora para pedidos particulares.");
+        return;
+    }
+
+    if(hayProductosAPedido()){
+        alert("Este pedido contiene productos A PEDIDO. Primero hay que confirmar disponibilidad por WhatsApp.");
+        return;
+    }
+
+    if(formaPagoActual !== "MERCADO_PAGO" && formaPagoActual !== "TARJETA_2_CUOTAS"){
+        alert("Seleccioná MERCADO PAGO o TARJETA — 2 CUOTAS como forma de pago.");
+        return;
+    }
+
+    const boton = document.getElementById("botonMercadoPago");
+    if(boton){
+        boton.disabled = true;
+        boton.classList.add("mercado-pago-cargando");
+        boton.textContent = "CONECTANDO CON MERCADO PAGO...";
+    }
+
+    const callbackName = "__akkinoMP_" + Date.now();
+    const script = document.createElement("script");
+
+    const items = carrito.map(item => ({
+        perfume: item.producto.perfume,
+        cantidad: item.cantidad
+    }));
+
+    const params = new URLSearchParams();
+    params.set("action", "crear_preferencia");
+    params.set("callback", callbackName);
+    params.set("medioPago", formaPagoActual);
+    params.set("modo", modoActual);
+    params.set("items", JSON.stringify(items));
+
+    let terminado = false;
+
+    function limpiar(){
+        try{ delete window[callbackName]; }catch(e){ window[callbackName] = undefined; }
+        if(script.parentNode){ script.parentNode.removeChild(script); }
+        if(boton){
+            boton.disabled = false;
+            boton.classList.remove("mercado-pago-cargando");
+            boton.textContent = formaPagoActual === "TARJETA_2_CUOTAS"
+                ? "PAGAR CON MERCADO PAGO — 2 CUOTAS"
+                : "PAGAR CON MERCADO PAGO";
+        }
+    }
+
+    window[callbackName] = function(respuesta){
+        terminado = true;
+
+        if(respuesta && respuesta.ok){
+            const url = respuesta.sandboxInitPoint || respuesta.initPoint;
+            if(url){
+                window.location.href = url;
+                return;
+            }
+        }
+
+        limpiar();
+        alert(
+            respuesta && respuesta.error
+            ? "Mercado Pago: " + respuesta.error
+            : "No se pudo crear el checkout de Mercado Pago."
+        );
+    };
+
+    script.onerror = function(){
+        if(terminado) return;
+        limpiar();
+        alert("No se pudo conectar con el sistema de pagos.");
+    };
+
+    script.src = API + "?" + params.toString();
+    document.body.appendChild(script);
 }
 
 
