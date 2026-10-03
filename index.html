@@ -1625,6 +1625,53 @@ body{
 
 }
 
+
+/* =========================================================
+   AKKINO — METODOS DE PAGO
+   ========================================================= */
+.metodos-pago-akkino{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:10px;
+    margin-top:12px;
+}
+.metodo-pago{
+    appearance:none;
+    border:1px solid rgba(198,166,92,.30);
+    background:linear-gradient(145deg,#111,#080808);
+    color:#fff;
+    border-radius:12px;
+    padding:14px 10px 13px;
+    min-height:112px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:5px;
+    cursor:pointer;
+    text-align:center;
+    transition:.18s ease;
+    font-family:inherit;
+}
+.metodo-pago:hover{
+    border-color:#c6a65c;
+    transform:translateY(-1px);
+}
+.metodo-pago.activo{
+    border-color:#c6a65c;
+    box-shadow:0 0 0 1px rgba(198,166,92,.25),0 8px 24px rgba(0,0,0,.25);
+    background:linear-gradient(145deg,#19150c,#0b0b0b);
+}
+.metodo-icono{font-size:21px;line-height:1;margin-bottom:2px}
+.metodo-titulo{font-size:12px;font-weight:800;letter-spacing:.5px;line-height:1.15}
+.metodo-subtitulo{font-size:9px;font-weight:700;letter-spacing:.35px;line-height:1.25;color:#c6a65c}
+@media(max-width:640px){
+    .metodos-pago-akkino{gap:7px}
+    .metodo-pago{min-height:106px;padding:12px 6px}
+    .metodo-titulo{font-size:10px}
+    .metodo-subtitulo{font-size:8px}
+    .metodo-icono{font-size:18px}
+}
 </style>
 
 
@@ -1666,18 +1713,6 @@ body{
 }
 </style>
 
-
-<style id="akkino-transferencia-datos">
-.transferencia-datos{display:none;margin-top:12px;padding:15px 16px;border:1px solid rgba(212,175,55,.32);border-radius:10px;background:#111}
-.transferencia-datos.visible{display:block}
-.transferencia-datos-titulo{color:#d4af37;font-size:12px;font-weight:900;letter-spacing:1px;margin-bottom:11px}
-.transferencia-dato{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:7px 0;border-bottom:1px solid #222;font-size:12px}
-.transferencia-dato:last-of-type{border-bottom:0}
-.transferencia-dato span{color:#888}
-.transferencia-dato strong{color:#fff;text-align:right;word-break:break-all}
-.transferencia-aviso{margin-top:11px;padding-top:10px;border-top:1px solid rgba(212,175,55,.18);color:#d4af37;font-size:11px;font-weight:700;line-height:1.45}
-@media(max-width:600px){.transferencia-dato{align-items:flex-start;flex-direction:column;gap:3px}.transferencia-dato strong{text-align:left}}
-</style>
 
 <style id="akkino-barra-fija">
 #carritoBarra.carrito-barra{
@@ -3263,20 +3298,11 @@ RESULTADO:
 .original-final-label,
 .original-cuotas-label,
 .original-lista-label{
-    color:#9a9a9a;
+    color:#777;
     font-size:9px;
     font-weight:600;
     letter-spacing:1.5px;
     text-transform:uppercase;
-}
-
-.original-cuotas-valor{
-    color:#d4af37;
-    font-size:13px;
-    font-weight:900;
-    letter-spacing:.3px;
-    margin-left:4px;
-    white-space:nowrap;
 }
 
 .original-final{
@@ -3395,7 +3421,7 @@ RESULTADO:
 }
 
 .original-cuotas-label{
-    color:#39cf6a;
+    color:#888;
     font-size:8px;
     font-weight:600;
     letter-spacing:1.3px;
@@ -3403,8 +3429,8 @@ RESULTADO:
 
 .original-cuotas-precio{
     margin-top:4px;
-    color:#fff;
-    font-size:24px;
+    color:#f1f1f1;
+    font-size:21px;
     line-height:1.1;
     font-weight:800;
 }
@@ -3573,7 +3599,7 @@ RESULTADO:
 }
 
 .original-cuotas-label{
-    color:#39cf6a;
+    color:#888;
     font-size:8px;
     font-weight:600;
     letter-spacing:1.3px;
@@ -3581,8 +3607,8 @@ RESULTADO:
 
 .original-cuotas-precio{
     margin-top:4px;
-    color:#fff;
-    font-size:24px;
+    color:#f1f1f1;
+    font-size:21px;
     line-height:1.1;
     font-weight:800;
 }
@@ -4091,65 +4117,6 @@ RESULTADO:
 }
 </style>
 
-<style id="akkino-banner-promocional">
-/* =========================================================
-   AKKINO — BANNER PROMOCIONAL EN MOVIMIENTO
-   ========================================================= */
-.akkino-ticker{
-    width:100%;
-    overflow:hidden;
-    border-top:1px solid rgba(212,175,55,.22);
-    border-bottom:1px solid rgba(212,175,55,.22);
-    background:#080808;
-    margin:0;
-    white-space:nowrap;
-}
-
-.akkino-ticker-track{
-    display:inline-flex;
-    align-items:center;
-    width:max-content;
-    min-width:100%;
-    animation:akkinoTicker 28s linear infinite;
-}
-
-.akkino-ticker-item{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    padding:8px 28px;
-    color:#f2f2f2;
-    font-size:10px;
-    font-weight:800;
-    letter-spacing:1.7px;
-    text-transform:uppercase;
-}
-
-.akkino-ticker-item strong{
-    color:#d4af37;
-    font-weight:900;
-}
-
-.akkino-ticker-sep{
-    color:#d4af37;
-    font-size:12px;
-    opacity:.9;
-}
-
-@keyframes akkinoTicker{
-    from{transform:translateX(0);}
-    to{transform:translateX(-50%);}
-}
-
-@media(max-width:600px){
-    .akkino-ticker-item{
-        padding:8px 20px;
-        font-size:9px;
-        letter-spacing:1.2px;
-    }
-}
-</style>
-
 </head>
 
 
@@ -4403,47 +4370,6 @@ RESULTADO:
 
     </div>
 
-
-
-<!-- =========================================================
-     BANNER PROMOCIONAL EN MOVIMIENTO
-     ========================================================= -->
-<div class="akkino-ticker" aria-label="Promociones AKKINO PRIVÉ">
-    <div class="akkino-ticker-track">
-
-        <div class="akkino-ticker-item">
-            <strong>ENVÍO GRATIS</strong> A PARTIR DE $180.000
-        </div>
-        <span class="akkino-ticker-sep">✦</span>
-
-        <div class="akkino-ticker-item">
-            <strong>2 CUOTAS SIN INTERÉS</strong>
-        </div>
-        <span class="akkino-ticker-sep">✦</span>
-
-        <div class="akkino-ticker-item">
-            <strong>20% DESCUENTO</strong> EFECTIVO / TRANSFERENCIA
-        </div>
-        <span class="akkino-ticker-sep">✦</span>
-
-        <div class="akkino-ticker-item">
-            <strong>ENVÍO GRATIS</strong> A PARTIR DE $180.000
-        </div>
-        <span class="akkino-ticker-sep">✦</span>
-
-        <div class="akkino-ticker-item">
-            <strong>2 CUOTAS SIN INTERÉS</strong>
-        </div>
-        <span class="akkino-ticker-sep">✦</span>
-
-        <div class="akkino-ticker-item">
-            <strong>20% DESCUENTO</strong> EFECTIVO / TRANSFERENCIA
-        </div>
-        <span class="akkino-ticker-sep">✦</span>
-
-    </div>
-</div>
-
     <div id="catalogInner">
 
 
@@ -4627,46 +4553,39 @@ class="modal">
         <div id="listaCarrito"></div>
 
 
-        <div
-        id="selectorPago"
-        class="selector-pago">
+        <div id="selectorPago" class="selector-pago">
 
-            <label>
-                FORMA DE PAGO
-            </label>
+            <label>FORMA DE PAGO</label>
 
-            <select
-            id="formaPagoPedido"
-            onchange="cambiarFormaPago(this.value)">
+            <div class="metodos-pago-akkino" id="metodosPagoAkkino">
 
-                <option value="EFECTIVO">
-                    EFECTIVO
-                </option>
+                <button type="button" class="metodo-pago" data-forma="EFECTIVO" onclick="cambiarFormaPago('EFECTIVO')">
+                    <span class="metodo-icono">🏦</span>
+                    <span class="metodo-titulo">TRANSFERENCIA / EFECTIVO</span>
+                    <span class="metodo-subtitulo">MEJOR PRECIO</span>
+                </button>
 
-                <option value="TRANSFERENCIA">
-                    TRANSFERENCIA
-                </option>
+                <button type="button" class="metodo-pago" data-forma="MERCADO_PAGO_1_PAGO" onclick="cambiarFormaPago('MERCADO_PAGO_1_PAGO')">
+                    <span class="metodo-icono">💳</span>
+                    <span class="metodo-titulo">DÉBITO</span>
+                    <span class="metodo-subtitulo">20% OFF · PRECIO DE LISTA</span>
+                </button>
 
-                <option value="MERCADO_PAGO">
-                    MERCADO PAGO
-                </option>
+                <button type="button" class="metodo-pago" data-forma="TARJETA_2_CUOTAS" onclick="cambiarFormaPago('TARJETA_2_CUOTAS')">
+                    <span class="metodo-icono">💳</span>
+                    <span class="metodo-titulo">CRÉDITO / TARJETA</span>
+                    <span class="metodo-subtitulo">20% OFF · 2 CUOTAS SIN INTERÉS</span>
+                </button>
 
-                <option value="TARJETA_2_CUOTAS">
-                    TARJETA — 2 CUOTAS
-                </option>
+            </div>
 
+            <select id="formaPagoPedido" aria-hidden="true" tabindex="-1" style="position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;">
+                <option value="EFECTIVO">TRANSFERENCIA / EFECTIVO</option>
+                <option value="TRANSFERENCIA">TRANSFERENCIA</option>
+                <option value="MERCADO_PAGO_1_PAGO">DÉBITO</option>
+                <option value="TARJETA_2_CUOTAS">CRÉDITO / TARJETA</option>
             </select>
 
-        </div>
-
-
-        <div id="datosTransferencia" class="transferencia-datos">
-            <div class="transferencia-datos-titulo">DATOS PARA TRANSFERENCIA</div>
-            <div class="transferencia-dato"><span>Alias</span><strong>akkinoprive</strong></div>
-            <div class="transferencia-dato"><span>CVU</span><strong>0000003100080816942802</strong></div>
-            <div class="transferencia-dato"><span>CUIT</span><strong>20-38595340-3</strong></div>
-            <div class="transferencia-dato"><span>Banco / billetera</span><strong>Mercado Pago</strong></div>
-            <div class="transferencia-aviso">Realizá la transferencia y enviá el comprobante por WhatsApp junto con tu pedido.</div>
         </div>
 
 
@@ -6936,7 +6855,7 @@ function mostrarProductos(
                                 </div>
 
 
-                                <!-- 2 CUOTAS: SOLO SE MUESTRA EL VALOR DE CADA CUOTA -->
+                                <!-- PRECIO DE 2 CUOTAS: YA DESCONTADO -->
 
                                 <div
                                 class="original-cuotas-bloque">
@@ -6944,15 +6863,33 @@ function mostrarProductos(
                                     <div
                                     class="original-cuotas-label">
 
-                                        💳 2 CUOTAS SIN INTERÉS DE
-                                        <span class="original-cuotas-valor">${dinero(precios.valorCuota)}</span>
+                                        2 CUOTAS SIN INTERÉS
+
+                                    </div>
+
+                                    <div
+                                    class="original-cuotas-precio">
+
+                                        ${dinero(
+                                            precios.precioCuotas
+                                        )}
+
+                                    </div>
+
+                                    <div
+                                    class="original-cuotas-info">
+
+                                        2 ×
+                                        ${dinero(
+                                            precios.valorCuota
+                                        )}
 
                                     </div>
 
                                 </div>
 
 
-                                <!-- EFECTIVO: PRECIO BASADO EN COLUMNA D -->
+                                <!-- PRECIO EFECTIVO: YA DESCONTADO -->
 
                                 <div
                                 class="original-final-bloque">
@@ -8282,21 +8219,8 @@ function hayProductosAPedido(){
 function actualizarOpcionesPago(){
 
     const selector = document.getElementById("formaPagoPedido");
+    if(!selector){ return; }
 
-    if(!selector){
-        return;
-    }
-
-    const hayInspiraciones = carrito.some(
-        item => tipoPrincipalProducto(item.producto) === "INSPIRACIONES 60ML"
-    );
-
-    const hayOriginales = carrito.some(
-        item => tipoPrincipalProducto(item.producto) === "ORIGINALES"
-    );
-
-    // Las 2 cuotas solo se habilitan cuando TODO el carrito
-    // son Originales y TODOS figuran como DISPONIBLE.
     const todosOriginalesDisponibles =
         carrito.length > 0 &&
         carrito.every(item =>
@@ -8304,41 +8228,38 @@ function actualizarOpcionesPago(){
             obtenerEstado(item.producto) === "DISPONIBLE"
         );
 
-    const opcionCuotas = selector.querySelector(
-        'option[value="TARJETA_2_CUOTAS"]'
-    );
+    const puedePagoTarjeta = modoActual === "particular" && !hayProductosAPedido();
+    const botones = document.querySelectorAll("#metodosPagoAkkino .metodo-pago");
 
-    const opcionMP = selector.querySelector(
-        'option[value="MERCADO_PAGO"]'
-    );
+    botones.forEach(boton => {
+        const forma = boton.dataset.forma;
+        let permitido = puedePagoTarjeta;
 
-    if(opcionCuotas){
-        const permitirCuotas = todosOriginalesDisponibles;
-        opcionCuotas.hidden = !permitirCuotas;
-        opcionCuotas.disabled = !permitirCuotas;
-
-        if(!permitirCuotas && formaPagoActual === "TARJETA_2_CUOTAS"){
-            formaPagoActual = "EFECTIVO";
+        if(forma === "EFECTIVO"){
+            permitido = puedePagoTarjeta;
         }
-    }
 
-    if(opcionMP){
-        const permitirMP = modoActual === "particular";
-        opcionMP.hidden = !permitirMP;
-        opcionMP.disabled = !permitirMP;
-
-        if(!permitirMP && formaPagoActual === "MERCADO_PAGO"){
-            formaPagoActual = "EFECTIVO";
+        if(forma === "MERCADO_PAGO_1_PAGO" || forma === "TARJETA_2_CUOTAS"){
+            permitido = puedePagoTarjeta && todosOriginalesDisponibles;
         }
+
+        boton.hidden = !permitido;
+        boton.disabled = !permitido;
+
+        boton.classList.toggle("activo", formaPagoActual === forma);
+    });
+
+    if(formaPagoActual === "TRANSFERENCIA"){
+        formaPagoActual = "EFECTIVO";
     }
 
     selector.value = formaPagoActual;
 }
 
+
 function actualizarEstadoBotonPedido(){
 
     actualizarOpcionesPago();
-    actualizarDatosTransferencia();
 
     const boton = document.querySelector(".enviar-whatsapp");
     const botonMP = document.getElementById("botonMercadoPago");
@@ -8367,24 +8288,16 @@ function actualizarEstadoBotonPedido(){
 
     if(botonMP){
         const habilitar = puedePagar &&
-            (formaPagoActual === "MERCADO_PAGO" || formaPagoActual === "TARJETA_2_CUOTAS");
+            (formaPagoActual === "MERCADO_PAGO_1_PAGO" || formaPagoActual === "TARJETA_2_CUOTAS");
 
         botonMP.disabled = !habilitar;
         botonMP.style.display = puedePagar ? "block" : "none";
         botonMP.textContent =
             formaPagoActual === "TARJETA_2_CUOTAS"
-            ? "PAGAR CON MERCADO PAGO — 2 CUOTAS"
-            : "PAGAR CON MERCADO PAGO";
+            ? "CONTINUAR CON CRÉDITO — 2 CUOTAS"
+            : "CONTINUAR CON DÉBITO — 1 PAGO";
     }
 }
-
-function actualizarDatosTransferencia(){
-    const bloque=document.getElementById("datosTransferencia");
-    if(!bloque)return;
-    const mostrar=formaPagoActual==="TRANSFERENCIA" && carrito.length>0 && !hayProductosAPedido();
-    bloque.classList.toggle("visible",mostrar);
-}
-
 
 /* =========================================================
    FORMA DE PAGO
@@ -8402,10 +8315,9 @@ function cambiarFormaPago(
         item => tipoPrincipalProducto(item.producto) === "INSPIRACIONES 60ML"
     );
 
-    if(forma === "TARJETA_2_CUOTAS" && hayInspiraciones){
+    if((forma === "TARJETA_2_CUOTAS" || forma === "MERCADO_PAGO_1_PAGO") && hayInspiraciones){
         formaPagoActual = "EFECTIVO";
         actualizarOpcionesPago();
-        actualizarDatosTransferencia();
         actualizarResumenCarrito();
         return;
     }
@@ -8413,13 +8325,15 @@ function cambiarFormaPago(
     if(forma === "MERCADO_PAGO" && modoActual !== "particular"){
         formaPagoActual = "EFECTIVO";
         actualizarOpcionesPago();
-        actualizarDatosTransferencia();
         actualizarResumenCarrito();
         return;
     }
 
     formaPagoActual = forma;
-    actualizarDatosTransferencia();
+
+    document.querySelectorAll("#metodosPagoAkkino .metodo-pago").forEach(boton => {
+        boton.classList.toggle("activo", boton.dataset.forma === formaPagoActual);
+    });
     actualizarResumenCarrito();
 }
 
@@ -8628,8 +8542,10 @@ function actualizarResumenCarrito(){
 
             <strong>
                 ${formaPagoActual === "TARJETA_2_CUOTAS"
-                    ? "TARJETA — 2 CUOTAS"
-                    : formaPagoActual}
+                    ? "CRÉDITO / TARJETA — 2 CUOTAS"
+                    : formaPagoActual === "MERCADO_PAGO_1_PAGO"
+                    ? "DÉBITO — 1 PAGO"
+                    : "TRANSFERENCIA / EFECTIVO"}
             </strong>
 
         </div>
@@ -8692,8 +8608,8 @@ function pagarMercadoPago(){
         return;
     }
 
-    if(formaPagoActual !== "MERCADO_PAGO" && formaPagoActual !== "TARJETA_2_CUOTAS"){
-        alert("Seleccioná MERCADO PAGO o TARJETA — 2 CUOTAS como forma de pago.");
+    if(formaPagoActual !== "MERCADO_PAGO_1_PAGO" && formaPagoActual !== "TARJETA_2_CUOTAS"){
+        alert("Seleccioná DÉBITO o CRÉDITO / TARJETA como forma de pago.");
         return;
     }
 
@@ -8701,7 +8617,7 @@ function pagarMercadoPago(){
     if(boton){
         boton.disabled = true;
         boton.classList.add("mercado-pago-cargando");
-        boton.textContent = "CONECTANDO CON MERCADO PAGO...";
+        boton.textContent = "CONECTANDO CON EL MEDIO DE PAGO...";
     }
 
     const callbackName = "__akkinoMP_" + Date.now();
@@ -9001,10 +8917,6 @@ function enviarWhatsApp(){
 
     }
 
-
-    if(formaPagoActual === "TRANSFERENCIA"){
-        mensaje += "%0AUna vez realizada la transferencia, enviaré el comprobante por WhatsApp junto con este pedido.%0A";
-    }
 
     mensaje +=
         "%0AGracias!";
