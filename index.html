@@ -1743,6 +1743,49 @@ body{
 }
 </style>
 
+<style id="akkino-banner-v44">
+/* =========================================================
+   AKKINO V44 — BANNER SUPERIOR DESLIZANTE
+   ========================================================= */
+.akkino-banner-wrap{
+    width:100%;
+    overflow:hidden;
+    border-top:1px solid rgba(212,175,55,.12);
+    border-bottom:1px solid rgba(212,175,55,.16);
+    background:#090909;
+}
+.akkino-banner-track{
+    display:flex;
+    width:max-content;
+    animation:akkinoBannerSlide 24s linear infinite;
+    will-change:transform;
+}
+.akkino-banner-item{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    min-height:36px;
+    padding:0 34px;
+    color:#d4af37;
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    white-space:nowrap;
+}
+@keyframes akkinoBannerSlide{
+    from{transform:translateX(0)}
+    to{transform:translateX(-50%)}
+}
+@media(max-width:600px){
+    .akkino-banner-item{
+        min-height:34px;
+        padding:0 24px;
+        font-size:8px;
+        letter-spacing:1.4px;
+    }
+}
+</style>
 
 <style id="akkino-promociones">
 .promo-title{
@@ -4685,6 +4728,21 @@ RESULTADO:
 
     <div id="catalogInner">
 
+<!-- =========================================================
+     BANNER SUPERIOR — AKKINO PRIVÉ
+     ========================================================= -->
+<div class="akkino-banner-wrap" aria-label="Información y beneficios de AKKINO Privé">
+    <div class="akkino-banner-track">
+        <div class="akkino-banner-item">🚚 ENVÍO GRATIS · PUERTO GENERAL SAN MARTÍN + SAN LORENZO · SIN MÍNIMO</div>
+        <div class="akkino-banner-item">💳 2 CUOTAS SIN INTERÉS</div>
+        <div class="akkino-banner-item">✨ PERFUMES ORIGINALES E INSPIRACIONES</div>
+        <div class="akkino-banner-item">📦 ENVÍO GRATIS A PARTIR DE $180.000</div>
+        <div class="akkino-banner-item">🚚 ENVÍO GRATIS · PUERTO GENERAL SAN MARTÍN + SAN LORENZO · SIN MÍNIMO</div>
+        <div class="akkino-banner-item">💳 2 CUOTAS SIN INTERÉS</div>
+        <div class="akkino-banner-item">✨ PERFUMES ORIGINALES E INSPIRACIONES</div>
+        <div class="akkino-banner-item">📦 ENVÍO GRATIS A PARTIR DE $180.000</div>
+    </div>
+</div>
 
 <!-- =======================================================
      HEADER
