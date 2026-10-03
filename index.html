@@ -9132,20 +9132,8 @@ function enviarWhatsApp(){
 
 
     let mensaje =
-        "Hola AKKINO Privé!%0A%0A";
-
-
-    mensaje +=
-        modoActual ===
-        "mayorista"
-
-        ?
-
-        "Quiero realizar un pedido MAYORISTA:%0A%0A"
-
-        :
-
-        "Quiero realizar un pedido PARTICULAR:%0A%0A";
+        "Hola AKKINO Privé!%0A" +
+        "Quiero realizar un pedido:%0A";
 
 
     carrito.forEach(
@@ -9185,11 +9173,6 @@ function enviarWhatsApp(){
 
                 if(original){
 
-                    const precios =
-                        precioOriginal(
-                            producto
-                        );
-
                     precioUnitario =
                         precioOriginalSegunPago(producto);
 
@@ -9198,9 +9181,7 @@ function enviarWhatsApp(){
                 else{
 
                     precioUnitario =
-                        precioParticularProducto(
-                            producto
-                        );
+                        precioParticularProducto(producto);
                 }
             }
 
@@ -9236,6 +9217,34 @@ function enviarWhatsApp(){
                 dinero(
                     calculo.totalFinal
                 )
+            )}%0A`;
+
+
+        if(
+            formaPagoActual ===
+            "TARJETA_2_CUOTAS"
+        ){
+
+            mensaje +=
+                `2 CUOTAS SIN INTERÉS: 2 x ${encodeURIComponent(
+                    dinero(
+                        Math.round(calculo.totalFinal / 2)
+                    )
+                )}%0A`;
+        }
+
+
+        const nombreFormaPago =
+            formaPagoActual === "TARJETA_2_CUOTAS"
+            ? "CRÉDITO / TARJETA"
+            : formaPagoActual === "MERCADO_PAGO_1_PAGO"
+            ? "DÉBITO"
+            : "TRANSFERENCIA / EFECTIVO";
+
+
+        mensaje +=
+            `FORMA DE PAGO: ${encodeURIComponent(
+                nombreFormaPago
             )}%0A`;
 
     }
@@ -9274,22 +9283,8 @@ function enviarWhatsApp(){
     }
 
 
-    if(
-        modoActual ===
-        "particular"
-    ){
-
-        mensaje +=
-            `FORMA DE PAGO: ${encodeURIComponent(
-                formaPagoActual
-            )}%0A`;
-
-    }
-
-
     mensaje +=
         "%0AGracias!";
-
 
     const url =
         "https://wa.me/" +
