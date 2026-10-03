@@ -4326,6 +4326,59 @@ RESULTADO:
 }
 </style>
 
+
+<style id="akkino-datos-envio">
+.datos-envio-akkino{
+    margin-top:18px;
+    padding:15px;
+    border:1px solid rgba(198,166,92,.30);
+    border-radius:12px;
+    background:linear-gradient(145deg,#151515,#0b0b0b);
+}
+.datos-envio-titulo{
+    color:#c6a65c;
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:1px;
+    margin-bottom:12px;
+}
+.datos-envio-grid{
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+}
+.dato-envio-campo label{
+    display:block;
+    margin-bottom:5px;
+    color:#888;
+    font-size:9px;
+    font-weight:700;
+    letter-spacing:.4px;
+}
+.dato-envio-campo input,
+.dato-envio-campo select{
+    width:100%;
+    padding:10px 11px;
+    border:1px solid #333;
+    border-radius:8px;
+    background:#0f0f0f;
+    color:#fff;
+    outline:none;
+    font:inherit;
+    font-size:11px;
+}
+.dato-envio-campo input:focus,
+.dato-envio-campo select:focus{
+    border-color:#c6a65c;
+}
+.dato-envio-ancho{
+    grid-column:span 2;
+}
+@media(max-width:600px){
+    .datos-envio-grid{grid-template-columns:1fr}
+    .dato-envio-ancho{grid-column:auto}
+}
+</style>
 </head>
 
 
@@ -4801,6 +4854,63 @@ class="modal">
         <div
         id="resumenCarrito"
         class="carrito-resumen">
+        </div>
+
+
+        <div class="datos-envio-akkino" id="datosEnvioAkkino">
+            <div class="datos-envio-titulo">DATOS DE ENVÍO</div>
+
+            <div class="datos-envio-grid">
+                <div class="dato-envio-campo">
+                    <label for="envioNombre">Nombre y apellido</label>
+                    <input id="envioNombre" type="text" autocomplete="name" placeholder="Nombre y apellido">
+                </div>
+
+                <div class="dato-envio-campo">
+                    <label for="envioDni">DNI</label>
+                    <input id="envioDni" type="text" inputmode="numeric" autocomplete="off" placeholder="DNI">
+                </div>
+
+                <div class="dato-envio-campo">
+                    <label for="envioTelefono">Teléfono</label>
+                    <input id="envioTelefono" type="tel" inputmode="tel" autocomplete="tel" placeholder="Teléfono">
+                </div>
+
+                <div class="dato-envio-campo">
+                    <label for="envioEmail">Email</label>
+                    <input id="envioEmail" type="email" autocomplete="email" placeholder="Email">
+                </div>
+
+                <div class="dato-envio-campo">
+                    <label for="envioProvincia">Provincia</label>
+                    <input id="envioProvincia" type="text" autocomplete="address-level1" placeholder="Provincia">
+                </div>
+
+                <div class="dato-envio-campo">
+                    <label for="envioLocalidad">Localidad</label>
+                    <input id="envioLocalidad" type="text" autocomplete="address-level2" placeholder="Localidad">
+                </div>
+
+                <div class="dato-envio-campo dato-envio-ancho">
+                    <label for="envioDireccion">Dirección</label>
+                    <input id="envioDireccion" type="text" autocomplete="street-address" placeholder="Calle y número">
+                </div>
+
+                <div class="dato-envio-campo">
+                    <label for="envioCodigoPostal">Código postal</label>
+                    <input id="envioCodigoPostal" type="text" inputmode="numeric" autocomplete="postal-code" placeholder="Código postal">
+                </div>
+
+                <div class="dato-envio-campo">
+                    <label for="envioEmpresa">Envío</label>
+                    <select id="envioEmpresa">
+                        <option value="">Seleccionar</option>
+                        <option value="ViaCargo">ViaCargo</option>
+                        <option value="Andreani">Andreani</option>
+                        <option value="Retiro / sucursal">Retiro / sucursal</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
 
@@ -9054,185 +9164,102 @@ function pagarMercadoPago(){
 
 function enviarWhatsApp(){
 
-    if(
-        !carrito.length
-    ){
-
-        alert(
-            "No hay productos en el pedido."
-        );
-
+    if(!carrito.length){
+        alert("No hay productos en el pedido.");
         return;
     }
 
-
-    if(
-        modoActual ===
-        "mayorista" &&
-        totalUnidades() <
-        MINIMO_MAYORISTA
-    ){
-
-        alert(
-            `El pedido mayorista requiere mínimo ${MINIMO_MAYORISTA} unidades.`
-        );
-
+    if(modoActual === "mayorista" && totalUnidades() < MINIMO_MAYORISTA){
+        alert(`El pedido mayorista requiere mínimo ${MINIMO_MAYORISTA} unidades.`);
         return;
     }
 
-
-    /*
-    Si el pedido mezcla DISPONIBLES con A PEDIDO,
-    no se permite pago ni confirmación automática.
-    Se deriva a WhatsApp para que el cliente decida
-    si quiere esperar el producto faltante y abonarlo.
-    */
-
-    const pedidoPendiente =
-        hayProductosAPedido();
+    const pedidoPendiente = hayProductosAPedido();
 
     if(pedidoPendiente){
-
         let mensajeConsulta =
-            "Hola AKKINO Privé!%0A%0A" +
+            "Hola AKKINO Privé!%0A" +
             "Quiero consultar este pedido. Incluye productos DISPONIBLES y productos A PEDIDO.%0A%0A";
 
-        carrito.forEach(
-            item => {
-
-                const estado =
-                    obtenerEstado(item.producto);
-
-                mensajeConsulta +=
-                    `${item.cantidad} x ${encodeURIComponent(
-                        item.producto.perfume
-                    )} - ${encodeURIComponent(
-                        estado
-                    )}%0A`;
-            }
-        );
+        carrito.forEach(item => {
+            const estado = obtenerEstado(item.producto);
+            mensajeConsulta +=
+                `${item.cantidad} x ${encodeURIComponent(item.producto.perfume)} - ${encodeURIComponent(estado)}%0A`;
+        });
 
         mensajeConsulta +=
             "%0AEl pedido contiene productos A PEDIDO. Quiero confirmar disponibilidad y plazo antes de pagar.%0A" +
             "Si el producto debe esperarse, decidiré si quiero abonarlo y esperar la entrega.";
 
-        const urlConsulta =
-            "https://wa.me/" +
-            WHATSAPP +
-            "?text=" +
-            mensajeConsulta;
-
-        window.open(
-            urlConsulta,
-            "_blank"
-        );
-
+        const urlConsulta = "https://wa.me/" + WHATSAPP + "?text=" + mensajeConsulta;
+        window.open(urlConsulta, "_blank");
         return;
     }
 
+    const datosEnvio = {
+        nombre: document.getElementById("envioNombre").value.trim(),
+        dni: document.getElementById("envioDni").value.trim(),
+        telefono: document.getElementById("envioTelefono").value.trim(),
+        email: document.getElementById("envioEmail").value.trim(),
+        provincia: document.getElementById("envioProvincia").value.trim(),
+        localidad: document.getElementById("envioLocalidad").value.trim(),
+        direccion: document.getElementById("envioDireccion").value.trim(),
+        codigoPostal: document.getElementById("envioCodigoPostal").value.trim(),
+        envio: document.getElementById("envioEmpresa").value
+    };
+
+    const camposFaltantes = [];
+    if(!datosEnvio.nombre) camposFaltantes.push("Nombre y apellido");
+    if(!datosEnvio.dni) camposFaltantes.push("DNI");
+    if(!datosEnvio.telefono) camposFaltantes.push("Teléfono");
+    if(!datosEnvio.email) camposFaltantes.push("Email");
+    if(!datosEnvio.provincia) camposFaltantes.push("Provincia");
+    if(!datosEnvio.localidad) camposFaltantes.push("Localidad");
+    if(!datosEnvio.direccion) camposFaltantes.push("Dirección");
+    if(!datosEnvio.codigoPostal) camposFaltantes.push("Código postal");
+    if(!datosEnvio.envio) camposFaltantes.push("Envío");
+
+    if(camposFaltantes.length){
+        alert("Completá los siguientes datos de envío:\n\n• " + camposFaltantes.join("\n• "));
+        return;
+    }
 
     let mensaje =
         "Hola AKKINO Privé!%0A" +
         "Quiero realizar un pedido:%0A";
 
+    carrito.forEach(item => {
+        const producto = item.producto;
+        let precioUnitario;
 
-    carrito.forEach(
-        item => {
-
-            const producto =
-                item.producto;
-
-
-            let precioUnitario;
-
-
-            if(
-                modoActual ===
-                "mayorista"
-            ){
-
-                precioUnitario =
-                    precioMayorista(
-                        producto,
-                        Math.max(
-                            totalUnidades(),
-                            MINIMO_MAYORISTA
-                        )
-                    );
-
-            }
-
-            else{
-
-                const original =
-                    tipoPrincipalProducto(
-                        producto
-                    ) ===
-                    "ORIGINALES";
-
-
-                if(original){
-
-                    precioUnitario =
-                        precioOriginalSegunPago(producto);
-
-                }
-
-                else{
-
-                    precioUnitario =
-                        precioParticularProducto(producto);
-                }
-            }
-
-
-            mensaje +=
-                `${item.cantidad} x ${encodeURIComponent(
-                    producto.perfume
-                )} - ${encodeURIComponent(
-                    dinero(
-                        precioUnitario
-                    )
-                )}%0A`;
-
+        if(modoActual === "mayorista"){
+            precioUnitario = precioMayorista(
+                producto,
+                Math.max(totalUnidades(), MINIMO_MAYORISTA)
+            );
+        } else {
+            const original = tipoPrincipalProducto(producto) === "ORIGINALES";
+            precioUnitario = original
+                ? precioOriginalSegunPago(producto)
+                : precioParticularProducto(producto);
         }
-    );
-
-
-    mensaje +=
-        "%0A";
-
-
-    if(
-        modoActual ===
-        "particular"
-    ){
-
-        const calculo =
-            calcularCarritoParticular();
-
 
         mensaje +=
-            `TOTAL: ${encodeURIComponent(
-                dinero(
-                    calculo.totalFinal
-                )
-            )}%0A`;
+            `${item.cantidad} x ${encodeURIComponent(producto.perfume)} - $${encodeURIComponent(dinero(precioUnitario))}%0A`;
+    });
 
+    mensaje += "%0A";
 
-        if(
-            formaPagoActual ===
-            "TARJETA_2_CUOTAS"
-        ){
+    if(modoActual === "particular"){
+        const calculo = calcularCarritoParticular();
 
+        mensaje +=
+            `TOTAL: $${encodeURIComponent(dinero(calculo.totalFinal))}%0A`;
+
+        if(formaPagoActual === "TARJETA_2_CUOTAS"){
             mensaje +=
-                `2 CUOTAS SIN INTERÉS: 2 x ${encodeURIComponent(
-                    dinero(
-                        Math.round(calculo.totalFinal / 2)
-                    )
-                )}%0A`;
+                `2 CUOTAS SIN INTERÉS: 2 x $${encodeURIComponent(dinero(Math.round(calculo.totalFinal / 2)))}%0A`;
         }
-
 
         const nombreFormaPago =
             formaPagoActual === "TARJETA_2_CUOTAS"
@@ -9241,62 +9268,35 @@ function enviarWhatsApp(){
             ? "DÉBITO"
             : "TRANSFERENCIA / EFECTIVO";
 
+        mensaje +=
+            `FORMA DE PAGO: ${encodeURIComponent(nombreFormaPago)}%0A`;
+    } else {
+        let totalFinal = 0;
+        const unidades = totalUnidades();
+
+        carrito.forEach(item => {
+            totalFinal += precioMayorista(item.producto, unidades) * item.cantidad;
+        });
 
         mensaje +=
-            `FORMA DE PAGO: ${encodeURIComponent(
-                nombreFormaPago
-            )}%0A`;
-
+            `TOTAL MAYORISTA: $${encodeURIComponent(dinero(totalFinal))}%0A`;
     }
-
-    else{
-
-        let totalFinal =
-            0;
-
-
-        const unidades =
-            totalUnidades();
-
-
-        carrito.forEach(
-            item => {
-
-                totalFinal +=
-                    precioMayorista(
-                        item.producto,
-                        unidades
-                    ) *
-                    item.cantidad;
-
-            }
-        );
-
-
-        mensaje +=
-            `TOTAL MAYORISTA: ${encodeURIComponent(
-                dinero(
-                    totalFinal
-                )
-            )}%0A`;
-
-    }
-
 
     mensaje +=
+        "%0ADATOS DE ENVÍO:%0A" +
+        `Nombre y apellido: ${encodeURIComponent(datosEnvio.nombre)}%0A` +
+        `DNI: ${encodeURIComponent(datosEnvio.dni)}%0A` +
+        `Teléfono: ${encodeURIComponent(datosEnvio.telefono)}%0A` +
+        `Email: ${encodeURIComponent(datosEnvio.email)}%0A` +
+        `Provincia: ${encodeURIComponent(datosEnvio.provincia)}%0A` +
+        `Localidad: ${encodeURIComponent(datosEnvio.localidad)}%0A` +
+        `Dirección: ${encodeURIComponent(datosEnvio.direccion)}%0A` +
+        `Código postal: ${encodeURIComponent(datosEnvio.codigoPostal)}%0A` +
+        `Envío: ${encodeURIComponent(datosEnvio.envio)}%0A` +
         "%0AGracias!";
 
-    const url =
-        "https://wa.me/" +
-        WHATSAPP +
-        "?text=" +
-        mensaje;
-
-
-    window.open(
-        url,
-        "_blank"
-    );
+    const url = "https://wa.me/" + WHATSAPP + "?text=" + mensaje;
+    window.open(url, "_blank");
 }
 
 
