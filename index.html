@@ -2785,6 +2785,110 @@ RESULTADO:
         gap:9px !important;
     }
 }
+
+/* =========================================================
+   ENTREGA / ENVÍO
+   ========================================================= */
+#modalCarrito .entrega-pedido{
+    margin-top:16px !important;
+    padding:15px !important;
+    background:#f5f5f5 !important;
+    border-radius:10px !important;
+}
+#modalCarrito .entrega-pedido-titulo{
+    display:block !important;
+    margin-bottom:10px !important;
+    font-size:12px !important;
+    font-weight:800 !important;
+    color:#222 !important;
+}
+#modalCarrito .entrega-opciones{
+    display:grid !important;
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:8px !important;
+}
+#modalCarrito .entrega-opcion{
+    min-height:58px !important;
+    padding:9px !important;
+    border:1px solid #ddd !important;
+    border-radius:8px !important;
+    background:#fff !important;
+    color:#222 !important;
+    cursor:pointer !important;
+    text-align:left !important;
+}
+#modalCarrito .entrega-opcion.activa{
+    border-color:#d4af37 !important;
+    box-shadow:0 0 0 1px #d4af37 inset !important;
+}
+#modalCarrito .entrega-opcion strong{
+    display:block !important;
+    font-size:11px !important;
+}
+#modalCarrito .entrega-opcion span{
+    display:block !important;
+    margin-top:3px !important;
+    color:#777 !important;
+    font-size:9px !important;
+}
+#modalCarrito .entrega-gratis{
+    color:#17863b !important;
+    font-weight:800 !important;
+}
+#modalCarrito .datos-envio{
+    display:none;
+    margin-top:12px !important;
+    padding-top:12px !important;
+    border-top:1px solid #ddd !important;
+}
+#modalCarrito .datos-envio.visible{
+    display:block !important;
+}
+#modalCarrito .datos-envio-grid{
+    display:grid !important;
+    grid-template-columns:1fr 1fr !important;
+    gap:9px !important;
+}
+#modalCarrito .datos-envio-grid .campo-completo{
+    grid-column:1 / -1 !important;
+}
+#modalCarrito .datos-envio label{
+    display:block !important;
+    margin-bottom:4px !important;
+    font-size:9px !important;
+    font-weight:700 !important;
+    color:#555 !important;
+}
+#modalCarrito .datos-envio input,
+#modalCarrito .datos-envio select{
+    width:100% !important;
+    min-height:38px !important;
+    box-sizing:border-box !important;
+    padding:0 9px !important;
+    border:1px solid #d5d5d5 !important;
+    border-radius:7px !important;
+    background:#fff !important;
+    color:#111 !important;
+    font-size:11px !important;
+}
+#modalCarrito .envio-seleccionado{
+    margin-top:9px !important;
+    color:#17863b !important;
+    font-size:10px !important;
+    font-weight:800 !important;
+}
+@media(max-width:600px){
+    #modalCarrito .entrega-opciones{
+        grid-template-columns:1fr !important;
+    }
+    #modalCarrito .datos-envio-grid{
+        grid-template-columns:1fr !important;
+    }
+    #modalCarrito .datos-envio-grid .campo-completo{
+        grid-column:auto !important;
+    }
+}
+
 </style>
 
 
@@ -4326,59 +4430,6 @@ RESULTADO:
 }
 </style>
 
-
-<style id="akkino-datos-envio">
-.datos-envio-akkino{
-    margin-top:18px;
-    padding:15px;
-    border:1px solid rgba(198,166,92,.30);
-    border-radius:12px;
-    background:linear-gradient(145deg,#151515,#0b0b0b);
-}
-.datos-envio-titulo{
-    color:#c6a65c;
-    font-size:11px;
-    font-weight:900;
-    letter-spacing:1px;
-    margin-bottom:12px;
-}
-.datos-envio-grid{
-    display:grid;
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:10px;
-}
-.dato-envio-campo label{
-    display:block;
-    margin-bottom:5px;
-    color:#888;
-    font-size:9px;
-    font-weight:700;
-    letter-spacing:.4px;
-}
-.dato-envio-campo input,
-.dato-envio-campo select{
-    width:100%;
-    padding:10px 11px;
-    border:1px solid #333;
-    border-radius:8px;
-    background:#0f0f0f;
-    color:#fff;
-    outline:none;
-    font:inherit;
-    font-size:11px;
-}
-.dato-envio-campo input:focus,
-.dato-envio-campo select:focus{
-    border-color:#c6a65c;
-}
-.dato-envio-ancho{
-    grid-column:span 2;
-}
-@media(max-width:600px){
-    .datos-envio-grid{grid-template-columns:1fr}
-    .dato-envio-ancho{grid-column:auto}
-}
-</style>
 </head>
 
 
@@ -4851,66 +4902,94 @@ class="modal">
         </div>
 
 
-        <div
-        id="resumenCarrito"
-        class="carrito-resumen">
+        <div id="entregaPedido" class="entrega-pedido">
+
+            <span class="entrega-pedido-titulo">¿CÓMO RECIBÍS TU PEDIDO?</span>
+
+            <div class="entrega-opciones">
+
+                <button type="button" class="entrega-opcion" data-entrega="PUERTO" onclick="seleccionarEntrega('PUERTO')">
+                    <strong>🏠 Puerto General San Martín</strong>
+                    <span class="entrega-gratis">ENVÍO GRATIS</span>
+                </button>
+
+                <button type="button" class="entrega-opcion" data-entrega="SAN_LORENZO" onclick="seleccionarEntrega('SAN_LORENZO')">
+                    <strong>🏠 San Lorenzo</strong>
+                    <span class="entrega-gratis">ENVÍO GRATIS</span>
+                </button>
+
+                <button type="button" class="entrega-opcion" data-entrega="OTRO" onclick="seleccionarEntrega('OTRO')">
+                    <strong>📦 Otro destino</strong>
+                    <span>Calcular envío</span>
+                </button>
+
+            </div>
+
+            <div id="envioSeleccionado" class="envio-seleccionado"></div>
+
+            <div id="datosEnvio" class="datos-envio">
+
+                <div class="datos-envio-grid">
+
+                    <div>
+                        <label for="envioNombre">NOMBRE Y APELLIDO *</label>
+                        <input id="envioNombre" type="text" autocomplete="name">
+                    </div>
+
+                    <div>
+                        <label for="envioDni">DNI *</label>
+                        <input id="envioDni" type="text" inputmode="numeric">
+                    </div>
+
+                    <div>
+                        <label for="envioTelefono">TELÉFONO *</label>
+                        <input id="envioTelefono" type="tel" autocomplete="tel">
+                    </div>
+
+                    <div>
+                        <label for="envioEmail">EMAIL *</label>
+                        <input id="envioEmail" type="email" autocomplete="email">
+                    </div>
+
+                    <div>
+                        <label for="envioProvincia">PROVINCIA *</label>
+                        <input id="envioProvincia" type="text" value="Santa Fe">
+                    </div>
+
+                    <div>
+                        <label for="envioLocalidad">LOCALIDAD *</label>
+                        <input id="envioLocalidad" type="text">
+                    </div>
+
+                    <div class="campo-completo">
+                        <label for="envioDireccion">DIRECCIÓN *</label>
+                        <input id="envioDireccion" type="text" autocomplete="street-address" placeholder="Calle y número">
+                    </div>
+
+                    <div>
+                        <label for="envioCodigoPostal">CÓDIGO POSTAL *</label>
+                        <input id="envioCodigoPostal" type="text" inputmode="numeric">
+                    </div>
+
+                    <div>
+                        <label for="envioTransporte">ENVÍO POR *</label>
+                        <select id="envioTransporte">
+                            <option value="">Seleccionar</option>
+                            <option value="Via Cargo">Via Cargo</option>
+                            <option value="Andreani">Andreani</option>
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
 
 
-        <div class="datos-envio-akkino" id="datosEnvioAkkino">
-            <div class="datos-envio-titulo">DATOS DE ENVÍO</div>
-
-            <div class="datos-envio-grid">
-                <div class="dato-envio-campo">
-                    <label for="envioNombre">Nombre y apellido</label>
-                    <input id="envioNombre" type="text" autocomplete="name" placeholder="Nombre y apellido">
-                </div>
-
-                <div class="dato-envio-campo">
-                    <label for="envioDni">DNI</label>
-                    <input id="envioDni" type="text" inputmode="numeric" autocomplete="off" placeholder="DNI">
-                </div>
-
-                <div class="dato-envio-campo">
-                    <label for="envioTelefono">Teléfono</label>
-                    <input id="envioTelefono" type="tel" inputmode="tel" autocomplete="tel" placeholder="Teléfono">
-                </div>
-
-                <div class="dato-envio-campo">
-                    <label for="envioEmail">Email</label>
-                    <input id="envioEmail" type="email" autocomplete="email" placeholder="Email">
-                </div>
-
-                <div class="dato-envio-campo">
-                    <label for="envioProvincia">Provincia</label>
-                    <input id="envioProvincia" type="text" autocomplete="address-level1" placeholder="Provincia">
-                </div>
-
-                <div class="dato-envio-campo">
-                    <label for="envioLocalidad">Localidad</label>
-                    <input id="envioLocalidad" type="text" autocomplete="address-level2" placeholder="Localidad">
-                </div>
-
-                <div class="dato-envio-campo dato-envio-ancho">
-                    <label for="envioDireccion">Dirección</label>
-                    <input id="envioDireccion" type="text" autocomplete="street-address" placeholder="Calle y número">
-                </div>
-
-                <div class="dato-envio-campo">
-                    <label for="envioCodigoPostal">Código postal</label>
-                    <input id="envioCodigoPostal" type="text" inputmode="numeric" autocomplete="postal-code" placeholder="Código postal">
-                </div>
-
-                <div class="dato-envio-campo">
-                    <label for="envioEmpresa">Envío</label>
-                    <select id="envioEmpresa">
-                        <option value="">Seleccionar</option>
-                        <option value="ViaCargo">ViaCargo</option>
-                        <option value="Andreani">Andreani</option>
-                        <option value="Retiro / sucursal">Retiro / sucursal</option>
-                    </select>
-                </div>
-            </div>
+        <div
+        id="resumenCarrito"
+        class="carrito-resumen">
         </div>
 
 
@@ -4989,6 +5068,9 @@ let filtroExtraActual =
 
 let formaPagoActual =
 "EFECTIVO";
+
+let entregaActual =
+"";
 
 
 /* =========================================================
@@ -9162,41 +9244,50 @@ function pagarMercadoPago(){
    ENVIAR WHATSAPP
    ========================================================= */
 
-function enviarWhatsApp(){
+function seleccionarEntrega(tipo){
 
-    if(!carrito.length){
-        alert("No hay productos en el pedido.");
-        return;
+    entregaActual = tipo;
+
+    document.querySelectorAll("#entregaPedido .entrega-opcion").forEach(boton => {
+        boton.classList.toggle("activa", boton.dataset.entrega === tipo);
+    });
+
+    const datos = document.getElementById("datosEnvio");
+    const resumen = document.getElementById("envioSeleccionado");
+
+    if(tipo === "OTRO"){
+        datos.classList.add("visible");
+        resumen.textContent = "📦 Envío a domicilio — completá tus datos para calcular el envío.";
+    }
+    else{
+        datos.classList.remove("visible");
+        resumen.textContent = tipo === "PUERTO"
+            ? "✓ Puerto General San Martín — ENVÍO GRATIS"
+            : "✓ San Lorenzo — ENVÍO GRATIS";
+    }
+}
+
+function obtenerDatosEnvio(){
+
+    if(entregaActual === "PUERTO"){
+        return {
+            valido:true,
+            texto:"Puerto General San Martín — ENVÍO GRATIS"
+        };
     }
 
-    if(modoActual === "mayorista" && totalUnidades() < MINIMO_MAYORISTA){
-        alert(`El pedido mayorista requiere mínimo ${MINIMO_MAYORISTA} unidades.`);
-        return;
+    if(entregaActual === "SAN_LORENZO"){
+        return {
+            valido:true,
+            texto:"San Lorenzo — ENVÍO GRATIS"
+        };
     }
 
-    const pedidoPendiente = hayProductosAPedido();
-
-    if(pedidoPendiente){
-        let mensajeConsulta =
-            "Hola AKKINO Privé!%0A" +
-            "Quiero consultar este pedido. Incluye productos DISPONIBLES y productos A PEDIDO.%0A%0A";
-
-        carrito.forEach(item => {
-            const estado = obtenerEstado(item.producto);
-            mensajeConsulta +=
-                `${item.cantidad} x ${encodeURIComponent(item.producto.perfume)} - ${encodeURIComponent(estado)}%0A`;
-        });
-
-        mensajeConsulta +=
-            "%0AEl pedido contiene productos A PEDIDO. Quiero confirmar disponibilidad y plazo antes de pagar.%0A" +
-            "Si el producto debe esperarse, decidiré si quiero abonarlo y esperar la entrega.";
-
-        const urlConsulta = "https://wa.me/" + WHATSAPP + "?text=" + mensajeConsulta;
-        window.open(urlConsulta, "_blank");
-        return;
+    if(entregaActual !== "OTRO"){
+        return { valido:false };
     }
 
-    const datosEnvio = {
+    const campos = {
         nombre: document.getElementById("envioNombre").value.trim(),
         dni: document.getElementById("envioDni").value.trim(),
         telefono: document.getElementById("envioTelefono").value.trim(),
@@ -9205,98 +9296,318 @@ function enviarWhatsApp(){
         localidad: document.getElementById("envioLocalidad").value.trim(),
         direccion: document.getElementById("envioDireccion").value.trim(),
         codigoPostal: document.getElementById("envioCodigoPostal").value.trim(),
-        envio: document.getElementById("envioEmpresa").value
+        transporte: document.getElementById("envioTransporte").value
     };
 
-    const camposFaltantes = [];
-    if(!datosEnvio.nombre) camposFaltantes.push("Nombre y apellido");
-    if(!datosEnvio.dni) camposFaltantes.push("DNI");
-    if(!datosEnvio.telefono) camposFaltantes.push("Teléfono");
-    if(!datosEnvio.email) camposFaltantes.push("Email");
-    if(!datosEnvio.provincia) camposFaltantes.push("Provincia");
-    if(!datosEnvio.localidad) camposFaltantes.push("Localidad");
-    if(!datosEnvio.direccion) camposFaltantes.push("Dirección");
-    if(!datosEnvio.codigoPostal) camposFaltantes.push("Código postal");
-    if(!datosEnvio.envio) camposFaltantes.push("Envío");
+    const faltantes = [];
+    const nombres = {
+        nombre:"Nombre y apellido",
+        dni:"DNI",
+        telefono:"Teléfono",
+        email:"Email",
+        provincia:"Provincia",
+        localidad:"Localidad",
+        direccion:"Dirección",
+        codigoPostal:"Código postal",
+        transporte:"Via Cargo o Andreani"
+    };
 
-    if(camposFaltantes.length){
-        alert("Completá los siguientes datos de envío:\n\n• " + camposFaltantes.join("\n• "));
+    Object.keys(nombres).forEach(clave => {
+        if(!campos[clave]) faltantes.push(nombres[clave]);
+    });
+
+    if(faltantes.length){
+        return {
+            valido:false,
+            error:"Completá los datos de envío: " + faltantes.join(", ") + "."
+        };
+    }
+
+    return {
+        valido:true,
+        texto:
+            "Otro destino — envío por " + campos.transporte + "%0A" +
+            "Nombre y apellido: " + encodeURIComponent(campos.nombre) + "%0A" +
+            "DNI: " + encodeURIComponent(campos.dni) + "%0A" +
+            "Teléfono: " + encodeURIComponent(campos.telefono) + "%0A" +
+            "Email: " + encodeURIComponent(campos.email) + "%0A" +
+            "Provincia: " + encodeURIComponent(campos.provincia) + "%0A" +
+            "Localidad: " + encodeURIComponent(campos.localidad) + "%0A" +
+            "Dirección: " + encodeURIComponent(campos.direccion) + "%0A" +
+            "Código postal: " + encodeURIComponent(campos.codigoPostal) + "%0A" +
+            "Envío por: " + encodeURIComponent(campos.transporte)
+    };
+}
+
+
+function enviarWhatsApp(){
+
+    if(
+        !carrito.length
+    ){
+
+        alert(
+            "No hay productos en el pedido."
+        );
+
         return;
     }
 
-    let mensaje =
-        "Hola AKKINO Privé!%0A" +
-        "Quiero realizar un pedido:%0A";
 
-    carrito.forEach(item => {
-        const producto = item.producto;
-        let precioUnitario;
+    if(
+        modoActual ===
+        "mayorista" &&
+        totalUnidades() <
+        MINIMO_MAYORISTA
+    ){
 
-        if(modoActual === "mayorista"){
-            precioUnitario = precioMayorista(
-                producto,
-                Math.max(totalUnidades(), MINIMO_MAYORISTA)
-            );
-        } else {
-            const original = tipoPrincipalProducto(producto) === "ORIGINALES";
-            precioUnitario = original
-                ? precioOriginalSegunPago(producto)
-                : precioParticularProducto(producto);
-        }
+        alert(
+            `El pedido mayorista requiere mínimo ${MINIMO_MAYORISTA} unidades.`
+        );
 
-        mensaje +=
-            `${item.cantidad} x ${encodeURIComponent(producto.perfume)} - $${encodeURIComponent(dinero(precioUnitario))}%0A`;
-    });
-
-    mensaje += "%0A";
-
-    if(modoActual === "particular"){
-        const calculo = calcularCarritoParticular();
-
-        mensaje +=
-            `TOTAL: $${encodeURIComponent(dinero(calculo.totalFinal))}%0A`;
-
-        if(formaPagoActual === "TARJETA_2_CUOTAS"){
-            mensaje +=
-                `2 CUOTAS SIN INTERÉS: 2 x $${encodeURIComponent(dinero(Math.round(calculo.totalFinal / 2)))}%0A`;
-        }
-
-        const nombreFormaPago =
-            formaPagoActual === "TARJETA_2_CUOTAS"
-            ? "CRÉDITO / TARJETA"
-            : formaPagoActual === "MERCADO_PAGO_1_PAGO"
-            ? "DÉBITO"
-            : "TRANSFERENCIA / EFECTIVO";
-
-        mensaje +=
-            `FORMA DE PAGO: ${encodeURIComponent(nombreFormaPago)}%0A`;
-    } else {
-        let totalFinal = 0;
-        const unidades = totalUnidades();
-
-        carrito.forEach(item => {
-            totalFinal += precioMayorista(item.producto, unidades) * item.cantidad;
-        });
-
-        mensaje +=
-            `TOTAL MAYORISTA: $${encodeURIComponent(dinero(totalFinal))}%0A`;
+        return;
     }
 
-    mensaje +=
-        "%0ADATOS DE ENVÍO:%0A" +
-        `Nombre y apellido: ${encodeURIComponent(datosEnvio.nombre)}%0A` +
-        `DNI: ${encodeURIComponent(datosEnvio.dni)}%0A` +
-        `Teléfono: ${encodeURIComponent(datosEnvio.telefono)}%0A` +
-        `Email: ${encodeURIComponent(datosEnvio.email)}%0A` +
-        `Provincia: ${encodeURIComponent(datosEnvio.provincia)}%0A` +
-        `Localidad: ${encodeURIComponent(datosEnvio.localidad)}%0A` +
-        `Dirección: ${encodeURIComponent(datosEnvio.direccion)}%0A` +
-        `Código postal: ${encodeURIComponent(datosEnvio.codigoPostal)}%0A` +
-        `Envío: ${encodeURIComponent(datosEnvio.envio)}%0A` +
-        "%0AGracias!";
 
-    const url = "https://wa.me/" + WHATSAPP + "?text=" + mensaje;
-    window.open(url, "_blank");
+    const datosEntrega =
+        obtenerDatosEnvio();
+
+    if(!datosEntrega.valido){
+        alert(
+            datosEntrega.error ||
+            "Seleccioná cómo querés recibir tu pedido."
+        );
+        return;
+    }
+
+
+    /*
+    Si el pedido mezcla DISPONIBLES con A PEDIDO,
+    no se permite pago ni confirmación automática.
+    Se deriva a WhatsApp para que el cliente decida
+    si quiere esperar el producto faltante y abonarlo.
+    */
+
+    const pedidoPendiente =
+        hayProductosAPedido();
+
+    if(pedidoPendiente){
+
+        let mensajeConsulta =
+            "Hola AKKINO Privé!%0A%0A" +
+            "Quiero consultar este pedido. Incluye productos DISPONIBLES y productos A PEDIDO.%0A%0A";
+
+        carrito.forEach(
+            item => {
+
+                const estado =
+                    obtenerEstado(item.producto);
+
+                mensajeConsulta +=
+                    `${item.cantidad} x ${encodeURIComponent(
+                        item.producto.perfume
+                    )} - ${encodeURIComponent(
+                        estado
+                    )}%0A`;
+            }
+        );
+
+        mensajeConsulta +=
+            "%0AEl pedido contiene productos A PEDIDO. Quiero confirmar disponibilidad y plazo antes de pagar.%0A" +
+            "Si el producto debe esperarse, decidiré si quiero abonarlo y esperar la entrega.";
+
+        mensajeConsulta +=
+            "%0A%0AENTREGA:%0A" +
+            datosEntrega.texto;
+
+        const urlConsulta =
+            "https://wa.me/" +
+            WHATSAPP +
+            "?text=" +
+            mensajeConsulta;
+
+        window.open(
+            urlConsulta,
+            "_blank"
+        );
+
+        return;
+    }
+
+
+    let mensaje =
+        "Hola AKKINO Privé!%0A%0A";
+
+
+    mensaje +=
+        modoActual ===
+        "mayorista"
+
+        ?
+
+        "Quiero realizar un pedido MAYORISTA:%0A%0A"
+
+        :
+
+        "Quiero realizar un pedido PARTICULAR:%0A%0A";
+
+
+    carrito.forEach(
+        item => {
+
+            const producto =
+                item.producto;
+
+
+            let precioUnitario;
+
+
+            if(
+                modoActual ===
+                "mayorista"
+            ){
+
+                precioUnitario =
+                    precioMayorista(
+                        producto,
+                        Math.max(
+                            totalUnidades(),
+                            MINIMO_MAYORISTA
+                        )
+                    );
+
+            }
+
+            else{
+
+                const original =
+                    tipoPrincipalProducto(
+                        producto
+                    ) ===
+                    "ORIGINALES";
+
+
+                if(original){
+
+                    const precios =
+                        precioOriginal(
+                            producto
+                        );
+
+                    precioUnitario =
+                        precioOriginalSegunPago(producto);
+
+                }
+
+                else{
+
+                    precioUnitario =
+                        precioParticularProducto(
+                            producto
+                        );
+                }
+            }
+
+
+            mensaje +=
+                `${item.cantidad} x ${encodeURIComponent(
+                    producto.perfume
+                )} - ${encodeURIComponent(
+                    dinero(
+                        precioUnitario
+                    )
+                )}%0A`;
+
+        }
+    );
+
+
+    mensaje +=
+        "%0A";
+
+
+    if(
+        modoActual ===
+        "particular"
+    ){
+
+        const calculo =
+            calcularCarritoParticular();
+
+
+        mensaje +=
+            `TOTAL: ${encodeURIComponent(
+                dinero(
+                    calculo.totalFinal
+                )
+            )}%0A`;
+
+    }
+
+    else{
+
+        let totalFinal =
+            0;
+
+
+        const unidades =
+            totalUnidades();
+
+
+        carrito.forEach(
+            item => {
+
+                totalFinal +=
+                    precioMayorista(
+                        item.producto,
+                        unidades
+                    ) *
+                    item.cantidad;
+
+            }
+        );
+
+
+        mensaje +=
+            `TOTAL MAYORISTA: ${encodeURIComponent(
+                dinero(
+                    totalFinal
+                )
+            )}%0A`;
+
+    }
+
+
+    if(
+        modoActual ===
+        "particular"
+    ){
+
+        mensaje +=
+            `FORMA DE PAGO: ${encodeURIComponent(
+                formaPagoActual
+            )}%0A`;
+
+    }
+
+
+    mensaje +=
+        "%0AENTREGA:%0A" +
+        datosEntrega.texto +
+        "%0A%0AGracias!";
+
+
+    const url =
+        "https://wa.me/" +
+        WHATSAPP +
+        "?text=" +
+        mensaje;
+
+
+    window.open(
+        url,
+        "_blank"
+    );
 }
 
 
