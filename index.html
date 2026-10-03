@@ -3165,6 +3165,105 @@ RESULTADO:
     }
 }
 
+
+
+/* =========================================================
+   AKKINO — PRECIO ORIGINAL ESTILO FICHA PREMIUM
+   ========================================================= */
+
+.original-precio{
+    margin-top:4px;
+    padding-top:3px;
+}
+
+.precio-lista-grande{
+    font-size:26px;
+    line-height:1.15;
+    font-weight:800;
+    color:#f5f5f5;
+    margin-top:2px;
+}
+
+.original-linea-descuento{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-top:12px;
+    padding-top:10px;
+    border-top:1px solid #292929;
+}
+
+.original-linea-descuento span{
+    color:#35c96a;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:1px;
+}
+
+.original-linea-descuento strong{
+    color:#35c96a;
+    font-size:19px;
+    font-weight:800;
+}
+
+.original-cuotas{
+    margin-top:5px;
+    color:#9d9d9d;
+    font-size:11px;
+    line-height:1.4;
+}
+
+.original-transferencia{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-top:13px;
+    padding:11px 0 0;
+    border-top:1px solid rgba(53,201,106,.18);
+}
+
+.original-transferencia span{
+    color:#35c96a;
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:.8px;
+}
+
+.original-transferencia strong{
+    color:#35c96a;
+    font-size:23px;
+    font-weight:900;
+}
+
+.original-transferencia-texto{
+    margin-top:4px;
+    color:#8d8d8d;
+    font-size:10px;
+    line-height:1.35;
+}
+
+@media(max-width:600px){
+
+    .precio-lista-grande{
+        font-size:22px;
+    }
+
+    .original-linea-descuento strong{
+        font-size:17px;
+    }
+
+    .original-transferencia strong{
+        font-size:20px;
+    }
+
+    .original-linea-descuento,
+    .original-transferencia{
+        gap:7px;
+    }
+}
+
 </style>
 
 </head>
@@ -4286,61 +4385,58 @@ function precioOriginal(producto){
             producto.precioLista
         );
 
-    const descuento =
-        numero(
-            producto.descuento
-        );
-
     /*
-    Para ORIGINALES:
-    - precioLista = columna P
-    - valorReal = columna D = precio final real
-    - descuento = columna Q
-    - tipoDescuento = columna R
-    - formaPago = columna S
+    AKKINO — PRECIOS ORIGINALES
 
-    Si valorReal existe, lo usamos directamente como
-    precio final. Así evitamos recalcular y redondear
-    un valor que ya está definido en el Sheets.
+    Precio de lista
+        ↓ 20% OFF
+    Precio para 2 cuotas sin interés
+        ↓ 20% OFF adicional
+    Precio final efectivo / transferencia
     */
 
-    const valorReal =
-        numero(
-            producto.valorReal
-        );
+    const descuentoCuotas = 20;
+    const descuentoTransferencia = 20;
+    const cuotas = 2;
 
-    let final = 0;
+    const precioCuotas =
+        lista > 0
+        ?
+        Math.round(
+            lista *
+            (1 - descuentoCuotas / 100)
+        )
+        :
+        0;
 
-    if(valorReal > 0){
-        final = valorReal;
-    }
-    else if(lista > 0 && descuento > 0){
+    const precioTransferencia =
+        precioCuotas > 0
+        ?
+        Math.round(
+            precioCuotas *
+            (1 - descuentoTransferencia / 100)
+        )
+        :
+        0;
 
-        /*
-        En el Sheets el descuento (10, 15, etc.)
-        representa porcentaje.
-        */
-
-        final =
-            lista -
-            (
-                lista *
-                descuento /
-                100
-            );
-    }
-    else{
-        final = lista;
-    }
-
-    if(final < 0){
-        final = 0;
-    }
+    const valorCuota =
+        precioCuotas > 0
+        ?
+        Math.round(
+            precioCuotas / cuotas
+        )
+        :
+        0;
 
     return {
         lista: lista,
-        descuento: descuento,
-        final: final
+        precioCuotas: precioCuotas,
+        precioTransferencia: precioTransferencia,
+        cuotas: cuotas,
+        valorCuota: valorCuota,
+        descuentoCuotas: descuentoCuotas,
+        descuentoTransferencia:
+            descuentoTransferencia
     };
 }
 
@@ -5987,116 +6083,83 @@ function mostrarProductos(
 
 
                     if(
-                        precios.lista > 0 &&
-                        precios.final <
-                        precios.lista
-                    ){
-
-                        const detalleDescuento =
-                            descuentoTexto(
-                                producto
-                            );
-
-                        const pago =
-                            formaPagoProducto(
-                                producto
-                            );
-
-
-                        precioHTML = `
-
-                            <div
-                            class="precio-label">
-
-                                PRECIO DE LISTA
-
-                            </div>
-
-                            <div
-                            class="precio-original-lista">
-
-                                ${dinero(
-                                    precios.lista
-                                )}
-
-                            </div>
-
-
-                            <div
-                            class="precio-label">
-
-                                PRECIO FINAL
-
-                            </div>
-
-                            <div
-                            class="precio-original-descuento">
-
-                                ${dinero(
-                                    precios.final
-                                )}
-
-                            </div>
-
-
-                            ${
-                                detalleDescuento
-                                ?
-                                `
-                                <div
-                                class="original-detalle">
-
-                                    Descuento:
-                                    ${detalleDescuento}
-
-                                </div>
-                                `
-                                :
-                                ""
-                            }
-
-
-                            ${
-                                pago
-                                ?
-                                `
-                                <div
-                                class="original-detalle">
-
-                                    Forma de pago:
-                                    ${escapeHTML(
-                                        pago
-                                    )}
-
-                                </div>
-                                `
-                                :
-                                ""
-                            }
-
-                        `;
-
-                    }
-
-                    else if(
                         precios.lista > 0
                     ){
 
                         precioHTML = `
 
                             <div
-                            class="precio-label">
+                            class="original-precio">
 
-                                PRECIO
+                                <div
+                                class="precio-label">
 
-                            </div>
+                                    PRECIO DE LISTA
 
-                            <div
-                            class="precio">
+                                </div>
 
-                                ${dinero(
-                                    precios.lista
-                                )}
+                                <div
+                                class="precio-lista-grande">
+
+                                    ${dinero(
+                                        precios.lista
+                                    )}
+
+                                </div>
+
+
+                                <div
+                                class="original-linea-descuento">
+
+                                    <span>
+                                        20% OFF
+                                    </span>
+
+                                    <strong>
+                                        ${dinero(
+                                            precios.precioCuotas
+                                        )}
+                                    </strong>
+
+                                </div>
+
+
+                                <div
+                                class="original-cuotas">
+
+                                    ${precios.cuotas}
+                                    cuotas sin interés de
+                                    ${dinero(
+                                        precios.valorCuota
+                                    )}
+
+                                </div>
+
+
+                                <div
+                                class="original-transferencia">
+
+                                    <span>
+                                        20% OFF EXTRA
+                                    </span>
+
+                                    <strong>
+                                        ${dinero(
+                                            precios.precioTransferencia
+                                        )}
+                                    </strong>
+
+                                </div>
+
+
+                                <div
+                                class="original-transferencia-texto">
+
+                                    Precio final pagando
+                                    en efectivo /
+                                    transferencia
+
+                                </div>
 
                             </div>
 
