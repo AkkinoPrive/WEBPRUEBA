@@ -2395,6 +2395,67 @@ RESULTADO:
     display:block !important;
 }
 
+/* =========================================================
+   AKKINO — DETALLE DE PRECIOS EN CARRITO
+   ========================================================= */
+#modalCarrito .pedido-precio-lista{
+    margin-top:6px;
+    color:#8f8f8f;
+    font-size:10px;
+    line-height:1.35;
+}
+
+#modalCarrito .pedido-precio-lista strong{
+    color:#bdbdbd;
+    font-weight:800;
+}
+
+#modalCarrito .pedido-precio-descuento{
+    margin-top:3px;
+    color:#d4af37;
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:.35px;
+    text-transform:uppercase;
+}
+
+#modalCarrito .pedido-precio-cuotas{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:10px;
+    margin-top:6px;
+    padding-top:5px;
+    border-top:1px solid rgba(53,201,106,.18);
+}
+
+#modalCarrito .pedido-precio-cuotas span{
+    color:#35c96a;
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:.45px;
+}
+
+#modalCarrito .pedido-precio-cuotas strong{
+    color:#fff;
+    font-size:12px;
+    font-weight:900;
+    white-space:nowrap;
+}
+
+#modalCarrito .pedido-precio-pago{
+    margin-top:5px;
+    color:#35c96a;
+    font-size:10px;
+    font-weight:700;
+}
+
+#modalCarrito .pedido-precio-pago strong{
+    color:#fff;
+    font-size:12px;
+    font-weight:900;
+}
+
 #modalCarrito .pedido-item-nuevo{
     position:relative !important;
 
@@ -8064,29 +8125,77 @@ function renderizarCarrito(){
                 const producto =
                     item.producto;
 
+                const esOriginal =
+                    tipoPrincipalProducto(producto) === "ORIGINALES";
+
+                const preciosOriginal =
+                    esOriginal
+                    ? precioOriginal(producto)
+                    : null;
+
                 const precio =
-                    modoActual ===
-                    "mayorista"
-
-                    ?
-
-                    precioMayorista(
+                    modoActual === "mayorista"
+                    ? precioMayorista(
                         producto,
                         Math.max(
                             totalUnidades(),
                             MINIMO_MAYORISTA
                         )
                     )
-
-                    :
-
-                    (tipoPrincipalProducto(producto) === "ORIGINALES"
-                        ? precioOriginal(producto).final
+                    : (esOriginal
+                        ? precioOriginalSegunPago(producto)
                         : precioParticularProducto(producto));
 
                 const subtotal =
                     precio *
                     item.cantidad;
+
+                let detallePrecio = "";
+
+                if(esOriginal && modoActual === "particular") {
+
+                    if(formaPagoActual === "TARJETA_2_CUOTAS") {
+                        detallePrecio = `
+                            <div class="pedido-precio-lista">
+                                Precio de lista: <strong>${dinero(preciosOriginal.lista)}</strong>
+                            </div>
+                            <div class="pedido-precio-descuento">
+                                20% OFF · Crédito / tarjeta
+                            </div>
+                            <div class="pedido-precio-cuotas">
+                                <span>2 CUOTAS SIN INTERÉS</span>
+                                <strong>2 × ${dinero(preciosOriginal.valorCuota)}</strong>
+                            </div>
+                        `;
+                    }
+                    else if(formaPagoActual === "MERCADO_PAGO_1_PAGO") {
+                        detallePrecio = `
+                            <div class="pedido-precio-lista">
+                                Precio de lista: <strong>${dinero(preciosOriginal.lista)}</strong>
+                            </div>
+                            <div class="pedido-precio-descuento">
+                                20% OFF · Débito · 1 pago
+                            </div>
+                            <div class="pedido-precio-pago">
+                                Débito: <strong>${dinero(preciosOriginal.precioCuotas)}</strong>
+                            </div>
+                        `;
+                    }
+                    else {
+                        detallePrecio = `
+                            <div class="pedido-precio-lista">
+                                Precio de lista: <strong>${dinero(preciosOriginal.lista)}</strong>
+                            </div>
+                            <div class="pedido-precio-descuento">
+                                Precio especial · transferencia / efectivo
+                            </div>
+                            <div class="pedido-precio-pago">
+                                Transferencia / efectivo: <strong>${dinero(preciosOriginal.final)}</strong>
+                            </div>
+                        `;
+                    }
+
+                }
 
                 return `
 
@@ -8103,6 +8212,8 @@ function renderizarCarrito(){
                             <div class="pedido-item-cantidad">
                                 Cantidad: ${item.cantidad}
                             </div>
+
+                            ${detallePrecio}
 
                             <div class="pedido-item-subtotal">
                                 Subtotal: ${dinero(subtotal)}
@@ -8583,7 +8694,7 @@ function actualizarResumenCarrito(){
 
 
         ${
-            formaPagoActual === "EFECTIVO"
+            (formaPagoActual === "EFECTIVO" || formaPagoActual === "TRANSFERENCIA")
             ?
             `
             <div class="akkino-transferencia-box">
