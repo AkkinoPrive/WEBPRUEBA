@@ -1662,6 +1662,36 @@ body{
     box-shadow:0 0 0 1px rgba(198,166,92,.25),0 8px 24px rgba(0,0,0,.25);
     background:linear-gradient(145deg,#19150c,#0b0b0b);
 }
+.metodo-pago.solo-originales,
+.metodo-pago.solo-originales:hover{
+    position:relative;
+    opacity:.48;
+    filter:grayscale(.75);
+    cursor:not-allowed;
+    transform:none;
+    border-color:rgba(198,166,92,.18);
+    box-shadow:none;
+}
+.metodo-pago.solo-originales .metodo-titulo,
+.metodo-pago.solo-originales .metodo-subtitulo{
+    text-decoration:line-through;
+}
+.metodo-pago.solo-originales::after{
+    content:"SOLO PARA PERFUMES ORIGINALES";
+    position:absolute;
+    left:8px;
+    right:8px;
+    bottom:8px;
+    padding:4px 3px;
+    border-radius:5px;
+    background:rgba(0,0,0,.82);
+    color:#c6a65c;
+    font-size:7px;
+    font-weight:900;
+    letter-spacing:.35px;
+    line-height:1.15;
+    text-decoration:none;
+}
 .metodo-icono{font-size:21px;line-height:1;margin-bottom:2px}
 .metodo-titulo{font-size:12px;font-weight:800;letter-spacing:.5px;line-height:1.15}
 .metodo-subtitulo{font-size:9px;font-weight:700;letter-spacing:.35px;line-height:1.25;color:#c6a65c}
@@ -8497,26 +8527,48 @@ function actualizarOpcionesPago(){
             obtenerEstado(item.producto) === "DISPONIBLE"
         );
 
+    const hayInspiraciones = carrito.some(
+        item => tipoPrincipalProducto(item.producto) === "INSPIRACIONES 60ML"
+    );
+
     const puedePagoTarjeta = modoActual === "particular" && !hayProductosAPedido();
     const botones = document.querySelectorAll("#metodosPagoAkkino .metodo-pago");
 
     botones.forEach(boton => {
         const forma = boton.dataset.forma;
         let permitido = puedePagoTarjeta;
+        const esTarjeta =
+            forma === "MERCADO_PAGO_1_PAGO" ||
+            forma === "TARJETA_2_CUOTAS";
 
-        if(forma === "EFECTIVO"){
-            permitido = puedePagoTarjeta;
-        }
+        boton.classList.remove("solo-originales");
 
-        if(forma === "MERCADO_PAGO_1_PAGO" || forma === "TARJETA_2_CUOTAS"){
+        if(esTarjeta){
             permitido = puedePagoTarjeta && todosOriginalesDisponibles;
+
+            if(!permitido && puedePagoTarjeta && hayInspiraciones){
+                boton.classList.add("solo-originales");
+            }
         }
 
-        boton.hidden = !permitido;
+        // Los métodos de tarjeta permanecen visibles cuando hay Extractos,
+        // pero quedan bloqueados y marcados como exclusivos para Originales.
+        boton.hidden = false;
         boton.disabled = !permitido;
 
-        boton.classList.toggle("activo", formaPagoActual === forma);
+        boton.classList.toggle(
+            "activo",
+            formaPagoActual === forma && permitido
+        );
     });
+
+    if(
+        (formaPagoActual === "MERCADO_PAGO_1_PAGO" ||
+         formaPagoActual === "TARJETA_2_CUOTAS") &&
+        !todosOriginalesDisponibles
+    ){
+        formaPagoActual = "EFECTIVO";
+    }
 
     if(formaPagoActual === "TRANSFERENCIA"){
         formaPagoActual = "EFECTIVO";
